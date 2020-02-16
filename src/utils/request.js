@@ -18,7 +18,7 @@ export function AppPost (url, data) {
         })
       })
       .then((res) => {
-        if (res.data.code === 200) {
+        if (res.data.code === '200') {
           resolve(res.data.data)
         } else {
           reject(res.data.msg)
@@ -54,7 +54,7 @@ export function AppGet (url, data) {
         }
       )
       .then((res) => {
-        if (res.data.code === 200) {
+        if (res.data.code === '200') {
           resolve(res.data.data)
         } else {
           reject(res.data.msg)
@@ -73,7 +73,7 @@ export function AppDownload (url, data) {
         responseType: 'blob'
       })
       .then((res) => {
-        if (res && res.status !== 200) {
+        if (res && res.status !== '200') {
           reject(new Error(`下载失败`))
         } else {
           let url = window.URL.createObjectURL(new Blob([res.data]))
