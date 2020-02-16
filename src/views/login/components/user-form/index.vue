@@ -13,7 +13,7 @@
             <el-checkbox label="下次自动登录" v-model="userForm.remeberPwd" name="type"></el-checkbox>
           </el-col>
           <el-col :span="12">
-            <router-link to="/setpwd" target="_blank">
+            <router-link to="/reg" target="_blank">
               <span>没有账户，去注册</span>
             </router-link>
           </el-col>

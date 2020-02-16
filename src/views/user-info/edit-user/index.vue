@@ -54,7 +54,7 @@
           <el-form label-width="90px">
             <el-form-item>
               <el-input
-                v-model="userInfo.username"
+                v-model="userInfo.nickname"
                 required
                 maxlength="20"
                 placeholder="请输入你的昵称"
@@ -152,8 +152,9 @@ export default {
     // 提交用户昵称修改
     async submitNickname () {
       try {
-        const res = await userApi.setNickname({ nickname: this.userInfo.username })
+        const res = await userApi.setNickname({ nickname: this.userInfo.nickname })
         this.showName = false
+        this.getUserInfo()
         console.log(res)
       } catch (error) {
         console.log(error)

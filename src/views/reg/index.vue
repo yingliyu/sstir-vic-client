@@ -1,17 +1,14 @@
 <template>
   <div class="home-wrapper">
     <div class="header">
-      <img src="./img/logo.png" />
-      <span class="logo-txt">病毒基因组检测平台</span>
+      <img @click="toHome" class="logo" src="./img/logo.png" />
+      <span @click="toHome" class="logo-txt">病毒基因组检测平台</span>
     </div>
     <div class="index-container">
       <div class="banner">
         <img class="pic-banner" src="./img/banner0.png" />
         <!-- 登录注册 start-->
         <div class="login-wrapper">
-          <div class="ico-logo">
-            <!-- <img width="120px" src="./img/logo.png" /> -->
-          </div>
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane :label="title ? title : '请完善信息'" name="first">
@@ -53,6 +50,9 @@ export default {
     ...mapActions({
       login: 'logIn'
     }),
+    toHome () {
+      this.$router.push('/home')
+    },
     receiveHandle (val) {
       this.title = val
     },
@@ -77,8 +77,6 @@ export default {
 <style lang="less" scoped>
 .home-wrapper {
   .banner {
-    // background: -webkit-linear-gradient(#2e3033, #383c44); /* Safari 5.1 - 6.0 */
-    // background: linear-gradient(#2e3033, #383c44); /* 标准的语法 */
     img.pic-banner {
       width: 100%;
       height: 768px;
@@ -89,12 +87,17 @@ export default {
     font-family: Arial;
     font-weight: bold;
     color: #2c4c87;
-    line-height: 46px;
+    line-height: 50px;
     display: flex;
     align-items: center;
     padding-left: 10px;
+    .logo-txt {
+      padding-left: 5px;
+      cursor: pointer;
+    }
     img {
       height: 40px;
+      cursor: pointer;
     }
   }
   .index-header {

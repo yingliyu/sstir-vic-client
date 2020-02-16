@@ -1,7 +1,5 @@
 <template>
-  <div class="discover-project-list-wrapper">
-    项目列表
-  </div>
+  <div class="discover-project-list-wrapper">任务运行</div>
 </template>
 
 <script>
@@ -15,5 +13,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .discover-project-list-wrapper {}
+.discover-project-list-wrapper {
+}
 </style>

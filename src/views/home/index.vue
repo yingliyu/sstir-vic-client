@@ -5,9 +5,10 @@
         <img src="./img/logo.png" />
         <span class="logo-txt">病毒基因组检测平台</span>
       </div>
-      <div class="btn-wrapper">
-        <el-button @click="toLogin">登录</el-button>
-        <el-button type="primary" @click="toReg">注册</el-button>
+      <div class="link-wrapper">
+        <span class="login-link" @click="toLogin">登录</span>
+        <span class="line">|</span>
+        <span class="reg-link" @click="toReg">注册</span>
       </div>
     </div>
     <div class="index-container">
@@ -61,24 +62,10 @@ export default {
     toReg () {
       this.$router.push('/reg')
     },
-    async onLogin () {
-      try {
-        await this.login()
-        this.$router.push({ path: this.redirect || '/home/dashboard' })
-      } catch {
-        this.$message.error('登录失败，请重试')
-      }
-    },
     handleClick (tab, event) {
-      this.loginType = tab.index === 0 ? 'user' : 'vcode'
+      // this.loginType = tab.index === 0 ? 'user' : 'vcode'
     },
-    // 微信登录渠道
-    wechatLogin () {
-      // alert('功能升级中，敬请期待~')
-      if (this.getMsgLength() === 0) {
-        this.$message.warning('功能升级中，敬请期待~')
-      }
-    },
+
     getMsgLength () {
       return document.getElementsByClassName('el-message').length
     }
@@ -103,7 +90,6 @@ export default {
     }
   }
   .header {
-    font-size: 32px;
     font-family: Arial;
     font-weight: bold;
     color: #2c4c87;
@@ -113,29 +99,41 @@ export default {
     justify-content: space-between;
     padding-left: 10px;
     padding-right: 20px;
+    .logo-txt {
+      font-size: 32px;
+      padding-left: 5px;
+      cursor: pointer;
+    }
     .logo-wrapper {
       display: flex;
       align-items: center;
     }
-    .btn-wrapper {
+    .link-wrapper {
       display: flex;
       align-items: center;
+      .login-link {
+        color: #2dbcef;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .line {
+        color: #ccc;
+      }
+      .reg-link {
+        color: #7f7f7f;
+        padding-left: 10px;
+        cursor: pointer;
+      }
     }
     img {
       height: 40px;
       padding-right: 10px;
+      cursor: pointer;
     }
   }
 }
 </style>
 <style>
-.home-wrapper .el-carousel__button {
-  display: block;
-  opacity: 0.48;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-}
 .home-wrapper .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;

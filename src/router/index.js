@@ -3,15 +3,13 @@ import Router from 'vue-router'
 import Layout from '@/layout/aside'
 
 import User from './module/user'
-import Submission from './module/submission'
-import Project from './module/project'
-import Discover from './module/discover'
+import Task from './module/task'
+import Datasheets from './module/datasheets'
 
 const Home = () => import(/* webpackChunkName: "homepage" */ '@/views/home')
 const Login = () => import(/* webpackChunkName: "login" */ '@/views/login')
 const UserReg = () => import(/* webpackChunkName: "user-reg" */ '@/views/reg')
 const FindPwd = () => import(/* webpackChunkName: "find-pwd" */ '@/views/find-pwd')
-const ChangePwd = () => import(/* webpackChunkName: "change-pwd" */ '@/views/change-pwd')
 
 const NoAuthPage = () => import(/* webpackChunkName: "no-auth-page" */ '@/views/error-page/401')
 const NotFoundPage = () => import(/* webpackChunkName: "not-found-page" */ '@/views/error-page/404')
@@ -97,15 +95,7 @@ export const constantRouterMap = [
       }
     ]
   },
-  {
-    path: '/changepwd',
-    name: 'changepwd',
-    component: ChangePwd,
-    meta: {
-      title: '修改密码',
-      noCache: true
-    }
-  },
+
   {
     path: '/findpwd',
     name: 'findpwd',
@@ -127,9 +117,9 @@ export const constantRouterMap = [
     hidden: true
   },
   User,
-  Submission,
-  Project,
-  Discover
+  Datasheets, // 数据部分
+  Task // 任务
+
 ]
 
 // 解决vue-router 新版本bug

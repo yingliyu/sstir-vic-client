@@ -12,16 +12,21 @@ export default {
         // const roles = roleList instanceof Array ? [...roleList] : [roleList]
         const roles = ['admin']
         commit(MutationTypes.SET_USER_ROLES, roles)
-        const { realName, email } = await loginApi.getUserInfo()
-        const { userName } = state.userInfo
+        const temp = await loginApi.getUserInfo()
+        console.log(temp)
+        commit(MutationTypes.SET_USER_INFO, { ...temp })
+        // const { realName, email, nickname, orgName } = await loginApi.getUserInfo()
+        // const { userName } = state.userInfo
+        // const token = state.token
         console.log(state)
-        const token = state.userInfo.token
-        commit(MutationTypes.SET_USER_INFO, {
-          userName,
-          realName,
-          email,
-          token
-        })
+        // commit(MutationTypes.SET_USER_INFO, {
+        //   userName,
+        //   realName,
+        //   email,
+        //   nickname,
+        //   orgName,
+        //   token
+        // })
         resolve(roles)
       } catch (err) {
         reject(err)

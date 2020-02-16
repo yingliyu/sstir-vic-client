@@ -1,5 +1,5 @@
 <template>
-  <div class="home-wrapper">首页正在施工🚧中。。。敬请期待</div>
+  <div class="home-wrapper">首页</div>
 </template>
 
 <script>

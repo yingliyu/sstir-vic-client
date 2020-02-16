@@ -12,5 +12,4 @@ module.exports = {
   },
 
   productionSourceMap: false
-  // publicPath: '/science-plus-home/'
 }

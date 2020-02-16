@@ -34,7 +34,7 @@
           <router-link to="/user/edit">
             <el-dropdown-item divided>个人中心</el-dropdown-item>
           </router-link>
-          <router-link to="/user/changepwd" v-if="userInfo.password">
+          <router-link to="/user/changepwd">
             <el-dropdown-item>修改密码</el-dropdown-item>
           </router-link>
           <!-- <router-link to="/setpwd" target="_blank" v-else>

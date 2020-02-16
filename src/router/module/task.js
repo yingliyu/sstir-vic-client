@@ -1,12 +1,12 @@
 import Layout from '@/layout/aside'
 
-const List = () => import(/* webpackChunkName: "project-list" */ '@/views/project/list')
+const List = () => import(/* webpackChunkName: "project-list" */ '@/views/task/list')
 
 export default {
-  path: '/project',
+  path: '/task',
   redirect: 'noredirect',
   component: Layout,
-  name: 'projectMgt',
+  name: 'taskMgt',
   hidden: false,
   alwaysShow: true,
   meta: {
@@ -17,7 +17,7 @@ export default {
     {
       path: 'list',
       component: List,
-      name: 'projectList',
+      name: 'taskList',
       meta: {
         title: '任务列表'
       }

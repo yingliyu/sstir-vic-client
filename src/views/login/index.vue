@@ -1,8 +1,8 @@
 <template>
   <div class="home-wrapper">
     <div class="header">
-      <img src="./img/logo.png" />
-      <span class="logo-txt">病毒基因组检测平台</span>
+      <img @click="toHome" src="./img/logo.png" />
+      <span @click="toHome" class="logo-txt">病毒基因组检测平台</span>
     </div>
     <div class="index-container">
       <div class="banner">
@@ -29,7 +29,7 @@ import UserForm from './components/user-form'
 import { mapActions } from 'vuex'
 
 export default {
-  name: 'Home',
+  name: 'Login',
   components: {
     UserForm
   },
@@ -49,7 +49,9 @@ export default {
     ...mapActions({
       login: 'logIn'
     }),
-
+    toHome () {
+      this.$router.push('/home')
+    },
     handleClick (tab, event) {
       // this.loginType = tab.index === 0 ? 'user' : 'vcode'
     },
@@ -64,8 +66,6 @@ export default {
 <style lang="less" scoped>
 .home-wrapper {
   .banner {
-    // background: -webkit-linear-gradient(#2e3033, #383c44); /* Safari 5.1 - 6.0 */
-    // background: linear-gradient(#2e3033, #383c44); /* 标准的语法 */
     img.pic-banner {
       width: 100%;
       height: 768px;
@@ -76,12 +76,17 @@ export default {
     font-family: Arial;
     font-weight: bold;
     color: #2c4c87;
-    line-height: 46px;
+    line-height: 50px;
     display: flex;
     align-items: center;
     padding-left: 10px;
+    .logo-txt {
+      padding-left: 5px;
+      cursor: pointer;
+    }
     img {
       height: 40px;
+      cursor: pointer;
     }
   }
   .index-header {

@@ -1,7 +1,5 @@
 <template>
-  <div class="discover-tool-list-wrapper">
-    工具列表
-  </div>
+  <div class="discover-tool-list-wrapper">添加数据</div>
 </template>
 
 <script>
@@ -15,5 +13,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .discover-tool-list-wrapper {}
+.discover-tool-list-wrapper {
+}
 </style>
