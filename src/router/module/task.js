@@ -1,6 +1,7 @@
 import Layout from '@/layout/aside'
 
 const List = () => import(/* webpackChunkName: "project-list" */ '@/views/task/list')
+const TaskRun = () => import(/* webpackChunkName: "datasheets-task-run" */ '@/views/task/run')
 
 export default {
   path: '/task',
@@ -20,6 +21,14 @@ export default {
       name: 'taskList',
       meta: {
         title: '任务列表'
+      }
+    },
+    {
+      path: 'run',
+      component: TaskRun,
+      name: 'runtask',
+      meta: {
+        title: '任务运行'
       }
     }
   ]

@@ -25,7 +25,7 @@
     </svg> -->
     <i
       class="iconfont hamburger"
-      :class="{'el-icon-kf-daohangshouqi-':isActive, 'el-icon-kf-weibiaoti25': !isActive}"
+      :class="{'vic-weibiaoti25':isActive, 'vic-daohangshouqi-': !isActive}"
       @click="toggleClick"
     ></i>
   </div>

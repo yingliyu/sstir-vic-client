@@ -1,8 +1,8 @@
 <template>
   <div class="reg-wrapper">
     <el-form v-if="formIndex===0" :model="codeForm" :rules="codeRules" ref="codeForm">
-      <el-form-item prop="loginName">
-        <el-input placeholder="邮箱" v-model="codeForm.loginName" clearable></el-input>
+      <el-form-item prop="email">
+        <el-input placeholder="邮箱" v-model="codeForm.email" clearable></el-input>
       </el-form-item>
       <el-form-item class="get-code-wrapper" prop="vcode">
         <el-input placeholder="输入6位验证码" v-model="codeForm.vcode"></el-input>
@@ -25,7 +25,7 @@
     <el-form v-else :model="userForm" :rules="userRules" ref="userForm">
       <el-form-item prop="pwd">
         <el-input
-          type="pwd"
+          type="password"
           v-model="userForm.pwd"
           auto-complete="off"
           placeholder="请设置密码"
@@ -34,7 +34,7 @@
       </el-form-item>
       <el-form-item prop="newpwd">
         <el-input
-          type="pwd"
+          type="password"
           v-model="userForm.newpwd"
           auto-complete="off"
           placeholder="请再次输入密码"
@@ -52,7 +52,7 @@
   </div>
 </template>
 <script>
-import { baseApi } from '@/service'
+import { loginApi } from '@/service'
 import { mapActions } from 'vuex'
 import { email, password } from '@/utils/validate'
 export default {
@@ -80,12 +80,11 @@ export default {
       regMobile: /^1[3456789]\d{9}$/,
       pattern: /^(?![^a-zA-Z]+$)(?!\D+$)/,
       codeForm: {
-        loginName: '', // 登录名-邮箱
-        vcode: '', // 验证码
-        flag: 0 // 0前端，1后端
+        email: '', // 登录名-邮箱
+        vcode: '' // 验证码
       },
       codeRules: {
-        loginName: [email['required'], email['pattern']],
+        email: [email['required'], email['pattern']],
         vcode: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
           { min: 6, max: 6, message: '长度为6的数字', trigger: 'blur' }
@@ -112,8 +111,7 @@ export default {
     // 获取验证码按钮的状态
     ifDisabled () {
       if (
-        this.codeForm.loginName !== '' &&
-        this.codeForm.loginName.length === 11 &&
+        this.codeForm.email !== '' &&
         this.duration === 60
       ) {
         return false
@@ -135,21 +133,18 @@ export default {
         }
       })
     },
-    // 获取验证码
+    // 获取邮箱验证码
     async getCheckCode () {
-      if (this.regMobile.test(this.codeForm.loginName)) {
-        try {
-          const totalDuration = this.duration // 记住倒计时总时长
-          await baseApi.getVcodeByMobile({
-            mobile: this.codeForm.loginName,
-            kind: this.kind
-          })
-          this.ifDisabled = true
-          this.$Notify(`验证码已发送到您的手机：${this.codeForm.loginName}`, 'top-right')
-          this.countDown(totalDuration)
-        } catch (error) {
-          console.log(error)
-        }
+      try {
+        const totalDuration = this.duration // 记住倒计时总时长
+        await loginApi.emailActive({
+          email: this.codeForm.email
+        })
+        this.ifDisabled = true
+        this.$Notify(`验证码已发送到您的邮箱：${this.codeForm.email}`, 'top-right')
+        this.countDown(totalDuration)
+      } catch (error) {
+        console.log(error)
       }
     },
 
@@ -171,8 +166,6 @@ export default {
 
     // 登录注册调api
     submitForm (formName) {
-      const that = this
-      const totalDuration = this.duration // 记住倒计时总时长
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
@@ -181,19 +174,13 @@ export default {
               ...this.userForm
             }
             console.log(params)
-
-            let info = await this.login(this.codeForm)
+            let info = await loginApi.regByEmail(params)
             console.log(info)
-            if (info.data.isFrist === '0') {
-              // 新用户0;已有用户1
-              this.countDown(totalDuration) // 开始倒计时
-              if (info.data.token) {
-                that.openMsg()
-              }
-              return false
-            } else {
-              this.$router.push({ path: '/home/dashboard' })
-            }
+            this.$message({
+              message: '恭喜你注册成功,即将跳转至登录~',
+              type: 'success'
+            })
+            setTimeout(this.$router.push({ path: '/login' }), 2000)
           } catch (e) {
             console.log(e)
           }

@@ -96,8 +96,6 @@ export default {
     },
 
     async onQuery () {
-      debugger
-
       const { total, list } = await taskApi.getTaskList(this.queryModel)
       this.tblCnt = total
       this.tblData = list

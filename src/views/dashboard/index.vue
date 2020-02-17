@@ -1,5 +1,7 @@
 <template>
-  <div class="home-wrapper">首页</div>
+  <div class="home-wrapper">
+    <p>欢迎登录！</p>
+  </div>
 </template>
 
 <script>
@@ -16,5 +18,9 @@ export default {
 .home-wrapper {
   padding: 20px;
   font-size: 24px;
+  p{
+    padding-top: 50px;
+    text-align: center;
+  }
 }
 </style>

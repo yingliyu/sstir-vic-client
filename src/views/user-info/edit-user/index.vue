@@ -1,37 +1,6 @@
 <!--编辑用户资料信息-->
 <template>
   <div class="edit-user-wrap">
-    <!-- <div class="back-wrapper">
-      <router-link to="/user/info">
-        <el-button type="primary">返回个人中心</el-button>
-      </router-link>
-    </div>-->
-    <!-- <div class="user-head">
-      <div class="head-wrapper">
-        <el-avatar :size="80" :src="imageUrl" @error="handleLoadError" :key="imageUrl">
-          <img src="../img/head.png" />
-        </el-avatar>
-        <div class="modify-head">
-          <el-upload
-            class="avatar-uploader"
-            :headers="{access_token: token}"
-            :action="uploadUrl"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :limit="1"
-          >
-            <i class="iconfont el-icon-kf-photo"></i>
-            <p>修改头像</p>
-          </el-upload>
-        </div>
-      </div>
-      <div class="nickname-wrapper" v-if="showName">
-        <span class="nickname">{{userInfo.username}}</span>
-        <span class="modify-name modify-item" @click="showModifyUnameForm()">
-          <i class="iconfont el-icon-kf-pencil2"></i>修改
-        </span>
-      </div>
-    </div>-->
     <ul>
       <li class="profess" v-if="userInfo.isReal!=='0'">
         <span>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</span>
@@ -116,7 +85,7 @@
             <i class="iconfont el-icon-kf-wrong"></i>
             未设置 &nbsp;&nbsp;|
           </span>
-          <router-link to="/setpwd?newuser=0">
+          <router-link to="/user/changepwd">
             <el-button type="primary" round plain>设置</el-button>
           </router-link>
         </div>
