@@ -5,7 +5,7 @@
       :query-schema="querySchema"
       :query-model="queryModel"
       @queryclick="onQuery"
-      :showAdd="false"
+      @addclick="onAddClick"
     />
     <query-tbl>
       <div class="tbl-container">
@@ -101,7 +101,9 @@ export default {
       this.tblData = list
       console.log(total)
       console.log(list)
-    }
+    },
+
+    onAddClick() {}
   }
 }
 </script>
