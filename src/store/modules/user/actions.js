@@ -53,10 +53,12 @@ export default {
   },
 
   logIn ({ commit }, userInfo) {
+    console.log(commit)
+    console.log(userInfo)
     return new Promise(async (resolve, reject) => {
       try {
         console.log(userInfo)
-        const { token } = await loginApi.checkLogin(userInfo)
+        const token = await loginApi.checkLogin(userInfo)
         const userName = userInfo.userName
 
         if (token) {

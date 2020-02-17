@@ -24,7 +24,6 @@
   </div>
 </template>
 <script>
-import { loginApi } from '@/service'
 import { mapActions } from 'vuex'
 import { email, password } from '@/utils/validate'
 export default {
@@ -39,8 +38,8 @@ export default {
       regEmail: /^\w+@[a-z0-9]+\.[a-z]+$/i,
       regMobile: /^1[3456789]\d{9}$/,
       userForm: {
-        userName: '',
-        pwd: '',
+        userName: '404997046@qq.com',
+        pwd: 'Aa111111',
         remeberPwd: true
       },
       userRules: {
@@ -52,58 +51,11 @@ export default {
   mounted () {
     this.redirect = this.$route.query.redirect
   },
-  computed: {
-    // 获取验证码按钮的状态
-    ifDisabled () {
-      if (this.userForm.userName !== '' && this.duration === 60) {
-        return false
-      } else {
-        return true
-      }
-    }
-  },
+
   methods: {
     ...mapActions({
       login: 'logIn'
     }),
-
-    // 获取验证码 kind实名认证|登录
-    async getCheckCode (param) {
-      const totalDuration = this.duration // 记住倒计时总时长
-      if (param === 0) {
-        this.countDown(totalDuration)
-      } else {
-        try {
-          if (this.regEmail.test(this.userForm.userName)) {
-            await loginApi.emailActive({
-              email: this.userForm.userName
-            })
-            this.$Notify(
-              `验证码已发送到您的邮箱：${this.userForm.userName}`,
-              'top-right'
-            )
-            this.countDown(totalDuration)
-          }
-        } catch (error) {
-          console.log(error)
-        }
-      }
-    },
-
-    // 倒计时
-    countDown (totalDuration) {
-      const that = this
-      this.duration = this.duration - 1
-      this.vcodeBtnName = `${this.duration}s`
-      if (this.duration === 0) {
-        this.duration = totalDuration
-        this.vcodeBtnName = `重新发送`
-        return
-      }
-      this.timer = setTimeout(function () {
-        that.countDown(totalDuration)
-      }, 1000)
-    },
 
     // 登录注册调api
     async submitForm () {
@@ -112,7 +64,8 @@ export default {
           try {
             await this.login({ ...this.userForm })
             this.$router.push({ path: this.redirect || '/home/dashboard' })
-          } catch {
+          } catch (error) {
+            console.log(error)
             this.$message.error('登录失败，请重试~')
           }
         } else {

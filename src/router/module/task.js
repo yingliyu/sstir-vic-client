@@ -12,7 +12,7 @@ export default {
   alwaysShow: true,
   meta: {
     title: '任务',
-    icon: 's-cooperation'
+    icon: 'document-copy'
   },
   children: [
     {

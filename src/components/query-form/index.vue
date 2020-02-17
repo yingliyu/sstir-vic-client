@@ -15,7 +15,7 @@
       </el-row>
       <transition name="fade">
         <div class="query-form" v-show="queryType">
-          <el-form :inline="true" ref="queryForm"  label-width="120px" label-position="left">
+          <el-form :inline="true" ref="queryForm" label-position="left">
             <template><slot name="query"></slot></template>
             <el-row>
               <el-col v-for="(com,index) in components" :key="index" :xs="24" :sm="12" :md="12" :lg="8" :xl="8">

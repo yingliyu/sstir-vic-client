@@ -56,16 +56,9 @@ export default {
     receiveHandle (val) {
       this.title = val
     },
-    async onLogin () {
-      try {
-        await this.login()
-        this.$router.push({ path: this.redirect || '/home/dashboard' })
-      } catch {
-        this.$message.error('登录失败，请重试')
-      }
-    },
+
     handleClick (tab, event) {
-      this.loginType = tab.index === 0 ? 'user' : 'vcode'
+      // this.loginType = tab.index === 0 ? 'user' : 'vcode'
     },
     getMsgLength () {
       return document.getElementsByClassName('el-message').length

@@ -51,7 +51,7 @@
       <li class="email">
         <span>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
         <!-- 设置邮箱 -->
-        <div class="set-email" v-if="!userInfo.email">
+        <!-- <div class="set-email" v-if="!userInfo.email">
           <span class="icon-wrapper">
             <i class="iconfont el-icon-kf-wrong"></i>
             未设置 &nbsp;&nbsp;|
@@ -59,13 +59,13 @@
           <router-link to="/user/bindemail">
             <el-button type="primary" round plain>设置</el-button>
           </router-link>
-        </div>
+        </div> -->
         <!-- 修改邮箱 -->
-        <div class="modify-email" v-else>
+        <div class="modify-email">
           <span class="has-set-wrapper">{{userInfo.email}}</span>
-          <router-link to="/user/bindemail">
+          <!-- <router-link to="/user/bindemail">
             <el-button type="primary" round plain>修改</el-button>
-          </router-link>
+          </router-link> -->
         </div>
       </li>
 
@@ -91,6 +91,10 @@
         </div>
       </li>
     </ul>
+    <div class="user-agree">
+      <a>用户协议</a>
+      <a>隐私政策</a>
+    </div>
   </div>
 </template>
 <script>
@@ -110,6 +114,9 @@ export default {
     imageUrl () {
       return this.userInfo.avatar ? this.userInfo.avatar : this.errorLoadImg
     }
+  },
+  mounted() {
+    console.log(this.userInfo)
   },
   methods: {
     ...mapActions(['getUserInfo']),
@@ -135,11 +142,12 @@ export default {
 <style lang='less' scoped>
 .edit-user-wrap {
   max-width: 100%;
-  height: 100%;
+  height: calc(100vh - 150px);
   background: #fff;
   margin: 15px;
   padding: 30px;
   font-size: 14px;
+  position: relative;
   .back-wrapper {
     display: flex;
     justify-content: flex-end;
@@ -247,6 +255,15 @@ export default {
           }
         }
       }
+    }
+  }
+  .user-agree{
+    position: absolute;
+    bottom: 40px;
+    a{
+      color: #0e6c9c;
+      text-decoration: underline;
+      padding-right: 20px;
     }
   }
 }

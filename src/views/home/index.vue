@@ -29,6 +29,22 @@
         <el-button type="primary" size="medium" @click="toLogin">开始体验</el-button>
       </div>
     </div>
+    <footer>
+      <div class="footer-inner">
+         <p>客服咨询： tyzuo@sstir.cn</p>
+          <ul>
+            <li>
+              沪ICP备10209921号-8
+            </li>
+            <li>
+              沪公网安备 31010402003580号
+            </li>
+            <li>
+              上海市钦州路100号二号楼4楼
+            </li>
+          </ul>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -81,7 +97,7 @@ export default {
     text-align: center;
     position: relative;
     .desc-wrapper {
-      width: 900px;
+      width: 1200px;
       margin: 0 auto;
       p {
         text-align: left;
@@ -129,6 +145,26 @@ export default {
       height: 40px;
       padding-right: 10px;
       cursor: pointer;
+    }
+  }
+  footer{
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    left: 0%;
+    background: #898989;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    .footer-inner{
+      width: 1200px;
+      margin: 0 auto;
+    }
+    ul{
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
