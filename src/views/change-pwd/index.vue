@@ -171,11 +171,12 @@ export default {
             }, 1000)
             setTimeout(() => {
               this.$store.dispatch('logOut').then(() => {
-                location.reload() // in order to re-instaniate vue-router
+                this.$router.push('/login')
               })
             }, 5000)
           } catch (e) {
             console.log(e)
+            this.$message.error(e)
           }
         }
       })

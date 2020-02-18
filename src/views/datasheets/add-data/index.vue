@@ -2,17 +2,21 @@
   <div class="add-data-wrapper">
     <p><b>由于测序数据普遍比较大，我们建议您通过FTP传输数据</b></p>
     <p class="ftp-data-txt">
-      <span>IP地址：<i>{{ip}}</i></span>
-      <span>端口：<i>{{port}}</i></span>
-      <span>用户名：<i>{{email}}</i></span>
-      <span>密码：<i>{{pwd}}</i></span>
+      <span v-if='ip'>IP地址：<i>{{ip}}</i></span>
+      <span v-if='port'>端口：<i>{{port}}</i></span>
+      <span v-if='email'>用户名：<i>{{email}}</i></span>
+      <span class='showPwd' v-if='pwd'>密码：
+        <el-tooltip class="item" effect="dark" :content="tooltipDesc" placement="right-start">
+          <el-button><i @click='copyActiveCode($event, pwd)'>******</i></el-button>
+        </el-tooltip>
+      </span>
     </p>
     <br>
     <p>立即下载</p>
     <ul>
-      <li><i class="iconfont vic-mac"></i><span>mac版filezilla</span></li>
-      <li><i class="iconfont vic-windowsicon"></i><span>filezilla</span></li>
-      <li class="intro-txt"><span>使用说明</span></li>
+      <li><a :href="macUrl"><i class="iconfont vic-mac"></i><span>mac版filezilla</span></a></li>
+      <li><a :href="windowsUrl"><i class="iconfont vic-windowsicon"></i><span>filezilla</span></a></li>
+      <li class="intro-txt"><a :href="useDocs"><span>使用说明</span></a></li>
     </ul>
     <br>
 
@@ -27,6 +31,8 @@
 
 <script>
 import { datasheetsApi } from '@/service'
+import appConfig from '@/config'
+import Clipboard from 'clipboard'
 export default {
   name: 'ToolList',
 
@@ -35,7 +41,11 @@ export default {
       ip: '',
       port: '',
       email: '',
-      pwd: ''
+      pwd: '',
+      tooltipDesc: '点击复制',
+      macUrl: appConfig.baseUrl + 'FileZilla_3.46.3_macosx-x86.app.tar.bz2',
+      windowsUrl: appConfig.baseUrl + 'FileZilla_3.46.3_win64-setup.exe',
+      useDocs: appConfig.baseUrl + 'filezilla使用指南.docx'
     }
   },
 
@@ -43,6 +53,26 @@ export default {
     this.initData()
   },
   methods: {
+    // 复制密码到粘贴板
+    copyActiveCode(e, text) {
+      const clipboard = new Clipboard(e.target, { text: () => text })
+      clipboard.on('success', e => {
+        this.$message({ type: 'success', message: '复制成功' })
+        // 释放内存
+        clipboard.off('error')
+        clipboard.off('success')
+        clipboard.destroy()
+      })
+      clipboard.on('error', e => {
+        // 不支持复制
+        this.$message({ type: 'waning', message: '该浏览器不支持自动复制，更换浏览器试试吧~' })
+        // 释放内存
+        clipboard.off('error')
+        clipboard.off('success')
+        clipboard.destroy()
+      })
+      clipboard.onClick(e)
+    },
     async initData() {
       try {
         const { ip, port, email, pwd } = await datasheetsApi.getDataSource()
@@ -72,6 +102,9 @@ export default {
         color: #0e6c9c;
       }
     }
+    .showPwd{
+      cursor:pointer;
+    }
   }
   ul{
     display: flex;
@@ -84,8 +117,9 @@ export default {
     .intro-txt{
       padding-left: 20px;
     }
-    li{
+    a{
       display: flex;
+      height:100%;
       flex-direction: column ;
       justify-content: center;
       align-items: center;

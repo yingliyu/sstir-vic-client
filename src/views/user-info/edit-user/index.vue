@@ -71,7 +71,7 @@
 
       <li class="loginpwd">
         <span>登录密码：</span>
-        <div class="set-pwd" v-if="userInfo.pwd">
+        <div class="set-pwd">
           <span class="icon-wrapper">
             <i class="iconfont el-icon-kf-right"></i>
             已设置 &nbsp;&nbsp;|
@@ -80,7 +80,7 @@
             <el-button type="primary" round plain>修改</el-button>
           </router-link>
         </div>
-        <div class="modify-pwd" v-else>
+        <!-- <div class="modify-pwd" v-else>
           <span class="icon-wrapper">
             <i class="iconfont el-icon-kf-wrong"></i>
             未设置 &nbsp;&nbsp;|
@@ -88,7 +88,7 @@
           <router-link to="/user/changepwd">
             <el-button type="primary" round plain>设置</el-button>
           </router-link>
-        </div>
+        </div> -->
       </li>
     </ul>
     <div class="user-agree">
@@ -134,6 +134,7 @@ export default {
         console.log(res)
       } catch (error) {
         console.log(error)
+        this.$message.error(error)
       }
     }
   }

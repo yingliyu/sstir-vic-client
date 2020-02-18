@@ -17,5 +17,5 @@ export function runTask (data) {
 
 // 批量删除数据
 export function delDatas (data) {
-  return AppGet('vic/delDatas', data)
+  return AppPost('vic/delDatas', data)
 }

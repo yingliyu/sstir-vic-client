@@ -66,7 +66,7 @@ export default {
             this.$router.push({ path: this.redirect || '/home/dashboard' })
           } catch (error) {
             console.log(error)
-            this.$message.error('登录失败，请重试~')
+            this.$message.error(error)
           }
         } else {
           console.log('error submit!!有必填项为空')

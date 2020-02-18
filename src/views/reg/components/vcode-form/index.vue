@@ -173,16 +173,15 @@ export default {
               ...this.codeForm,
               ...this.userForm
             }
-            console.log(params)
-            let info = await loginApi.regByEmail(params)
-            console.log(info)
+            await loginApi.regByEmail(params)
             this.$message({
               message: '恭喜你注册成功,即将跳转至登录~',
               type: 'success'
             })
-            setTimeout(this.$router.push({ path: '/login' }), 2000)
+            setTimeout(this.$router.push({ path: '/login' }), 3000)
           } catch (e) {
             console.log(e)
+            this.$message.error(e)
           }
         } else {
           console.log('error submit!!有必填项为空')

@@ -17,7 +17,9 @@
         <el-link @click="toTaskList" type="primary">进入任务列表</el-link>
       </div>
       <div class="tbl-container">
-        <el-table :data="tblData" border style="width:100%" ref="tbl" @select="selectHandle">
+        <el-table :data="tblData" border style="width:100%" ref="tbl"
+        @select="selectHandle"
+        @select-all="selectHandle">
            <el-table-column
             type="selection"
             width="40"
@@ -29,13 +31,6 @@
             align="center"
             prop="dataName"
             :show-overflow-tooltip="true"
-          ></el-table-column>
-          <el-table-column
-            label="用户"
-            align="center"
-            prop="userName"
-            :show-overflow-tooltip="true"
-            width="250px"
           ></el-table-column>
           <el-table-column
             label="大小"
@@ -100,7 +95,13 @@ export default {
     },
     async toDelData() {
       try {
-        await datasheetsApi.delDatas(this.selection)
+        let delIds = []
+        this.$refs.tbl.selection.forEach(item => {
+          delIds.push(item.dataName)
+        })
+        const param = delIds.join(',')
+        console.log(param)
+        await datasheetsApi.delDatas({ 'list': param })
         this.$message.success('删除成功~')
         setTimeout(this.$router.go(0), 1000) // 刷新页面
       } catch (error) {
@@ -126,9 +127,9 @@ export default {
     },
 
     async onQuery () {
-      const { total, list } = await datasheetsApi.getDataList(this.queryModel)
+      const { total, records } = await datasheetsApi.getDataList(this.queryModel)
       this.tblCnt = total
-      this.tblData = list
+      this.tblData = records
     }
   }
 }

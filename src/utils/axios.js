@@ -30,7 +30,7 @@ instance.interceptors.request.use(
     })
     const userToken = store.getters.token
     if (userToken) {
-      config.headers['access_token'] = userToken
+      config.headers['authorization'] = userToken
     }
     // config.withCredentials = true
     return config
