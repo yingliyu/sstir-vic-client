@@ -96,7 +96,7 @@ export default {
     },
 
     async onQuery () {
-      const { total, list } = await taskApi.getTaskList(this.queryModel)
+      const { total, records: list } = await taskApi.getTaskList(this.queryModel)
       this.tblCnt = total
       this.tblData = list
       console.log(total)
