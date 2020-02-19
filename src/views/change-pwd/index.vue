@@ -9,46 +9,46 @@
       </el-row>
       <br />
       <el-row type="flex" justify="center">
-        <el-col :span="9">
+        <el-col :span="12">
           <el-form label-width="120px" :model="model" :rules="rules" ref="form">
-            <el-form-item label="老密码:" prop="oldPwd">
+            <el-form-item label="老密码:" prop="pwd">
               <el-input
                 class="form-input"
                 :type="passwordType"
-                v-model="model.oldPwd"
+                v-model="model.pwd"
                 placeholder="请输入老密码"
                 clearable
               >
                 <i slot="suffix" class="el-icon-yg-eye icon el-input__icon" @click="changePwdType"></i>
               </el-input>
             </el-form-item>
-            <el-form-item label="新密码:" prop="newPwd">
+            <el-form-item label="新密码:" prop="newpwd">
               <el-input
                 class="form-input"
-                :type="newPwdType"
-                v-model="model.newPwd"
+                :type="newpwdType"
+                v-model="model.newpwd"
                 placeholder="请输入新密码"
                 clearable
               >
                 <i
                   slot="suffix"
                   class="el-icon-yg-eye icon el-input__icon"
-                  @click="changeNewPwdType"
+                  @click="changeNewpwdType"
                 ></i>
               </el-input>
             </el-form-item>
-            <el-form-item label="再次输入新密码:" prop="newPwdAg">
+            <el-form-item label="再次输入新密码:" prop="newpwdAg">
               <el-input
                 class="form-input"
-                :type="newPwdAgType"
-                v-model="model.newPwdAg"
+                :type="newpwdAgType"
+                v-model="model.newpwdAg"
                 placeholder="再次输入新密码"
                 clearable
               >
                 <i
                   slot="suffix"
                   class="el-icon-yg-eye icon el-input__icon"
-                  @click="changeNewPwdAgType"
+                  @click="changeNewpwdAgType"
                 ></i>
               </el-input>
             </el-form-item>
@@ -78,19 +78,19 @@ export default {
       } else if (val.length < 8 || val.length > 16) {
         cb(new Error('密码长度8-16位，包括字母和数字（区分大小写）'))
       } else {
-        if (this.model.newPwd !== '') {
-          this.$refs.form.validateField('newPwd')
+        if (this.model.newpwd !== '') {
+          this.$refs.form.validateField('newpwd')
         }
         cb()
       }
     }
 
-    let validateNewPwd = (rule, val, cb) => {
+    let validatenewpwd = (rule, val, cb) => {
       if (val === '') {
         cb(new Error('请输入新密码'))
       } else {
-        if (this.model.oldPwd) {
-          if (val === this.model.oldPwd) {
+        if (this.model.pwd) {
+          if (val === this.model.pwd) {
             cb(new Error('新老密码不能一致'))
           }
         }
@@ -98,18 +98,18 @@ export default {
         if (!reg.test(val) || val.length < 8 || val.length > 16) {
           cb(new Error('密码长度8-16位，包括字母和数字（区分大小写）'))
         } else {
-          if (this.model.newPwdAg !== '') {
-            this.$refs.form.validateField('newPwdAg')
+          if (this.model.newpwdAg !== '') {
+            this.$refs.form.validateField('newpwdAg')
           }
           cb()
         }
       }
     }
 
-    let validateNewPwdAg = (rule, val, cb) => {
+    let validatenewpwdAg = (rule, val, cb) => {
       if (val === '') {
         cb(new Error('请再次输入新密码'))
-      } else if (val !== this.model.newPwd) {
+      } else if (val !== this.model.newpwd) {
         cb(new Error('新密码不一致'))
       } else {
         cb()
@@ -117,20 +117,20 @@ export default {
     }
     return {
       passwordType: 'password',
-      newPwdType: 'password',
-      newPwdAgType: 'password',
+      newpwdType: 'password',
+      newpwdAgType: 'password',
       isComplete: false,
       showSuccess: false,
       sec: 5,
       model: {
-        oldPwd: '',
-        newPwd: '',
-        newPwdAg: ''
+        pwd: '', // 旧密码
+        newpwd: '', // 新密码
+        newpwdAg: '' // 在此输入的新密码
       },
       rules: {
-        oldPwd: [{ validator: validatePwd, trigger: 'blur' }],
-        newPwd: [{ validator: validateNewPwd, trigger: 'blur' }],
-        newPwdAg: [{ validator: validateNewPwdAg, trigger: 'blur' }]
+        pwd: [{ validator: validatePwd, trigger: 'blur' }],
+        newpwd: [{ validator: validatenewpwd, trigger: 'blur' }],
+        newpwdAg: [{ validator: validatenewpwdAg, trigger: 'blur' }]
       }
     }
   },
@@ -146,20 +146,20 @@ export default {
       this.passwordType = this.passwordType === 'text' ? 'password' : 'text'
     },
 
-    changeNewPwdType() {
-      this.newPwdType = this.newPwdType === 'text' ? 'password' : 'text'
+    changeNewpwdType() {
+      this.newpwdType = this.newpwdType === 'text' ? 'password' : 'text'
     },
 
-    changeNewPwdAgType() {
-      this.newPwdAgType = this.newPwdAgType === 'text' ? 'password' : 'text'
+    changeNewpwdAgType() {
+      this.newpwdAgType = this.newpwdAgType === 'text' ? 'password' : 'text'
     },
 
     onSave(formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           const postData = {
-            oldPwd: this.model.oldPwd,
-            newPwd: this.model.newPwd,
+            pwd: this.model.pwd,
+            newpwd: this.model.newpwd,
             userId: this.userId
           }
           try {
@@ -171,11 +171,12 @@ export default {
             }, 1000)
             setTimeout(() => {
               this.$store.dispatch('logOut').then(() => {
-                location.reload() // in order to re-instaniate vue-router
+                this.$router.push('/login')
               })
             }, 5000)
           } catch (e) {
             console.log(e)
+            this.$message.error(e)
           }
         }
       })

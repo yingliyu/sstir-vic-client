@@ -18,11 +18,9 @@ export function setToken (token, expire) {
 }
 
 export function removeToken () {
-  console.log('removeToken1', TokenKey)
   return Cookies.remove(TokenKey)
 }
 
-// 登录进来设置logined
 export function getCookie (key) {
   return Cookies.get(key)
 }

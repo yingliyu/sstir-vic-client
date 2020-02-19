@@ -80,8 +80,8 @@ export default {
       regMobile: /^1[3456789]\d{9}$/,
       pattern: /^(?![^a-zA-Z]+$)(?!\D+$)/,
       codeForm: {
-        email: '', // 登录名-邮箱
-        vcode: '' // 验证码
+        email: '404997046@qq.com', // 登录名-邮箱
+        vcode: '948880' // 验证码
       },
       codeRules: {
         email: [email['required'], email['pattern']],
@@ -91,10 +91,10 @@ export default {
         ]
       },
       userForm: {
-        pwd: '', // 密码
-        newpwd: '', // 再次输入密码
-        realName: '', // 真实姓名
-        orgName: '' // 工作机构
+        pwd: 'Aa111111', // 密码
+        newpwd: 'Aa111111', // 再次输入密码
+        realName: '余颖丽', // 真实姓名
+        orgName: '科技发展' // 工作机构
       },
       userRules: {
         pwd: [password['required'], password['length'], password['pattern']],
@@ -173,16 +173,15 @@ export default {
               ...this.codeForm,
               ...this.userForm
             }
-            console.log(params)
-            let info = await loginApi.regByEmail(params)
-            console.log(info)
+            await loginApi.regByEmail(params)
             this.$message({
               message: '恭喜你注册成功,即将跳转至登录~',
               type: 'success'
             })
-            setTimeout(this.$router.push({ path: '/login' }), 2000)
+            setTimeout(this.$router.push({ path: '/login' }), 3000)
           } catch (e) {
             console.log(e)
+            this.$message.error(e)
           }
         } else {
           console.log('error submit!!有必填项为空')

@@ -14,3 +14,8 @@ export function getDataSource () {
 export function runTask (data) {
   return AppPost('/vic/runTask', data)
 }
+
+// 批量删除数据
+export function delDatas (data) {
+  return AppPost('vic/delDatas', data)
+}

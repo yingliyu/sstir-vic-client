@@ -29,6 +29,7 @@ router.beforeEach((to, from, next) => {
   })
   // 清空
   sources.length = 0
+
   if (getToken()) {
     // cookie中存在token的场合
     store.commit('set_token', getToken())
@@ -52,7 +53,7 @@ router.beforeEach((to, from, next) => {
               })
               .catch((err) => {
                 store.dispatch('fedLogOut').then(() => {
-                  Message.error(err || '获取权限信息失败，请重新登陆')
+                  Message.error(err || '获取权限信息失败，请重新登陆!')
                   next({ path: '/' })
                 })
               })
@@ -62,6 +63,7 @@ router.beforeEach((to, from, next) => {
             store.dispatch('logOut')
             next(`/login?redirect=${to.path}`)
             NProgress.done()
+            console.log('获取权限信息失败，请重新登陆!')
           })
       } else {
         if (hasPermission(store.getters.roles, to.meta.roles)) {
@@ -78,6 +80,7 @@ router.beforeEach((to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
+      console.log('token null')
       // 不在白名单的直接跳登录页
       next(`/login?redirect=${to.path}`)
       NProgress.done() // hack method 如果当前页就是登录页，那么不会触发afterEach,需要在这里手动触发

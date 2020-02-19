@@ -15,20 +15,10 @@ export default {
         const temp = await loginApi.getUserInfo()
         console.log(temp)
         commit(MutationTypes.SET_USER_INFO, { ...temp })
-        // const { realName, email, nickname, orgName } = await loginApi.getUserInfo()
-        // const { userName } = state.userInfo
-        // const token = state.token
         console.log(state)
-        // commit(MutationTypes.SET_USER_INFO, {
-        //   userName,
-        //   realName,
-        //   email,
-        //   nickname,
-        //   orgName,
-        //   token
-        // })
         resolve(roles)
       } catch (err) {
+        console.log('getuserinfo error')
         reject(err)
       }
     })
@@ -55,9 +45,8 @@ export default {
   logIn ({ commit }, userInfo) {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log(userInfo)
         const token = await loginApi.checkLogin(userInfo)
-        const userName = userInfo.userName
+        const userName = userInfo.userName // userName: email
 
         if (token) {
           commit(MutationTypes.SET_TOKEN, token)

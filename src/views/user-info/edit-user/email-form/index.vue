@@ -36,7 +36,7 @@
 </template>
 <script>
 import { email } from '@/utils/validate'
-import { baseApi, userApi } from '@/service'
+import { loginApi, userApi } from '@/service'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'EmailForm',
@@ -84,7 +84,9 @@ export default {
       if (this.regEmail.test(this.form.email)) {
         const totalDuration = this.duration // 记住倒计时总时长
         try {
-          await baseApi.getVcodeByEmail({ email: this.form.email, html: '<a>[vcode]</a>' })
+          await loginApi.emailActive({
+            email: this.form.email
+          })
           this.$Notify(`验证码已发送到您的邮箱：${this.form.email}`, 'top-right')
           this.countDown(totalDuration)
         } catch (error) {

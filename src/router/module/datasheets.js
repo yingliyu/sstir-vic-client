@@ -1,7 +1,7 @@
 import Layout from '@/layout/aside'
 
-const DataList = () => import(/* webpackChunkName: "datasheets-data-list" */ '@/views/datasheets/data/list')
-const AddData = () => import(/* webpackChunkName: "datasheets-add-data" */ '@/views/datasheets/add-data/list')
+const DataList = () => import(/* webpackChunkName: "datasheets-data-list" */ '@/views/datasheets/list')
+const AddData = () => import(/* webpackChunkName: "datasheets-add-data" */ '@/views/datasheets/add-data')
 
 export default {
   path: '/datasheets',
@@ -12,7 +12,7 @@ export default {
   alwaysShow: true,
   meta: {
     title: '数据管理',
-    icon: 's-shop'
+    icon: 's-data'
   },
   children: [
     {
@@ -28,7 +28,7 @@ export default {
       component: AddData,
       name: 'addData',
       meta: {
-        title: '新增数据'
+        title: '添加数据'
       }
     }
   ]
