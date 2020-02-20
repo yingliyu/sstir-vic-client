@@ -96,6 +96,7 @@ export default {
 
   mounted () {
     this.$nextTick(() => {
+      this.queryModel.pageSize = 1
       this.initData()
       this.onQuery()
     })
