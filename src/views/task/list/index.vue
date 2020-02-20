@@ -4,7 +4,7 @@
       v-if="querySchema.length > 0"
       :query-schema="querySchema"
       :query-model="queryModel"
-      @queryclick="onQuery"
+      @queryclick="onQueryClick"
       @addclick="onAddClick"
     />
     <query-tbl>

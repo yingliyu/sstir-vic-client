@@ -5,7 +5,7 @@
       v-if="querySchema.length > 0"
       :query-schema="querySchema"
       :query-model="queryModel"
-      @queryclick="onQuery"
+      @queryclick="onQueryClick"
       :showAdd="false"
     />
     <query-tbl>
@@ -96,7 +96,6 @@ export default {
 
   mounted () {
     this.$nextTick(() => {
-      this.queryModel.pageSize = 1
       this.initData()
       this.onQuery()
     })
