@@ -87,7 +87,7 @@
 
 <script>
 import ProcessPic from './img/process.png'
-import { datasheetsApi } from '@/service'
+import { datasheetsApi, taskApi } from '@/service'
 
 export default {
   name: 'TaskDetail',
@@ -100,7 +100,7 @@ export default {
       currentSelect: {},
       queryModel: {
         pageIndex: 1,
-        pageSize: 1
+        pageSize: 10
       },
       tblCnt: 0,
       tblData: []
@@ -131,7 +131,8 @@ export default {
       this.showSelect = true
       this.selectedData.forEach((item) => {
         this.currentSelect[item.dataName] = {
-          dataName: item.dataName
+          dataName: item.dataName,
+          userId: item.userId
         }
       })
       this.handleSelectTable()
@@ -156,7 +157,8 @@ export default {
       this.selectedData = []
       Object.keys(this.currentSelect).forEach(key => {
         this.selectedData.push({
-          dataName: this.currentSelect[key].dataName
+          dataName: this.currentSelect[key].dataName,
+          userId: this.currentSelect[key].userId
         })
       })
       this.showSelect = false
@@ -168,7 +170,8 @@ export default {
         delete this.currentSelect[row.dataName]
       } else {
         this.currentSelect[row.dataName] = {
-          dataName: row.dataName
+          dataName: row.dataName,
+          userId: row.userId
         }
       }
       this.$forceUpdate()
@@ -179,7 +182,8 @@ export default {
       if (selection.length) {
         selection.forEach((row) => {
           this.currentSelect[row.dataName] = {
-            dataName: row.dataName
+            dataName: row.dataName,
+            userId: row.userId
           }
         })
       } else {
@@ -203,12 +207,25 @@ export default {
       this.handleSelectTable()
     },
 
-    onStartClick() {
+    async onStartClick() {
       if (this.selectedData.length === 0) {
         this.$message.error('请先选择数据')
       } else {
         // 调用接口
+        const list = this.selectedData.map(item => {
+          return {
+            dataName: item.dataName,
+            userId: item.userId
+          }
+        })
+        const postData = { list }
+        const result = await taskApi.runTask(postData)
         // 跳转
+        if (result) {
+          this.$router.push('/task/list')
+        } else {
+          this.$message.error('任务运行失败，请重试!')
+        }
       }
     }
   }
