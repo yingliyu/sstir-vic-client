@@ -18,7 +18,7 @@ function hasPermission (roles, permissionRoles) {
   if (!permissionRoles) return true
   return roles.some((role) => permissionRoles.indexOf(role) >= 0)
 }
-const whiteList = ['/login', '/reg', '/home', '/401', '/404'] // 不需要重定向的白名单
+const whiteList = ['/login', '/reg', '/home', '/user-agree', '/401', '/404'] // 不需要重定向的白名单
 // 全局前置导航守卫
 // https://router.vuejs.org/zh/guide/advanced/navigation-guards.html
 router.beforeEach((to, from, next) => {

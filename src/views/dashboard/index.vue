@@ -21,7 +21,7 @@ export default {
   p{
     padding-top: 50px;
     text-align: center;
-    color: #67C23A;
+    color: #409EFF;
   }
 }
 </style>

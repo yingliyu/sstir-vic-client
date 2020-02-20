@@ -16,7 +16,7 @@
       <el-form-item>
         <div class="user-pact">
           注册表示您同意遵守
-          <a>《用户协议》</a>
+          <span @click='toUserAgreement'>《用户协议》</span>
         </div>
       </el-form-item>
       <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">下一步</el-button>
@@ -124,6 +124,12 @@ export default {
     ...mapActions({
       login: 'logIn'
     }),
+    toUserAgreement() {
+      let routeUrl = this.$router.resolve({
+        path: '/user-agree'
+      })
+      window.open(routeUrl.href, '_blank')
+    },
     nextStep (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -145,6 +151,7 @@ export default {
         this.countDown(totalDuration)
       } catch (error) {
         console.log(error)
+        this.$message.error(error)
       }
     },
 
@@ -216,9 +223,10 @@ export default {
   }
   .user-pact {
     text-align: left;
-    a {
+    span {
       color: blue;
       text-decoration: underline;
+      cursor: pointer;
     }
   }
 }

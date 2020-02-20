@@ -92,8 +92,8 @@
       </li>
     </ul>
     <div class="user-agree">
-      <a>用户协议</a>
-      <a>隐私政策</a>
+      <a @click='toUserAgree'>用户协议</a>
+      <a @click='toPolicy'>隐私政策</a>
     </div>
   </div>
 </template>
@@ -121,6 +121,13 @@ export default {
   methods: {
     ...mapActions(['getUserInfo']),
 
+    toUserAgree() {
+      this.$router.push('/user/agreement')
+    },
+
+    toPolicy() {
+      this.$router.push('/user/policy')
+    },
     showModifyUnameForm () {
       this.showName = true
     },

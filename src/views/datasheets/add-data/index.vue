@@ -82,6 +82,7 @@ export default {
         this.pwd = pwd
       } catch (error) {
         console.log(error)
+        this.$message.error(error)
       }
     }
   }
@@ -99,7 +100,7 @@ export default {
       padding-right: 15px;
       i{
         font-style: normal;
-        color: #0e6c9c;
+        color: #409EFF;
       }
     }
     .showPwd{
@@ -109,7 +110,7 @@ export default {
   ul{
     display: flex;
     span{
-      color: #0e6c9c;
+      color: #409EFF;
       text-decoration: underline;
       padding-top: 10px;
       font-size: 14px;

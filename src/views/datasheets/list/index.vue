@@ -10,16 +10,26 @@
     />
     <query-tbl>
       <div slot="btn" class="btn-wrapper">
-        <el-link v-if="showDelBtn" @click="toDelData" type="primary">删除数据 </el-link>
+        <el-link v-if="showDelBtn" @click="delDataConfirm" type="primary">删除数据 </el-link>
         <span></span>
         <el-link @click="toNewData" type="primary">添加数据 </el-link>
         <span></span>
         <el-link @click="toTaskList" type="primary">进入任务列表</el-link>
       </div>
       <div class="tbl-container">
-        <el-table :data="tblData" border style="width:100%" ref="tbl"
+        <el-tag
+        v-for="tag in Object.keys(currentSelect)"
+        :key="tag"
+        closable
+        class="tag"
+        size="medium"
+        @close="onCurrentTagDel(tag)"
+      >
+        {{ tag }}
+      </el-tag>
+        <el-table :data="tblData" border style="width:100%" ref="datasheetsTbl"
         @select="selectHandle"
-        @select-all="selectHandle">
+        @select-all="selectAllHandle">
            <el-table-column
             type="selection"
             width="40"
@@ -55,7 +65,7 @@
           :current-page.sync="queryModel.pageIndex"
           :page-sizes="[10, 20, 50, 100]"
           :page-size="queryModel.pageSize"
-          layout="total,  prev, pager, next, sizes"
+          layout="total, prev, pager, next, sizes"
           :total="tblCnt"
         ></el-pagination>
       </div>
@@ -63,6 +73,7 @@
     <div class="start-task-wrapper">
       <el-button type="primary" size="medium" @click="startTask">开始任务</el-button>
     </div>
+
   </div>
 </template>
 
@@ -78,7 +89,8 @@ export default {
   data () {
     return {
       showDelBtn: false,
-      selection: []
+      selectedData: [],
+      currentSelect: {}
     }
   },
 
@@ -90,46 +102,138 @@ export default {
   },
 
   methods: {
-    startTask() {
-      this.$router.push('/task/run')
+    // 删除标签
+    onCurrentTagDel(tag) {
+      delete this.currentSelect[tag]
+      this.$forceUpdate()
+      const rows = this.tblData.filter(row => {
+        return row.dataName === tag
+      })
+      rows.forEach(row => {
+        this.$refs.datasheetsTbl.toggleRowSelection(row, false)
+      })
     },
-    async toDelData() {
-      try {
-        let delIds = []
-        this.$refs.tbl.selection.forEach(item => {
-          delIds.push(item.dataName)
+    // 开始任务
+    startTask() {
+      this.selectedData = []
+      Object.keys(this.currentSelect).forEach(key => {
+        this.selectedData.push({
+          dataName: this.currentSelect[key].dataName,
+          userId: this.currentSelect[key].userId
         })
-        const param = delIds.join(',')
-        console.log(param)
-        await datasheetsApi.delDatas({ 'list': param })
-        this.$message.success('删除成功~')
-        setTimeout(this.$router.go(0), 1000) // 刷新页面
-      } catch (error) {
-        console.log(error)
+      })
+      if (this.selectedData.length) {
+        this.$router.push({ path: '/task/run', query: { list: JSON.stringify(this.selectedData) } })
+      } else {
+        this.$message.error('请先选择数据')
       }
     },
+    delDataConfirm() {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.toDelData()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    // 删除数据
+    async toDelData() {
+      try {
+        this.selectedData = []
+        Object.keys(this.currentSelect).forEach(key => {
+          this.selectedData.push({
+            dataName: this.currentSelect[key].dataName,
+            userId: this.currentSelect[key].userId
+          })
+        })
+        if (this.selectedData.length) {
+          const postData = { list: this.selectedData }
+          await datasheetsApi.delDatas(postData)
+          this.$message.success('删除成功~')
+          setTimeout(this.$router.go(0), 1000) // 刷新页面
+        } else {
+          this.$message.error('请先选择数据')
+        }
+      } catch (error) {
+        console.log(error)
+        this.$message.error(error)
+      }
+    },
+    // 新增数据
     toNewData() {
       this.$router.push('/datasheets/add')
     },
+    // 任务列表
     toTaskList() {
       this.$router.push('/task/list')
     },
+    handleSelectTable() {
+      const keys = Object.keys(this.currentSelect)
+      const rows = this.tblData.filter(row => {
+        return keys.includes(row.dataName)
+      })
+      rows.forEach(row => {
+        this.$refs.datasheetsTbl.toggleRowSelection(row)
+      })
+    },
+    // 选择表格某行
     selectHandle(selection, row) {
-      if (selection.length !== 0) {
-        this.showDelBtn = true
-        this.selection = selection
+      if (this.currentSelect[row.dataName]) {
+        delete this.currentSelect[row.dataName]
       } else {
+        this.currentSelect[row.dataName] = {
+          dataName: row.dataName,
+          userId: row.userId
+        }
+      }
+      if (selection.length === 0) {
         this.showDelBtn = false
+      } else {
+        this.showDelBtn = true
+      }
+      this.$forceUpdate()
+    },
+    // 表格全选
+    selectAllHandle(selection) {
+      // 全选
+      if (selection.length) {
+        selection.forEach((row) => {
+          this.currentSelect[row.dataName] = {
+            dataName: row.dataName,
+            userId: row.userId
+          }
+        })
+      } else {
+        // 取消全选
+        this.tblData.forEach((row) => {
+          delete this.currentSelect[row.dataName]
+        })
+      }
+      this.$forceUpdate()
+      if (selection.length === 0) {
+        this.showDelBtn = false
+      } else {
+        this.showDelBtn = true
       }
     },
+    // 初始化数据
     initData () {
       this.querySchema.push(new this.$Schema('dataName', 'input', '数据名称:'))
     },
-
+    // query
     async onQuery () {
-      const { total, records } = await datasheetsApi.getDataList(this.queryModel)
+      const { total, data } = await datasheetsApi.getDataList(this.queryModel)
       this.tblCnt = total
-      this.tblData = records
+      this.tblData = data
+      this.$nextTick(() => {
+        this.handleSelectTable()
+      })
     }
   }
 }
@@ -150,6 +254,10 @@ export default {
     display: flex;
     justify-content: center;
     padding-bottom: 20px;
+  }
+  .tag {
+    margin-right: 20px;
+    margin-bottom: 20px;
   }
 }
 </style>

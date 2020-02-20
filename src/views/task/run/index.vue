@@ -106,7 +106,9 @@ export default {
       tblData: []
     }
   },
-
+  mounted() {
+    this.selectedData = this.$route.query.list === '' ? [] : JSON.parse(this.$route.query.list)
+  },
   methods: {
     onTagDel(index) {
       this.selectedData.splice(index, 1)
@@ -143,8 +145,10 @@ export default {
       const rows = this.tblData.filter(row => {
         return keys.includes(row.dataName)
       })
-      rows.forEach(row => {
-        this.$refs.tbl.toggleRowSelection(row)
+      this.$nextTick(() => {
+        rows.forEach(row => {
+          this.$refs.tbl.toggleRowSelection(row)
+        })
       })
     },
 
