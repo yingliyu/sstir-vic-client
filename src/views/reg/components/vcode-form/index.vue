@@ -225,7 +225,7 @@ export default {
   .user-pact {
     text-align: left;
     span {
-      color: blue;
+      color: #409EFF;
       text-decoration: underline;
       cursor: pointer;
     }

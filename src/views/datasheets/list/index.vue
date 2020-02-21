@@ -45,11 +45,14 @@
           <el-table-column
             label="大小"
             align="center"
-            prop="dataSize"
             sortable
             :show-overflow-tooltip="true"
             width="200px"
-          ></el-table-column>
+          >
+          <template slot-scope="scope">
+            <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
+          </template>
+          </el-table-column>
           <el-table-column
             label="上传日期"
             align="center"

@@ -200,10 +200,13 @@ export default {
     },
 
     async onQuery() {
-      const { total, data: list } = await datasheetsApi.getDataList(this.queryModel)
-      this.tblCnt = total
-      // const list = await datasheetsApi.getDataList(this.queryModel)
-      this.tblData = list
+      try {
+        const { total, data: list } = await datasheetsApi.getDataList(this.queryModel)
+        this.tblCnt = total
+        this.tblData = list
+      } catch (error) {
+        this.$message.error(error)
+      }
     },
 
     async onPageChange() {
@@ -215,20 +218,24 @@ export default {
       if (this.selectedData.length === 0) {
         this.$message.error('请先选择数据')
       } else {
-        // 调用接口
-        const list = this.selectedData.map(item => {
-          return {
-            dataName: item.dataName,
-            userId: item.userId
+        try {
+          // 调用接口
+          const list = this.selectedData.map(item => {
+            return {
+              dataName: item.dataName,
+              userId: item.userId
+            }
+          })
+          const postData = { list }
+          const result = await taskApi.runTask(postData)
+          // 跳转
+          if (result) {
+            this.$router.push('/task/list')
+          } else {
+            this.$message.error('任务运行失败，请重试!')
           }
-        })
-        const postData = { list }
-        const result = await taskApi.runTask(postData)
-        // 跳转
-        if (result) {
-          this.$router.push('/task/list')
-        } else {
-          this.$message.error('任务运行失败，请重试!')
+        } catch (error) {
+          this.$message.error(error)
         }
       }
     }

@@ -37,4 +37,3 @@ npm run lint
 ### npx browserslist
 
 查看目前`.browserslistrc`配置的浏览器列表
-404997046@qq.com

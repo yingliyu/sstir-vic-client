@@ -8,7 +8,6 @@ import Datasheets from './module/datasheets'
 
 const Home = () => import(/* webpackChunkName: "homepage" */ '@/views/home')
 const Login = () => import(/* webpackChunkName: "login" */ '@/views/login')
-const Agreement = () => import(/* webpackChunkName: "agreement" */ '@/views/agreement') // 用户协议
 
 const UserReg = () => import(/* webpackChunkName: "user-reg" */ '@/views/reg')
 const FindPwd = () => import(/* webpackChunkName: "find-pwd" */ '@/views/find-pwd')
@@ -48,10 +47,6 @@ export const constantRouterMap = [
     name: 'login',
     hidden: true,
     component: Login
-  },
-  {
-    path: '/user-agree',
-    component: Agreement
   },
   {
     path: '/',

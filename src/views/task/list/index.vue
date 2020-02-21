@@ -96,11 +96,13 @@ export default {
     },
 
     async onQuery () {
-      const { total, records: list } = await taskApi.getTaskList(this.queryModel)
-      this.tblCnt = total
-      this.tblData = list
-      console.log(total)
-      console.log(list)
+      try {
+        const { total, records: list } = await taskApi.getTaskList(this.queryModel)
+        this.tblCnt = total
+        this.tblData = list
+      } catch (error) {
+        this.$message.error(error)
+      }
     },
 
     onAddClick() {}

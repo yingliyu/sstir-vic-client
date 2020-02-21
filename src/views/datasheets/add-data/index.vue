@@ -1,7 +1,7 @@
 <template>
   <div class="add-data-wrapper">
     <el-card class="box-card">
-      <b>方法一：请点击下方链接前往上传</b>&nbsp;&nbsp;&nbsp;&nbsp;
+      <b>方法一：请点击右方链接前往上传</b>&nbsp;&nbsp;&nbsp;&nbsp;
       <a class="ucloudLink" :href="url" target="_blank">
         上传地址
       </a>
@@ -72,9 +72,9 @@ export default {
       email: '',
       pwd: '',
       tooltipDesc: '点击复制',
-      macUrl: appConfig.baseUrl + 'S3-Browser-1.1 for mac.zip',
-      windowsUrl: appConfig.baseUrl + 's3browser-8-6-7.exe',
-      useDocs: appConfig.baseUrl + '配置 S3 Brower.docx'
+      macUrl: appConfig.downloadUrl + 'S3-Browser-1.1 for mac.zip',
+      windowsUrl: appConfig.downloadUrl + 's3browser-8-6-7.exe',
+      useDocs: appConfig.downloadUrl + '配置 S3 Brower.docx'
     }
   },
   mounted () {

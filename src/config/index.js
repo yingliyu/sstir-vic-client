@@ -11,19 +11,22 @@ const getUrl = () => {
     case 'dev':
       return {
         baseUrl: 'http://10.11.0.91:9998/',
-        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home'
+        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home',
+        downloadUrl: 'http://static.kxj.sstir.cn/static/2020/download/'
       }
     // qa
     case 'qa':
       return {
         baseUrl: 'http://10.11.0.91:9998/',
-        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home'
+        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home',
+        downloadUrl: 'http://static.kxj.sstir.cn/static/2020/download/'
       }
     // production
     default:
       return {
-        baseUrl: 'http://10.11.0.91:9998/',
-        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home'
+        baseUrl: 'http://api.covid.sstir.cn/',
+        ucloudUrl: 'http://ucloud.s3.sstir.cn/v1/s3c/home',
+        downloadUrl: 'http://static.kxj.sstir.cn/static/2020/download/'
       }
   }
 }
@@ -31,6 +34,7 @@ const getUrl = () => {
 const appConfig = {
   baseUrl: getUrl().baseUrl,
   ucloudUrl: getUrl().ucloudUrl,
+  downloadUrl: getUrl().downloadUrl,
   appToken: process.env.VUE_APP_TOKEN_KEY // token key
 }
 

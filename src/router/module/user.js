@@ -6,8 +6,6 @@ const EditUser = () => import(/* webpackChunkName: "edituser" */ '@/views/user-i
 const BindEmail = () => import(/* webpackChunkName: "emailform" */ '@/views/user-info/edit-user/email-form/index')
 const BindMobile = () => import(/* webpackChunkName: "mobileform" */ '@/views/user-info/edit-user/mobile-form/index')
 const ChangePwd = () => import(/* webpackChunkName: "changepwd" */ '@/views/change-pwd/index')
-const Agreement = () => import(/* webpackChunkName: "agreement" */ '@/views/agreement') // 用户协议
-const Policy = () => import(/* webpackChunkName: "policy" */ '@/views/policy') // 隐私政策
 export default {
   path: '/user',
   name: 'user',
@@ -71,26 +69,6 @@ export default {
         title: '修改密码',
         noCache: true
       }
-    },
-    {
-      path: 'agreement',
-      name: 'agreement',
-      component: Agreement,
-      meta: {
-        title: '用户协议',
-        noCache: true
-      }
-    },
-
-    {
-      path: 'policy',
-      name: 'policy',
-      component: Policy,
-      meta: {
-        title: '隐私政策',
-        noCache: true
-      }
     }
-
   ]
 }
