@@ -38,8 +38,8 @@ export default {
       regEmail: /^\w+@[a-z0-9]+\.[a-z]+$/i,
       regMobile: /^1[3456789]\d{9}$/,
       userForm: {
-        userName: '404997046@qq.com',
-        pwd: 'Aa111111',
+        userName: '',
+        pwd: '',
         remeberPwd: true
       },
       userRules: {
