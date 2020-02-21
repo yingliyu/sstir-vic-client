@@ -56,21 +56,27 @@ export default {
 <style lang="less" scoped>
 .document-wrapper{
   .item-wrapper{
-    padding:20px 0;
+    padding:0px 20px 0px;
+    ul{
+      height: 400px;
+      overflow-y: auto;
+    }
     .title{
       margin-top:15px;
       margin-bottom:50px;
-      font-size: 28px;
+      font-size: 20px;
       font-weight: 700;
     }
     .sub-title{
       margin: 25px 0;
-      font-size: 24px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #000;
     }
     .content{
       font-size: 16px;
       line-height: 27px;
-      color: #333;
+      color: #666;
       table-layout: fixed;
       word-wrap: break-word;
       word-break: normal;

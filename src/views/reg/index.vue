@@ -12,7 +12,7 @@
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane :label="title ? title : '请完善信息'" name="first">
-                <vcode-form @update="receiveHandle"></vcode-form>
+                <vcode-form @showUserAgreement='showAgreeHandle' @update="receiveHandle"></vcode-form>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -20,20 +20,37 @@
         <!-- 登录注册 end-->
       </div>
     </div>
+      <!-- 用户协议 -->
+    <el-dialog
+      title=""
+      :visible.sync="agreementVisible"
+      width="60%"
+      >
+      <user-doc :list="agreementList" :imgW='imgW' :titleAlign='titleAlign'></user-doc>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="agreementVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import VcodeForm from './components/vcode-form'
 import { mapActions } from 'vuex'
-
+import agreementData from './user-agree'
+import UserDoc from '@/components/user-doc'
 export default {
   name: 'UserReg',
   components: {
-    VcodeForm
+    VcodeForm,
+    UserDoc
   },
   data () {
     return {
+      agreementVisible: false,
+      agreementList: agreementData,
+      titleAlign: 'center',
+      imgW: '70%',
       redirect: '',
       title: '平台注册',
       activeName: 'first', // tabBar active
@@ -50,11 +67,15 @@ export default {
     ...mapActions({
       login: 'logIn'
     }),
+    showAgreeHandle(val) {
+      this.agreementVisible = true
+    },
     toHome () {
       this.$router.push('/home')
     },
     receiveHandle (val) {
       this.title = val
+      this.agreementVisible = true
     },
 
     handleClick (tab, event) {

@@ -16,7 +16,7 @@
       <el-form-item>
         <div class="user-pact">
           注册表示您同意遵守
-          <span @click='toUserAgreement'>《用户协议》</span>
+          <span @click='toUserAgreement()'>《用户协议》</span>
         </div>
       </el-form-item>
       <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">下一步</el-button>
@@ -49,12 +49,14 @@
       </el-form-item>
       <el-button type="primary" class="btn-reg" @click="submitForm('userForm')">注册</el-button>
     </el-form>
+
   </div>
 </template>
 <script>
 import { loginApi } from '@/service'
 import { mapActions } from 'vuex'
 import { email, password } from '@/utils/validate'
+
 export default {
   name: 'VcodeForm',
   data () {
@@ -70,6 +72,7 @@ export default {
       }
     }
     return {
+
       kind: 'login',
       formIndex: 0, // 当前展示第几步
       formTitle: '平台注册',
@@ -104,6 +107,7 @@ export default {
       }
     }
   },
+
   mounted () {
     this.redirect = this.$route.query.redirect
   },
@@ -125,10 +129,7 @@ export default {
       login: 'logIn'
     }),
     toUserAgreement() {
-      let routeUrl = this.$router.resolve({
-        path: '/user-agree'
-      })
-      window.open(routeUrl.href, '_blank')
+      this.$emit('showUserAgreement', true)
     },
     nextStep (formName) {
       this.$refs[formName].validate(async (valid) => {

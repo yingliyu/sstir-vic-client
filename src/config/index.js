@@ -11,19 +11,19 @@ const getUrl = () => {
     case 'dev':
       return {
         baseUrl: 'http://10.11.0.91:9998/',
-        ucloudUrl: 'http://172.16.62.200:8001/v1/s3c/home/bucket'
+        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home'
       }
     // qa
     case 'qa':
       return {
         baseUrl: 'http://10.11.0.91:9998/',
-        ucloudUrl: 'http://172.16.62.200:8001/v1/s3c/home/bucket'
+        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home'
       }
     // production
     default:
       return {
         baseUrl: 'http://10.11.0.91:9998/',
-        ucloudUrl: 'http://172.16.62.200:8001/v1/s3c/home/bucket'
+        ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home'
       }
   }
 }

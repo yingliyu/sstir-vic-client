@@ -50,22 +50,8 @@
 
       <li class="email">
         <span>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
-        <!-- 设置邮箱 -->
-        <!-- <div class="set-email" v-if="!userInfo.email">
-          <span class="icon-wrapper">
-            <i class="iconfont el-icon-kf-wrong"></i>
-            未设置 &nbsp;&nbsp;|
-          </span>
-          <router-link to="/user/bindemail">
-            <el-button type="primary" round plain>设置</el-button>
-          </router-link>
-        </div> -->
-        <!-- 修改邮箱 -->
         <div class="modify-email">
           <span class="has-set-wrapper">{{userInfo.email}}</span>
-          <!-- <router-link to="/user/bindemail">
-            <el-button type="primary" round plain>修改</el-button>
-          </router-link> -->
         </div>
       </li>
 
@@ -80,34 +66,60 @@
             <el-button type="primary" round plain>修改</el-button>
           </router-link>
         </div>
-        <!-- <div class="modify-pwd" v-else>
-          <span class="icon-wrapper">
-            <i class="iconfont el-icon-kf-wrong"></i>
-            未设置 &nbsp;&nbsp;|
-          </span>
-          <router-link to="/user/changepwd">
-            <el-button type="primary" round plain>设置</el-button>
-          </router-link>
-        </div> -->
       </li>
     </ul>
     <div class="user-agree">
-      <a @click='toUserAgree'>用户协议</a>
-      <a @click='toPolicy'>隐私政策</a>
+      <a @click='agreementVisible=true'>用户协议</a>
+      <a @click='policyVisible=true'>隐私政策</a>
     </div>
+    <!-- 隐私政策 -->
+    <el-dialog
+      title=""
+      :visible.sync="policyVisible"
+      width="60%"
+      :before-close="handleClose">
+      <user-doc :list="policyList" :imgW='imgW' :titleAlign='titleAlign'></user-doc>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="policyVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
+    <!-- 用户协议 -->
+    <el-dialog
+      title=""
+      :visible.sync="agreementVisible"
+      width="60%"
+      :before-close="handleClose">
+      <user-doc :list="agreementList" :imgW='imgW' :titleAlign='titleAlign'></user-doc>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="agreementVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
 import { userApi } from '@/service'
 import { mapGetters, mapActions } from 'vuex'
 import appConfig from '@/config'
+import UserDoc from '@/components/user-doc'
+import policyData from './policy-data'
+import agreementData from './user-agree'
+
 export default {
   name: 'EditUser',
   data () {
     return {
+      policyList: policyData,
+      agreementList: agreementData,
+      titleAlign: 'center',
+      imgW: '70%',
       uploadUrl: appConfig.uploadUrl,
-      showName: false // 用户名编辑按钮显示
+      showName: false, // 用户名编辑按钮显示
+      policyVisible: false,
+      agreementVisible: false
     }
+  },
+  components: {
+    UserDoc
   },
   computed: {
     ...mapGetters(['userInfo', 'token']),
@@ -120,7 +132,14 @@ export default {
   },
   methods: {
     ...mapActions(['getUserInfo']),
-
+    handleClose(done) {
+      done()
+      // this.$confirm('确认关闭？')
+      //   .then(_ => {
+      //     done()
+      //   })
+      //   .catch(_ => {})
+    },
     toUserAgree() {
       this.$router.push('/user/agreement')
     },
@@ -269,7 +288,7 @@ export default {
     position: absolute;
     bottom: 40px;
     a{
-      color: #0e6c9c;
+      color: #409eff;
       text-decoration: underline;
       padding-right: 20px;
     }
