@@ -88,6 +88,7 @@
 <script>
 import ProcessPic from './img/process.png'
 import { datasheetsApi, taskApi } from '@/service'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'TaskDetail',
@@ -110,6 +111,10 @@ export default {
     this.selectedData = this.$route.query.list === '' ? [] : JSON.parse(this.$route.query.list)
   },
   methods: {
+    ...mapMutations({
+      delTag: 'del_visited_views'
+    }),
+
     onTagDel(index) {
       this.selectedData.splice(index, 1)
     },
@@ -215,8 +220,8 @@ export default {
     },
 
     async onStartClick() {
-      if (this.selectedData.length === 0) {
-        this.$message.error('请先选择数据')
+      if (this.selectedData.length !== 2) {
+        this.$message.error('请选择两条基因测序数据(确保前缀名相同)')
       } else {
         try {
           // 调用接口
@@ -230,6 +235,7 @@ export default {
           const result = await taskApi.runTask(postData)
           // 跳转
           if (result) {
+            this.delTag(this.$route)
             this.$router.push('/task/list')
           } else {
             this.$message.error('任务运行失败，请重试!')
