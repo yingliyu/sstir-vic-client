@@ -19,3 +19,8 @@ export function regByEmail (data) {
 export function emailActive (data) {
   return AppGet('/vic/checkEmail', data)
 }
+
+// 邮箱验证码验证
+export function checkCode (data) {
+  return AppGet('/vic/checkCode', data)
+}

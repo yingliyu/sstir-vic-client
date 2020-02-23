@@ -2,7 +2,7 @@
 export let userName = {
   required: {
     required: true,
-    message: '请输入用户名',
+    message: '请输入真实姓名',
     trigger: 'blur'
   },
   length: {

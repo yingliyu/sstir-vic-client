@@ -20,10 +20,15 @@
       </li>
       <li class="modify-uname-form" v-if="showName">
         <transition name="slide-fade">
-          <el-form label-width="90px">
-            <el-form-item>
+          <el-form
+            label-width="90px"
+            :model="nicknameForm"
+            :rules="nicknameRules"
+            ref="nicknameForm"
+          >
+            <el-form-item prop="nickname">
               <el-input
-                v-model="userInfo.nickname"
+                v-model="nicknameForm.nickname"
                 required
                 maxlength="20"
                 placeholder="请输入你的昵称"
@@ -69,27 +74,19 @@
       </li>
     </ul>
     <div class="user-agree">
-      <a @click='agreementVisible=true'>用户协议</a>
-      <a @click='policyVisible=true'>隐私政策</a>
+      <a @click="agreementVisible=true">用户协议</a>
+      <a @click="policyVisible=true">隐私政策</a>
     </div>
     <!-- 隐私政策 -->
-    <el-dialog
-      title=""
-      :visible.sync="policyVisible"
-      width="60%"
-      :before-close="handleClose">
-      <user-doc :list="policyList" :imgW='imgW' :titleAlign='titleAlign'></user-doc>
+    <el-dialog title :visible.sync="policyVisible" width="60%" :before-close="handleClose">
+      <user-doc :list="policyList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="policyVisible = false">关 闭</el-button>
       </span>
     </el-dialog>
     <!-- 用户协议 -->
-    <el-dialog
-      title=""
-      :visible.sync="agreementVisible"
-      width="60%"
-      :before-close="handleClose">
-      <user-doc :list="agreementList" :imgW='imgW' :titleAlign='titleAlign'></user-doc>
+    <el-dialog title :visible.sync="agreementVisible" width="60%" :before-close="handleClose">
+      <user-doc :list="agreementList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="agreementVisible = false">关 闭</el-button>
       </span>
@@ -115,7 +112,16 @@ export default {
       uploadUrl: appConfig.uploadUrl,
       showName: false, // 用户名编辑按钮显示
       policyVisible: false,
-      agreementVisible: false
+      agreementVisible: false,
+      nicknameForm: {
+        // nickname: this.userInfo.nickname
+        nickname: ''
+      },
+      nicknameRules: {
+        nickname: [
+          { required: true, message: '请输入昵称', trigger: 'blur' }
+        ]
+      }
     }
   },
   components: {
@@ -127,12 +133,12 @@ export default {
       return this.userInfo.avatar ? this.userInfo.avatar : this.errorLoadImg
     }
   },
-  mounted() {
+  mounted () {
     console.log(this.userInfo)
   },
   methods: {
     ...mapActions(['getUserInfo']),
-    handleClose(done) {
+    handleClose (done) {
       done()
       // this.$confirm('确认关闭？')
       //   .then(_ => {
@@ -140,11 +146,11 @@ export default {
       //   })
       //   .catch(_ => {})
     },
-    toUserAgree() {
+    toUserAgree () {
       this.$router.push('/user/agreement')
     },
 
-    toPolicy() {
+    toPolicy () {
       this.$router.push('/user/policy')
     },
     showModifyUnameForm () {
@@ -152,16 +158,20 @@ export default {
     },
 
     // 提交用户昵称修改
-    async submitNickname () {
-      try {
-        const res = await userApi.setNickname({ nickname: this.userInfo.nickname })
-        this.showName = false
-        this.getUserInfo()
-        console.log(res)
-      } catch (error) {
-        console.log(error)
-        this.$message.error(error)
-      }
+    submitNickname () {
+      this.$refs.nicknameForm.validate(async (valid) => {
+        if (valid) {
+          try {
+            const res = await userApi.setNickname(this.nicknameForm)
+            this.showName = false
+            this.getUserInfo()
+            console.log(res)
+          } catch (error) {
+            console.log(error)
+            this.$message.error(error)
+          }
+        }
+      })
     }
   }
 }
@@ -284,10 +294,10 @@ export default {
       }
     }
   }
-  .user-agree{
+  .user-agree {
     position: absolute;
     bottom: 40px;
-    a{
+    a {
       color: #409eff;
       text-decoration: underline;
       padding-right: 20px;

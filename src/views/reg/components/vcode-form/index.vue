@@ -16,7 +16,7 @@
       <el-form-item>
         <div class="user-pact">
           注册表示您同意遵守
-          <span @click='toUserAgreement()'>《用户协议》</span>
+          <span @click="toUserAgreement()">《用户协议》</span>
         </div>
       </el-form-item>
       <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">下一步</el-button>
@@ -49,7 +49,6 @@
       </el-form-item>
       <el-button type="primary" class="btn-reg" @click="submitForm('userForm')">注册</el-button>
     </el-form>
-
   </div>
 </template>
 <script>
@@ -128,15 +127,20 @@ export default {
     ...mapActions({
       login: 'logIn'
     }),
-    toUserAgreement() {
+    toUserAgreement () {
       this.$emit('showUserAgreement', true)
     },
     nextStep (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
-          this.formIndex = 1
-          this.formTitle = '请完善信息'
-          this.$emit('update', this.formTitle)
+          try {
+            await loginApi.checkCode(this.codeForm) // 验证验证码是否正确
+            this.formIndex = 1
+            this.formTitle = '请完善信息'
+            this.$emit('update', this.formTitle)
+          } catch (error) {
+            this.$message.error(error)
+          }
         }
       })
     },
@@ -172,7 +176,7 @@ export default {
       }, 1000)
     },
 
-    // 登录注册调api
+    // 注册调api
     submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
@@ -225,7 +229,7 @@ export default {
   .user-pact {
     text-align: left;
     span {
-      color: #409EFF;
+      color: #409eff;
       text-decoration: underline;
       cursor: pointer;
     }

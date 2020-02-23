@@ -10,6 +10,7 @@ const getUrl = () => {
     // development
     case 'dev':
       return {
+        // baseUrl: 'http://api.covid.sstir.cn',
         baseUrl: 'http://10.11.0.91:9998/',
         ucloudUrl: 'http://172.16.62.200:8002/v1/s3c/home',
         downloadUrl: 'http://static.kxj.sstir.cn/static/2020/download/'
