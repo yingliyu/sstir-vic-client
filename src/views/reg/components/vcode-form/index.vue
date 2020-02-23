@@ -16,7 +16,7 @@
       <el-form-item>
         <div class="user-pact">
           注册表示您同意遵守
-          <span @click="toUserAgreement()">《用户协议》</span>
+          <span @click="toUserAgreement(true)">《用户协议》</span>
         </div>
       </el-form-item>
       <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">下一步</el-button>
@@ -127,8 +127,8 @@ export default {
     ...mapActions({
       login: 'logIn'
     }),
-    toUserAgreement () {
-      this.$emit('showUserAgreement', true)
+    toUserAgreement (val) {
+      this.$emit('showUserAgreement', val)
     },
     nextStep (formName) {
       this.$refs[formName].validate(async (valid) => {

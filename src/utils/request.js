@@ -12,15 +12,18 @@ export function AppPost (url, data) {
     instance
       .post(url, data,
         {
-        // 取消请求
+          // 取消请求
           cancelToken: new CancelToken(function executor (c) {
-          // An executor function receives a cancel function as a parameter
+            // An executor function receives a cancel function as a parameter
             sources.push(c)
           })
         })
       .then((res) => {
         if (res.data.code === '200') {
           resolve(res.data.data)
+        } else if (res.data.code === '403') {
+          this.$router.push('/login')
+          this.$message.error(res.data.msg)
         } else {
           reject(res.data.msg)
         }
@@ -57,6 +60,9 @@ export function AppGet (url, data) {
       .then((res) => {
         if (res.data.code === '200') {
           resolve(res.data.data)
+        } else if (res.data.code === '403') {
+          this.$router.push('/login')
+          this.$message.error(res.data.msg)
         } else {
           reject(res.data.msg)
         }

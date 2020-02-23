@@ -8,44 +8,29 @@
       @addclick="onAddClick"
     />
     <query-tbl>
+      <div slot="btn" class="btn-wrapper">
+        <el-link @click="toDataList" type="primary">返回数据列表</el-link>
+      </div>
       <div class="tbl-container">
         <el-table :data="tblData" border style="width:100%" ref="tbl">
-          <el-table-column
-            fixed
-            label="任务名称"
-            align="center"
-            prop="taskName"
-            :show-overflow-tooltip="true"
-          ></el-table-column>
-
+          <el-table-column fixed label="任务名称" prop="taskName" :show-overflow-tooltip="true"></el-table-column>
           <el-table-column
             label="发起时间"
-            align="center"
             prop="startTime"
             :show-overflow-tooltip="true"
             width="200px"
           ></el-table-column>
-          <el-table-column
-            label="运行时间"
-            align="center"
-            prop="duration"
-            :show-overflow-tooltip="true"
-            width="200px"
-          ></el-table-column>
-          <el-table-column
-            label="状态"
-            align="center"
-            prop="taskStatus"
-            :show-overflow-tooltip="true"
-            width="200px"
-          ></el-table-column>
-          <el-table-column
-            label="分析报告"
-            align="center"
-            prop="report"
-            :show-overflow-tooltip="true"
-            width="250px"
-          ></el-table-column>
+          <el-table-column label="运行时间" prop="duration" :show-overflow-tooltip="true" width="200px"></el-table-column>
+          <el-table-column label="状态" prop="taskStatus" :show-overflow-tooltip="true" width="200px">
+            <template slot-scope="scope">
+              <span>{{scope.row.taskStatus==='0'? '进行中': '完成'}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="分析报告" :show-overflow-tooltip="true" width="250px">
+            <template slot-scope="scope">
+              <a class="report-url" :href="scope.row.reportUrl">{{scope.row.reportUrl}}</a>
+            </template>
+          </el-table-column>
         </el-table>
 
         <el-pagination
@@ -83,6 +68,9 @@ export default {
   },
 
   methods: {
+    toDataList () {
+      this.$router.push('/datasheets/list')
+    },
     initData () {
       const statusList = [{
         value: 0,
@@ -105,7 +93,7 @@ export default {
       }
     },
 
-    onAddClick() {}
+    onAddClick () { }
   }
 }
 </script>
@@ -114,5 +102,12 @@ export default {
 .task-mgt-list-wrapper {
   display: flex;
   flex-flow: column nowrap;
+  .btn-wrapper {
+    padding-right: 10px;
+  }
+  .report-url {
+    color: #409eff;
+    text-decoration: underline;
+  }
 }
 </style>

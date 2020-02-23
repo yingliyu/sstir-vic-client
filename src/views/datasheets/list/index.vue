@@ -1,61 +1,46 @@
 <template>
   <div class="data-mgt-list-wrapper">
-
-    <query-form
+    <!-- <query-form
       v-if="querySchema.length > 0"
       :query-schema="querySchema"
       :query-model="queryModel"
       @queryclick="onQueryClick"
       :showAdd="false"
-    />
+    />-->
     <query-tbl>
       <div slot="btn" class="btn-wrapper">
-        <el-link v-if="showDelBtn" @click="delDataConfirm" type="primary">删除数据 </el-link>
+        <el-link v-if="showDelBtn" @click="delDataConfirm" type="primary">删除数据</el-link>
         <span></span>
-        <el-link @click="toNewData" type="primary">添加数据 </el-link>
+        <el-link @click="toNewData" type="primary">添加数据</el-link>
         <span></span>
         <el-link @click="toTaskList" type="primary">进入任务列表</el-link>
       </div>
       <div class="tbl-container">
         <el-tag
-        v-for="tag in Object.keys(currentSelect)"
-        :key="tag"
-        closable
-        class="tag"
-        size="medium"
-        @close="onCurrentTagDel(tag)"
-      >
-        {{ tag }}
-      </el-tag>
-        <el-table :data="tblData" border style="width:100%" ref="datasheetsTbl"
-        @select="selectHandle"
-        @select-all="selectAllHandle">
-           <el-table-column
-            type="selection"
-            width="40"
-           >
-          </el-table-column>
-          <el-table-column
-            fixed
-            label="数据名称"
-            align="center"
-            prop="dataName"
-            :show-overflow-tooltip="true"
-          ></el-table-column>
-          <el-table-column
-            label="大小"
-            align="center"
-            sortable
-            :show-overflow-tooltip="true"
-            width="200px"
-          >
-          <template slot-scope="scope">
-            <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
-          </template>
+          v-for="tag in Object.keys(currentSelect)"
+          :key="tag"
+          closable
+          class="tag"
+          size="medium"
+          @close="onCurrentTagDel(tag)"
+        >{{ tag }}</el-tag>
+        <el-table
+          :data="tblData"
+          border
+          style="width:100%"
+          ref="datasheetsTbl"
+          @select="selectHandle"
+          @select-all="selectAllHandle"
+        >
+          <el-table-column type="selection" width="40"></el-table-column>
+          <el-table-column fixed label="数据名称" prop="dataName" :show-overflow-tooltip="true"></el-table-column>
+          <el-table-column label="大小" sortable :show-overflow-tooltip="true" width="200px">
+            <template slot-scope="scope">
+              <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
+            </template>
           </el-table-column>
           <el-table-column
             label="上传日期"
-            align="center"
             prop="uploadTime"
             :show-overflow-tooltip="true"
             width="200px"
@@ -76,7 +61,6 @@
     <div class="start-task-wrapper">
       <el-button type="primary" size="medium" @click="startTask">开始任务</el-button>
     </div>
-
   </div>
 </template>
 
@@ -106,7 +90,7 @@ export default {
 
   methods: {
     // 删除标签
-    onCurrentTagDel(tag) {
+    onCurrentTagDel (tag) {
       delete this.currentSelect[tag]
       this.$forceUpdate()
       const rows = this.tblData.filter(row => {
@@ -117,7 +101,7 @@ export default {
       })
     },
     // 开始任务
-    startTask() {
+    startTask () {
       this.selectedData = []
       Object.keys(this.currentSelect).forEach(key => {
         this.selectedData.push({
@@ -131,7 +115,7 @@ export default {
         this.$message.error('请先选择数据')
       }
     },
-    delDataConfirm() {
+    delDataConfirm () {
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -146,7 +130,7 @@ export default {
       })
     },
     // 删除数据
-    async toDelData() {
+    async toDelData () {
       try {
         this.selectedData = []
         Object.keys(this.currentSelect).forEach(key => {
@@ -169,14 +153,14 @@ export default {
       }
     },
     // 新增数据
-    toNewData() {
+    toNewData () {
       this.$router.push('/datasheets/add')
     },
     // 任务列表
-    toTaskList() {
+    toTaskList () {
       this.$router.push('/task/list')
     },
-    handleSelectTable() {
+    handleSelectTable () {
       const keys = Object.keys(this.currentSelect)
       const rows = this.tblData.filter(row => {
         return keys.includes(row.dataName)
@@ -186,7 +170,7 @@ export default {
       })
     },
     // 选择表格某行
-    selectHandle(selection, row) {
+    selectHandle (selection, row) {
       if (this.currentSelect[row.dataName]) {
         delete this.currentSelect[row.dataName]
       } else {
@@ -203,7 +187,7 @@ export default {
       this.$forceUpdate()
     },
     // 表格全选
-    selectAllHandle(selection) {
+    selectAllHandle (selection) {
       // 全选
       if (selection.length) {
         selection.forEach((row) => {
@@ -246,14 +230,14 @@ export default {
 .data-mgt-list-wrapper {
   display: flex;
   flex-flow: column nowrap;
-  .btn-wrapper{
+  .btn-wrapper {
     padding-right: 10px;
-    span{
+    span {
       padding: 0 10px;
       color: #666;
     }
   }
-  .start-task-wrapper{
+  .start-task-wrapper {
     display: flex;
     justify-content: center;
     padding-bottom: 20px;

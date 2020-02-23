@@ -2,25 +2,47 @@
   <div class="container">
     <el-card ref="queryForm">
       <el-row slot="header" type="flex" justify="space-between">
-        <span style="font-weight: bolder;"><i style="margin-right: 5px;" class="el-icon-search"></i>{{ title }}</span>
+        <span style="font-weight: bolder;">
+          <i style="margin-right: 5px;" class="el-icon-search"></i>
+          {{ title }}
+        </span>
         <div class="btnContainer">
           <div v-show="isShow">
             <el-button type="warning" @click="resetForm">重置</el-button>
             <el-button type="primary" @click="queryForm">查询</el-button>
-            <el-button v-show="showAdd" type="primary" @click="addForm">新增</el-button>
-            <div style="display: inline-block; margin-left: 10px;"><slot name="button"></slot></div>
+            <!-- <el-button v-show="showAdd" type="primary" @click="addForm">新增</el-button> -->
+            <div style="display: inline-block; margin-left: 10px;">
+              <slot name="button"></slot>
+            </div>
           </div>
-          <i :class="opIcon" style="float: right; padding: 0 10px 0 20px; cursor:pointer" @click="onIconClick"></i>
+          <i
+            :class="opIcon"
+            style="float: right; padding: 0 10px 0 20px; cursor:pointer"
+            @click="onIconClick"
+          ></i>
         </div>
       </el-row>
       <transition name="fade">
         <div class="query-form" v-show="queryType">
           <el-form :inline="true" ref="queryForm" label-position="left">
-            <template><slot name="query"></slot></template>
+            <template>
+              <slot name="query"></slot>
+            </template>
             <el-row>
-              <el-col v-for="(com,index) in components" :key="index" :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-                <component :is="com.componentType" :formItem="com.formItem" :data.sync="queryModel[com.formItem.name]">
-                </component>
+              <el-col
+                v-for="(com,index) in components"
+                :key="index"
+                :xs="24"
+                :sm="12"
+                :md="12"
+                :lg="8"
+                :xl="8"
+              >
+                <component
+                  :is="com.componentType"
+                  :formItem="com.formItem"
+                  :data.sync="queryModel[com.formItem.name]"
+                ></component>
               </el-col>
             </el-row>
           </el-form>
