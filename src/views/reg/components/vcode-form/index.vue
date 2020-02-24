@@ -73,7 +73,7 @@ export default {
     return {
 
       kind: 'login',
-      formIndex: 0, // 当前展示第几步
+      formIndex: 1, // 当前展示第几步
       formTitle: '平台注册',
       vcodeBtnName: '获取验证码', // 验证码登录获取验证码按钮名称
       redirect: '',
@@ -223,6 +223,11 @@ export default {
 </script>
 <style lang='less' scoped>
 .reg-wrapper {
+  .get-code-wrapper{
+   /deep/ .get-code{
+      font-size: 12px;
+    }
+  }
   .btn-reg {
     font-size: 16px;
   }

@@ -8,7 +8,7 @@
       <div class="banner">
         <img class="pic-banner" src="./img/banner0.png" />
         <!-- 登录注册 start-->
-        <div class="login-wrapper">
+        <div class="reg-wrapper-outer">
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane :label="title ? title : '请完善信息'" name="first">
@@ -142,7 +142,7 @@ export default {
       position: relative;
     }
   }
-  .login-wrapper {
+  .reg-wrapper-outer {
     width: 400px;
     position: absolute;
     top: 40%;
@@ -190,46 +190,47 @@ export default {
 .el-tabs__active-bar {
   height: 3px;
 }
-.login-wrapper .el-tabs__content {
+.reg-wrapper-outer .el-tabs__content {
   width: 320px;
   margin: 0 auto;
 }
-.login-wrapper .el-tabs__header {
+.reg-wrapper-outer .el-tabs__header {
   margin: 0 0 25px;
 }
-.login-wrapper .el-col.el-col-12:first-child {
+.reg-wrapper-outer .el-col.el-col-12:first-child {
   text-align: left;
 }
-.login-wrapper .el-col.el-col-12:last-child {
+.reg-wrapper-outer .el-col.el-col-12:last-child {
   text-align: right;
   color: #377ffc;
 }
-.login-wrapper .el-button.btn-reg {
+.reg-wrapper-outer .el-button.btn-reg {
   width: 320px;
   height: 40px;
 }
-.login-wrapper .el-input--mini .el-input__inner {
+.reg-wrapper-outer .el-input--mini .el-input__inner {
   width: 100%;
   height: 40px;
   line-height: 40px;
 }
-.login-wrapper .el-button.get-code {
+.reg-wrapper-outer .el-button.get-code {
   width: 90px;
   height: 40px;
-  line-height: 40px;
+  padding: 0;
+  /* line-height: 40px; */
   position: absolute;
   right: 0;
   top: 0;
 }
-.login-wrapper .el-button.get-code:hover {
+.reg-wrapper-outer .el-button.get-code:hover {
   color: #f1f1f1;
 }
-.login-wrapper .el-button--mini,
-.login-wrapper .el-button--mini.is-round {
+.reg-wrapper-outer .el-button--mini,
+.reg-wrapper-outer .el-button--mini.is-round {
   padding: 0;
 }
 
-.login-wrapper .el-tabs__nav-scroll {
+.reg-wrapper-outer .el-tabs__nav-scroll {
   height: 55px;
   line-height: 55px;
   display: flex;
