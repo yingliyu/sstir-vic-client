@@ -71,7 +71,7 @@ export let email = {
   },
   pattern: {
     // type: 'email',
-    pattern: /^\w+@[a-z0-9]+\.[a-z]+$/i,
+    pattern: /[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}/i,
     message: '请输入正确的邮箱地址',
     trigger: ['blur']
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="home-wrapper">
-    <p>欢迎登录！</p>
+    <p>欢迎使用病毒基因检测平台！</p>
   </div>
 </template>
 
@@ -19,9 +19,9 @@ export default {
   padding: 20px;
   font-size: 24px;
   p{
-    padding-top: 50px;
+    padding-top: 200px;
     text-align: center;
-    color: #409EFF;
+    color: #666;
   }
 }
 </style>

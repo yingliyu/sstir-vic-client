@@ -23,7 +23,7 @@
           <el-table-column label="运行时间" prop="duration" :show-overflow-tooltip="true" width="200px"></el-table-column>
           <el-table-column label="状态" prop="taskStatus" :show-overflow-tooltip="true" width="200px">
             <template slot-scope="scope">
-              <span>{{scope.row.taskStatus==='0'? '进行中': '完成'}}</span>
+              <span>{{scope.row.taskStatus}}</span>
             </template>
           </el-table-column>
           <el-table-column label="分析报告" :show-overflow-tooltip="true" width="250px">

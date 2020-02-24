@@ -161,13 +161,15 @@ export default {
       this.$router.push('/task/list')
     },
     handleSelectTable () {
-      const keys = Object.keys(this.currentSelect)
-      const rows = this.tblData.filter(row => {
-        return keys.includes(row.dataName)
-      })
-      rows.forEach(row => {
-        this.$refs.datasheetsTbl.toggleRowSelection(row)
-      })
+      if (this.tblData) {
+        const keys = Object.keys(this.currentSelect)
+        const rows = this.tblData.filter(row => {
+          return keys.includes(row.dataName)
+        })
+        rows.forEach(row => {
+          this.$refs.datasheetsTbl.toggleRowSelection(row)
+        })
+      }
     },
     // 选择表格某行
     selectHandle (selection, row) {

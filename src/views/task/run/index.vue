@@ -108,7 +108,7 @@ export default {
     }
   },
   mounted() {
-    this.selectedData = this.$route.query.list === '' ? [] : JSON.parse(this.$route.query.list)
+    this.selectedData = (this.$route.query && this.$route.query.list) ? JSON.parse(this.$route.query.list) : []
   },
   methods: {
     ...mapMutations({
@@ -134,6 +134,7 @@ export default {
       this.queryModel.pageIndex = 1
       this.tblCnt = 0
       this.tblData = []
+      this.currentSelect = {}
       await this.onQuery()
       this.showSelect = true
       this.selectedData.forEach((item) => {
@@ -146,15 +147,17 @@ export default {
     },
 
     handleSelectTable() {
-      const keys = Object.keys(this.currentSelect)
-      const rows = this.tblData.filter(row => {
-        return keys.includes(row.dataName)
-      })
-      this.$nextTick(() => {
-        rows.forEach(row => {
-          this.$refs.tbl.toggleRowSelection(row)
+      if (this.tblData) {
+        const keys = Object.keys(this.currentSelect)
+        const rows = this.tblData.filter(row => {
+          return keys.includes(row.dataName)
         })
-      })
+        this.$nextTick(() => {
+          rows.forEach(row => {
+            this.$refs.tbl.toggleRowSelection(row)
+          })
+        })
+      }
     },
 
     onShowSelectCancelClick() {
