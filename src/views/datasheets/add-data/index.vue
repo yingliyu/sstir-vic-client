@@ -1,91 +1,57 @@
 <template>
   <div class="add-data-wrapper">
-    <el-card class="box-card">
-      <b>方法一：请点击右方链接前往上传</b>&nbsp;&nbsp;&nbsp;&nbsp;
-      <a class="ucloudLink" :href="url" target="_blank">
-        上传地址
-      </a>
-    </el-card>
+    <p><b>由于测序数据普遍比较大，我们建议您通过FTP传输数据</b></p>
+    <p class="ftp-data-txt">
+      <span v-if='userInfo.ip'>IP地址：<i>{{userInfo.ip}}</i></span>
+      <span v-if='userInfo.ftpHost'>端口：<i>{{userInfo.ftpHost}}</i></span>
+      <span v-if='userInfo.ftpUsername'>用户名：<i>{{userInfo.ftpUsername}}</i></span>
+      <span class='showPwd' v-if='userInfo.ftpPassword'>密码：
+        <el-tooltip class="item" effect="dark" :content="tooltipDesc" placement="right-start">
+          <el-button><i @click='copyActiveCode($event, userInfo.ftpPassword)'>******</i></el-button>
+        </el-tooltip>
+      </span>
+    </p>
     <br>
-    <el-card class="box-card">
-    <p><b>方法二：由于测序数据普遍比较大，我们建议您通过S3-Brower传输数据</b></p>
-    <div class="step-one">
-      <p>步骤一：立即下载</p>
-      <ul>
-        <li><a :href="macUrl"><i class="iconfont vic-mac"></i><span>mac版S3-Browser</span></a></li>
-        <li><a :href="windowsUrl"><i class="iconfont vic-windowsicon"></i><span>Windows版S3-Browser</span></a></li>
-        <li class="intro-txt"><a :href="useDocs"><i class="iconfont vic-word"></i><span>使用说明</span></a></li>
-      </ul>
-    </div>
-    <div class="step-two">
-      <p class="title">步骤二：登录客户端（登录信息如下）</p>
-      <ul>
-        <li>
-          <span>Account Name：</span>
-            <el-tooltip class="item" effect="dark" :content="tooltipDesc" placement="right-start">
-              <el-button><i @click='copyActiveCode($event, userInfo.uid)'>{{userInfo.uid}}</i></el-button>
-            </el-tooltip>
-        </li>
-        <li>
-          <span>REST Endpoint：</span>
-          <el-tooltip class="item" effect="dark" :content="tooltipDesc" placement="right-start">
-            <el-button><i @click='copyActiveCode($event, userInfo.endpoint)'>{{userInfo.endpoint}}</i></el-button>
-          </el-tooltip>
-        </li>
-        <li>
-          <span>Access Key ID：</span>
-          <el-tooltip class="item" effect="dark" :content="tooltipDesc" placement="right-start">
-            <el-button><i @click='copyActiveCode($event, userInfo.accessKey)'>{{userInfo.accessKey}}</i></el-button>
-          </el-tooltip>
-        </li>
-        <li>
-          <span>Secret Access Key：</span>
-          <el-tooltip class="item" effect="dark" :content="tooltipDesc" placement="right-start">
-            <el-button><i @click='copyActiveCode($event, userInfo.secretKey)'>{{userInfo.secretKey}}</i></el-button>
-          </el-tooltip>
-        </li>
-        </ul>
-    </div>
+    <p>立即下载</p>
+    <ul>
+      <li><a :href="macUrl"><i class="iconfont vic-mac"></i><span>mac版filezilla</span></a></li>
+      <li><a :href="windowsUrl"><i class="iconfont vic-windowsicon"></i><span>filezilla</span></a></li>
+      <li class="intro-txt"><a :href="useDocs"><i class="iconfont vic-word"></i><span>使用说明</span></a></li>
+    </ul>
+    <br>
+
     <p>
       如果您的数据量特别大（超过20G），请发送邮件至tyzuo@sstir.cn，我们将安排服务专员与您取得联系。
     </p>
     <p>
       疫情当前，服务量可能较大，服务时间可能超出常规时间，敬请理解。
     </p>
-    </el-card>
   </div>
 </template>
 
 <script>
+// import { datasheetsApi } from '@/service'
 import appConfig from '@/config'
-import { mapGetters } from 'vuex'
-import { datasheetsApi } from '@/service'
 import Clipboard from 'clipboard'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'ToolList',
 
-  data() {
+  data () {
     return {
-      ip: '',
-      port: '',
-      email: '',
-      pwd: '',
       tooltipDesc: '点击复制',
-      macUrl: appConfig.downloadUrl + 'S3-Browser-1.1 for mac.zip',
-      windowsUrl: appConfig.downloadUrl + 's3browser-8-6-7.exe',
-      useDocs: appConfig.downloadUrl + '配置 S3 Brower.docx'
+      macUrl: appConfig.downloadUrl + 'FileZilla_3.46.3_macosx-x86.app.tar.bz2',
+      windowsUrl: appConfig.downloadUrl + 'FileZilla_3.46.3_win64-setup.exe',
+      useDocs: appConfig.downloadUrl + 'filezilla使用指南.docx'
     }
   },
+
   mounted () {
-    this.initData()
+    console.log(this.userInfo)
+    // this.initData()
   },
   computed: {
-    ...mapGetters(['userInfo']),
-
-    url() {
-      return `${appConfig.ucloudUrl}?accesskey=${this.userInfo.accessKey}&secretkey=${this.userInfo.secretKey}`
-    }
+    ...mapGetters(['userInfo'])
   },
   methods: {
     // 复制密码到粘贴板
@@ -109,16 +75,16 @@ export default {
       clipboard.onClick(e)
     },
     async initData() {
-      try {
-        const { ip, port, email, pwd } = await datasheetsApi.getDataSource()
-        this.ip = ip
-        this.port = port
-        this.email = email
-        this.pwd = pwd
-      } catch (error) {
-        console.log(error)
-        this.$message.error(error)
-      }
+      // try {
+      //   const { ftpHost, port, ftpUsername, ftpPassword } = await datasheetsApi.getDataSource()
+      //   this.ip = ftpHost
+      //   this.port = port
+      //   this.email = ftpUsername
+      //   this.pwd = ftpPassword
+      // } catch (error) {
+      //   console.log(error)
+      //   this.$message.error(error)
+      // }
     }
   }
 }
@@ -128,13 +94,6 @@ export default {
 .add-data-wrapper {
   background: #fff;
   padding: 30px 50px;
-  .ucloudLink{
-    display: inline-block;
-    color: #409EFF;
-    cursor:pointer;
-    text-decoration: underline;
-    padding: 30px 0;
-  }
   .ftp-data-txt{
     span{
       font-size: 14px;
@@ -148,10 +107,8 @@ export default {
       cursor:pointer;
     }
   }
-  .step-one{
   ul{
     display: flex;
-    padding-left: 20px;
     span{
       color: #409EFF;
       text-decoration: underline;
@@ -175,18 +132,6 @@ export default {
       }
     }
 
-  }
-  }
-  .step-two{
-    .title{
-      padding-top: 30px;
-      padding-bottom:10px;
-    }
-    li{
-      font-size: 14px;
-      padding-left:20px;
-      padding-bottom: 10px;
-    }
   }
 }
 </style>
