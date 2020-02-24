@@ -66,7 +66,11 @@
       >
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column label="数据名" prop="dataName" />
-        <el-table-column label="大小" prop="dataSize" />
+        <el-table-column label="大小" prop="dataSize" >
+          <template slot-scope="scope">
+              <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
+            </template>
+        </el-table-column>
         <el-table-column label="上传日期" prop="uploadTime" />
       </el-table>
       <el-pagination

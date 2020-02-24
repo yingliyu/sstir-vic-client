@@ -20,7 +20,7 @@
             :show-overflow-tooltip="true"
             width="200px"
           ></el-table-column>
-          <el-table-column label="运行时间" prop="duration" :show-overflow-tooltip="true" width="200px"></el-table-column>
+          <el-table-column label="运行时间(分钟)" prop="duration" :show-overflow-tooltip="true" width="200px"></el-table-column>
           <el-table-column label="状态" prop="taskStatus" :show-overflow-tooltip="true" width="200px">
             <template slot-scope="scope">
               <span>{{scope.row.taskStatus}}</span>
