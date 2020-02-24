@@ -5,6 +5,6 @@ export default {
     opened: !!Cookies.get('sidebarStatus'),
     withoutAnimation: false
   },
-  language: Cookies.get('language') || 'zh',
+  language: Cookies.get('language') || 'en',
   device: 'desktop'
 }

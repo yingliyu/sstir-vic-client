@@ -19,6 +19,11 @@ import './permission'
 // 引入插件
 import * as Plugins from './plugins'
 
+import i18n from './lang'
+Vue.use(ElementUI, {
+  i18n: (key, value) => i18n.t(key, value)
+})
+
 Object.keys(Plugins).forEach(key => {
   Vue.use(Plugins[key])
 })
@@ -30,5 +35,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
