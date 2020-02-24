@@ -13,9 +13,7 @@ export default {
         const roles = ['admin']
         commit(MutationTypes.SET_USER_ROLES, roles)
         const temp = await loginApi.getUserInfo()
-        console.log(temp)
         commit(MutationTypes.SET_USER_INFO, { ...temp })
-        console.log(state)
         resolve(roles)
       } catch (err) {
         console.log('getuserinfo error')
