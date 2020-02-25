@@ -20,7 +20,12 @@
             :show-overflow-tooltip="true"
             width="200px"
           ></el-table-column>
-          <el-table-column label="运行时间(分钟)" prop="duration" :show-overflow-tooltip="true" width="200px"></el-table-column>
+          <el-table-column
+            label="运行时间(分钟)"
+            prop="duration"
+            :show-overflow-tooltip="true"
+            width="200px"
+          ></el-table-column>
           <el-table-column label="状态" prop="taskStatus" :show-overflow-tooltip="true" width="200px">
             <template slot-scope="scope">
               <span>{{scope.row.taskStatus}}</span>
@@ -73,11 +78,11 @@ export default {
     },
     initData () {
       const statusList = [{
-        value: 0,
+        value: 1,
         text: '进行中'
       },
       {
-        value: 1,
+        value: 2,
         text: '完成'
       }]
       this.querySchema.push(new this.$Schema('taskStatus', 'select', '状态:', '请选择', statusList))
