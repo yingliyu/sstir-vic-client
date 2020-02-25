@@ -14,8 +14,8 @@
         <div class="reg-wrapper-outer">
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-              <el-tab-pane :label="title ? title : $t('base.regTitle2')" name="first">
-                <vcode-form :lang='$t("base")' @showUserAgreement="showAgreeHandle" @update="receiveHandle"></vcode-form>
+              <el-tab-pane :label="title ? title : $t('reg.regTitle2')" name="first">
+                <vcode-form :lang='$t("reg")' @showUserAgreement="showAgreeHandle" @update="receiveHandle"></vcode-form>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -24,7 +24,7 @@
       </div>
     </div>
     <!-- 用户协议 -->
-    <el-dialog title :visible.sync="agreementVisible" width="60%">
+    <el-dialog :visible.sync="agreementVisible" width="60%">
       <user-doc :list="agreementList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="agreementVisible = false">{{$t('base.close')}}</el-button>

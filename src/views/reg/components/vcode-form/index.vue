@@ -112,6 +112,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.lang)
     this.redirect = this.$route.query.redirect
   },
   computed: {
