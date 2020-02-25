@@ -2,7 +2,6 @@ import instance from './axios'
 import axios from 'axios'
 import { Message } from 'element-ui'
 import qs from 'qs'
-
 const CancelToken = axios.CancelToken
 
 let sources = []
@@ -22,8 +21,8 @@ export function AppPost (url, data) {
         if (res.data.code === '200') {
           resolve(res.data.data)
         } else if (res.data.code === '403') {
-          this.$router.push('/login')
-          this.$message.error(res.data.msg)
+          reject(res.data.msg)
+          location.reload()
         } else {
           reject(res.data.msg)
         }
@@ -61,8 +60,8 @@ export function AppGet (url, data) {
         if (res.data.code === '200') {
           resolve(res.data.data)
         } else if (res.data.code === '403') {
-          this.$router.push('/login')
-          this.$message.error(res.data.msg)
+          reject(res.data.msg)
+          location.reload()
         } else {
           reject(res.data.msg)
         }
