@@ -3,13 +3,13 @@
     <div class="header">
       <div class="logo-wrapper">
         <img src="./img/logo.png" />
-        <span class="logo-txt">{{ $t('home.title') }}</span>
+        <span class="logo-txt">{{ $t('base.title') }}</span>
       </div>
       <div class="link-wrapper">
         <lang-select></lang-select>
-        <span class="login-link" @click="toLogin">{{ $t('home.btnLogin') }}</span>
+        <span class="login-link" @click="toLogin">{{ $t('base.btnLogin') }}</span>
         <span class="line">|</span>
-        <span class="reg-link" @click="toReg">{{ $t('home.btnReg') }}</span>
+        <span class="reg-link" @click="toReg">{{ $t('base.btnReg') }}</span>
       </div>
     </div>
     <div class="index-container">
@@ -35,7 +35,7 @@
         <footer>
           <div class="footer-inner">
             <p>{{$t('home.customerService')}}</p>
-            <ul>
+            <!-- <ul>
               <li>
                 沪ICP备10209921号-8
               </li>
@@ -45,7 +45,7 @@
               <li>
                 上海市钦州路100号二号楼4楼
               </li>
-            </ul>
+            </ul> -->
           </div>
         </footer>
       </div>

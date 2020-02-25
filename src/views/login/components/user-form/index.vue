@@ -2,24 +2,25 @@
   <div class="login-by-user">
     <el-form :model="userForm" :rules="userRules" ref="userForm">
       <el-form-item prop="userName">
-        <el-input placeholder="邮箱" v-model="userForm.userName" clearable></el-input>
+        <el-input :placeholder="lang.email" v-model="userForm.userName" clearable></el-input>
       </el-form-item>
       <el-form-item prop="pwd">
-        <el-input type="password" placeholder="密码" v-model="userForm.pwd" clearable></el-input>
+        <el-input type="password" :placeholder="lang.pwd" v-model="userForm.pwd" clearable></el-input>
       </el-form-item>
       <el-form-item class="checkbox-wrapper">
         <el-row>
           <el-col :span="12">
-            <el-checkbox label="下次自动登录" v-model="userForm.remeberPwd" name="type"></el-checkbox>
+            <el-checkbox :label="lang.autoLogin" v-model="userForm.remeberPwd" name="type"></el-checkbox>
           </el-col>
           <el-col :span="12">
             <router-link to="/reg" target="_blank">
-              <span>没有账户，去注册</span>
+              <!-- <span>没有账户，去注册</span> -->
+              <span>{{lang.btnReg}}</span>
             </router-link>
           </el-col>
         </el-row>
       </el-form-item>
-      <el-button type="primary" class="btn-login" @click="submitForm">登录</el-button>
+      <el-button type="primary" class="btn-login" @click="submitForm">{{lang.btnLogin}}</el-button>
     </el-form>
   </div>
 </template>
@@ -48,7 +49,13 @@ export default {
       }
     }
   },
+  props: {
+    lang: {
+      required: true
+    }
+  },
   mounted () {
+    console.log(this.lang)
     this.redirect = this.$route.query.redirect
   },
 

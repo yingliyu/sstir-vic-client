@@ -2,10 +2,10 @@
   <div class="reg-wrapper">
     <el-form v-if="formIndex===0" :model="codeForm" :rules="codeRules" ref="codeForm">
       <el-form-item prop="email">
-        <el-input placeholder="邮箱" v-model="codeForm.email" clearable></el-input>
+        <el-input :placeholder="lang.email" v-model="codeForm.email" clearable></el-input>
       </el-form-item>
       <el-form-item class="get-code-wrapper" prop="vcode">
-        <el-input placeholder="输入6位验证码" v-model="codeForm.vcode"></el-input>
+        <el-input :placeholder="lang.vcode" v-model="codeForm.vcode"></el-input>
         <el-button
           type="primary"
           :disabled="ifDisabled"
@@ -15,11 +15,11 @@
       </el-form-item>
       <el-form-item>
         <div class="user-pact">
-          注册表示您同意遵守
-          <span @click="toUserAgreement(true)">《用户协议》</span>
+          {{$t('base.regAgree')}}
+          <span @click="toUserAgreement(true)">{{$t('base.agreement')}}</span>
         </div>
       </el-form-item>
-      <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">下一步</el-button>
+      <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">{{$t('base.nextStep')}}</el-button>
     </el-form>
     <!-- 添加用户信息表单 -->
     <el-form v-else :model="userForm" :rules="userRules" ref="userForm">
@@ -73,7 +73,7 @@ export default {
     return {
 
       kind: 'login',
-      formIndex: 1, // 当前展示第几步
+      formIndex: 0, // 当前展示第几步
       formTitle: '平台注册',
       vcodeBtnName: '获取验证码', // 验证码登录获取验证码按钮名称
       redirect: '',
@@ -106,7 +106,11 @@ export default {
       }
     }
   },
-
+  props: {
+    lang: {
+      required: true
+    }
+  },
   mounted () {
     this.redirect = this.$route.query.redirect
   },

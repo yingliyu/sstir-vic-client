@@ -1,8 +1,11 @@
 <template>
   <div class="home-wrapper">
     <div class="header">
-      <img @click="toHome" class="logo" src="./img/logo.png" />
-      <span @click="toHome" class="logo-txt">病毒基因组检测平台</span>
+      <div class="logo-wrapper">
+        <img @click="toHome" class="logo" src="./img/logo.png" />
+        <span @click="toHome" class="logo-txt">{{$t('base.title')}}</span>
+      </div>
+      <lang-select></lang-select>
     </div>
     <div class="index-container">
       <div class="banner">
@@ -11,8 +14,8 @@
         <div class="reg-wrapper-outer">
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-              <el-tab-pane :label="title ? title : '请完善信息'" name="first">
-                <vcode-form @showUserAgreement="showAgreeHandle" @update="receiveHandle"></vcode-form>
+              <el-tab-pane :label="title ? title : $t('base.regTitle2')" name="first">
+                <vcode-form :lang='$t("base")' @showUserAgreement="showAgreeHandle" @update="receiveHandle"></vcode-form>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -24,7 +27,7 @@
     <el-dialog title :visible.sync="agreementVisible" width="60%">
       <user-doc :list="agreementList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="agreementVisible = false">关 闭</el-button>
+        <el-button type="primary" @click="agreementVisible = false">{{$t('base.close')}}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -35,11 +38,13 @@ import VcodeForm from './components/vcode-form'
 import { mapActions } from 'vuex'
 import agreementData from './user-agree'
 import UserDoc from '@/components/user-doc'
+import LangSelect from '@/components/lang-select'
 export default {
   name: 'UserReg',
   components: {
     VcodeForm,
-    UserDoc
+    UserDoc,
+    LangSelect
   },
   data () {
     return {
@@ -99,7 +104,12 @@ export default {
     line-height: 50px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding-left: 10px;
+    .logo-wrapper{
+      display: flex;
+      align-items: center;
+    }
     .logo-txt {
       padding-left: 5px;
       cursor: pointer;
