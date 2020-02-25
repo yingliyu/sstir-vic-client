@@ -15,7 +15,7 @@
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane :label="title ? title : $t('reg.regTitle2')" name="first">
-                <vcode-form :lang='$t("reg")' @showUserAgreement="showAgreeHandle" @update="receiveHandle"></vcode-form>
+                <vcode-form @showUserAgreement="showAgreeHandle" @update="receiveHandle"></vcode-form>
               </el-tab-pane>
             </el-tabs>
           </div>
@@ -25,7 +25,7 @@
     </div>
     <!-- 用户协议 -->
     <el-dialog :visible.sync="agreementVisible" width="60%">
-      <user-doc :list="agreementList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
+      <user-doc :list="$t('policy')" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="agreementVisible = false">{{$t('base.close')}}</el-button>
       </span>
@@ -36,7 +36,6 @@
 <script>
 import VcodeForm from './components/vcode-form'
 import { mapActions } from 'vuex'
-import agreementData from './user-agree'
 import UserDoc from '@/components/user-doc'
 import LangSelect from '@/components/lang-select'
 export default {
@@ -49,11 +48,10 @@ export default {
   data () {
     return {
       agreementVisible: false,
-      agreementList: agreementData,
       titleAlign: 'center',
       imgW: '70%',
       redirect: '',
-      title: '平台注册',
+      // title: '平台注册',
       activeName: 'first', // tabBar active
       loginType: '', // 登录方式：账号密码password|免密vcode
       imgCarousel: 0
@@ -63,7 +61,14 @@ export default {
   mounted () {
     this.redirect = this.$route.query.redirect
   },
-
+  computed: {
+    language() {
+      return this.$store.getters.language
+    },
+    title() {
+      return this.language === 'en' ? 'Register' : '平台注册'
+    }
+  },
   methods: {
     ...mapActions({
       login: 'logIn'
@@ -224,7 +229,7 @@ export default {
   line-height: 40px;
 }
 .reg-wrapper-outer .el-button.get-code {
-  width: 90px;
+  width: 135px;
   height: 40px;
   padding: 0;
   /* line-height: 40px; */

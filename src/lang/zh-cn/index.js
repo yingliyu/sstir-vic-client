@@ -4,9 +4,13 @@ import base from './base'
 import home from './home'
 // 注册&修改密码
 import reg from './reg'
+import policy from './policy'
+import agreement from './agreement'
 
 export default {
   base,
   home,
-  reg
+  reg,
+  policy,
+  agreement
 }

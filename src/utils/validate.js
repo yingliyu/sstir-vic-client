@@ -31,24 +31,42 @@ export let loginName = {
 }
 
 /** 密码 */
-export let password = {
-  required: {
+export let password = [
+  {
     required: true,
     message: '请输入密码',
     trigger: 'blur'
   },
-  length: {
+  {
     min: 8,
     max: 16,
     message: '密码长度8-16位，包括字母和数字（区分大小写）',
     trigger: ['blur']
   },
-  pattern: {
+  {
     pattern: /^(?![^a-zA-Z]+$)(?!\D+$)/,
     message: '密码长度8-16位，包括字母和数字（区分大小写）'
   }
-}
+]
 
+/** 密码 */
+export let passwordEn = [
+  {
+    required: true,
+    message: 'Please input password',
+    trigger: 'blur'
+  },
+  {
+    min: 8,
+    max: 16,
+    message: 'Password length is 8-16 characters, including letters and numbers (case sensitive)',
+    trigger: ['blur']
+  },
+  {
+    pattern: /^(?![^a-zA-Z]+$)(?!\D+$)/,
+    message: 'Password length is 8-16 characters, including letters and numbers (case sensitive)'
+  }
+]
 /** 手机号 */
 export let phone = {
   required: {
@@ -63,32 +81,33 @@ export let phone = {
 }
 
 /** 邮箱 */
-export let email = {
-  required: {
+export let email = [
+  {
     required: true,
     message: '请输入邮箱地址',
     trigger: 'blur'
   },
-  pattern: {
+  {
     // type: 'email',
     pattern: /[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}/i,
     message: '请输入正确的邮箱地址',
     trigger: ['blur']
   }
-}
-
-/** 身份证号 */
-export let idcard = {
-  required: {
+]
+/** 邮箱 */
+export let emailEn = [
+  {
     required: true,
-    message: '请输入身份证号',
+    message: 'Please input email',
     trigger: 'blur'
   },
-  pattern: {
-    pattern: /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/,
-    message: '请输入正确的身份证号码'
+  {
+    // type: 'email',
+    pattern: /[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}/i,
+    message: 'Please input the correct email address',
+    trigger: ['blur']
   }
-}
+]
 
 /* 合法uri */
 export function validateURL (textval) {

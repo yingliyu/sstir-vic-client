@@ -6,6 +6,8 @@ export default {
   email: '邮箱',
   pwd: '密码',
   autoLogin: '下次自动登录',
-  close: '关闭'
-
+  close: '关闭',
+  welcome: '欢迎使用病毒基因检测平台！',
+  policy: '隐私政策',
+  agreement: '用户协议'
 }

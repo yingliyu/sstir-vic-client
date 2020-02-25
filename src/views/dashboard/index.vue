@@ -1,6 +1,6 @@
 <template>
   <div class="home-wrapper">
-    <p>欢迎使用病毒基因检测平台！</p>
+    <p>{{$t('base.welcome')}}</p>
   </div>
 </template>
 

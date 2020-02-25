@@ -74,21 +74,21 @@
       </li>
     </ul>
     <div class="user-agree">
-      <a @click="agreementVisible=true">用户协议</a>
-      <a @click="policyVisible=true">隐私政策</a>
+      <a @click="agreementVisible=true">{{$t('base.agreement')}}</a>
+      <a @click="policyVisible=true">{{$t('base.policy')}}</a>
     </div>
     <!-- 隐私政策 -->
     <el-dialog title :visible.sync="policyVisible" width="60%" :before-close="handleClose">
-      <user-doc :list="policyList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
+      <user-doc :list="$t('policy')" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="policyVisible = false">关 闭</el-button>
+        <el-button type="primary" @click="policyVisible = false">{{$t('base.close')}}</el-button>
       </span>
     </el-dialog>
     <!-- 用户协议 -->
     <el-dialog title :visible.sync="agreementVisible" width="60%" :before-close="handleClose">
-      <user-doc :list="agreementList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
+      <user-doc :list="$t('agreement')" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="agreementVisible = false">关 闭</el-button>
+        <el-button type="primary" @click="agreementVisible = false">{{$t('base.close')}}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -98,15 +98,11 @@ import { userApi } from '@/service'
 import { mapGetters, mapActions } from 'vuex'
 import appConfig from '@/config'
 import UserDoc from '@/components/user-doc'
-import policyData from './policy-data'
-import agreementData from './user-agree'
 
 export default {
   name: 'EditUser',
   data () {
     return {
-      policyList: policyData,
-      agreementList: agreementData,
       titleAlign: 'center',
       imgW: '70%',
       uploadUrl: appConfig.uploadUrl,

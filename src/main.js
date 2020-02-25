@@ -21,6 +21,7 @@ import * as Plugins from './plugins'
 
 import i18n from './lang'
 Vue.use(ElementUI, {
+  size: 'mini',
   i18n: (key, value) => i18n.t(key, value)
 })
 

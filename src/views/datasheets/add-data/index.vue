@@ -14,9 +14,9 @@
     <br>
     <p>立即下载</p>
     <ul>
-      <li><a :href="macUrl"><i class="iconfont vic-mac"></i><span>mac版filezilla</span></a></li>
-      <li><a :href="windowsUrl"><i class="iconfont vic-windowsicon"></i><span>filezilla</span></a></li>
-      <li class="intro-txt"><a :href="useDocs"><i class="iconfont vic-word"></i><span>使用说明</span></a></li>
+      <li><a :href="macUrl"><i class="iconfont vic-mac"></i><span>mac-filezilla</span></a></li>
+      <li><a :href="windowsUrl"><i class="iconfont vic-windowsicon"></i><span>windows-filezilla</span></a></li>
+      <li class="intro-txt"><a :href="useDocs"><i class="iconfont vic-word"></i><span>Readme</span></a></li>
     </ul>
     <br>
 

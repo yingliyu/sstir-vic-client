@@ -16,7 +16,7 @@
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
               <el-tab-pane :label="$t('base.loginTitle')" name="first">
-                <user-form :lang='$t("base")'></user-form>
+                <user-form></user-form>
               </el-tab-pane>
             </el-tabs>
           </div>

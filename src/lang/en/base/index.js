@@ -11,6 +11,9 @@ export default {
   close: 'Close',
   vcode: 'Verification code',
   regAgree: 'Sign up to agree to abide by user',
-  agreement: ' agreement',
-  nextStep: 'Next'
+  // agreement: ' agreement',
+  nextStep: 'Next',
+  welcome: 'Welcome to the viral gene detection platform!',
+  policy: 'Tracking',
+  agreement: 'User Agreement'
 }
