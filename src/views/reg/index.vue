@@ -1,7 +1,9 @@
 <template>
   <div class="home-wrapper">
     <div class="header">
-      <img @click="toHome" class="logo" src="./img/logo.png" />
+      <span>
+        <img @click="toHome" class="logo" src="./img/logo.png" />
+      </span>
       <span @click="toHome" class="logo-txt">病毒基因组检测平台</span>
     </div>
     <div class="index-container">
@@ -107,6 +109,7 @@ export default {
     img {
       height: 40px;
       cursor: pointer;
+      vertical-align: middle;
     }
   }
   .index-header {

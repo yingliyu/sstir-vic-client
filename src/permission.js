@@ -9,7 +9,6 @@ import { sources } from '@/utils/request'
 import { Message } from 'element-ui'
 
 import { getToken } from '@/utils/auth'
-console.log(router)
 
 NProgress.configure({ showSpinner: false })
 
@@ -30,7 +29,6 @@ router.beforeEach((to, from, next) => {
   })
   // 清空
   sources.length = 0
-  console.log(getToken())
   if (getToken()) {
     // cookie中存在token的场合
     store.commit('set_token', getToken())

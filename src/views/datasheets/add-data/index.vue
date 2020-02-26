@@ -1,7 +1,7 @@
 <template>
   <div class="add-data-wrapper">
     <p>
-      <b>由于测序数据普遍比较大，我们建议您通过FTP传输数据</b>
+      <b>由于测序数据普遍比较大，我们建议您通过SFTP传输数据</b>
     </p>
     <p class="ftp-data-txt">
       <span v-if="userInfo.ftpHost">
@@ -19,8 +19,8 @@
       <span class="showPwd" v-if="userInfo.ftpPassword">
         密码：
         <el-tooltip class="item" effect="dark" :content="tooltipDesc" placement="right-start">
-          <el-button>
-            <i @click="copyActiveCode($event, userInfo.ftpPassword)">******</i>
+          <el-button @click="copyActiveCode($event, userInfo.ftpPassword)">
+            <i>******</i>
           </el-button>
         </el-tooltip>
       </span>
@@ -31,19 +31,19 @@
       <li>
         <a :href="macUrl">
           <i class="iconfont vic-mac"></i>
-          <span>mac版filezilla</span>
+          <p>mac-filezilla</p>
         </a>
       </li>
       <li>
         <a :href="windowsUrl">
           <i class="iconfont vic-windowsicon"></i>
-          <span>filezilla</span>
+          <p>windows-filezilla</p>
         </a>
       </li>
       <li class="intro-txt">
         <a :href="useDocs">
           <i class="iconfont vic-word"></i>
-          <span>使用说明</span>
+          <p>Readme</p>
         </a>
       </li>
     </ul>
@@ -72,7 +72,6 @@ export default {
   },
 
   mounted () {
-    console.log(this.userInfo)
     // this.initData()
   },
   computed: {
@@ -91,7 +90,7 @@ export default {
       })
       clipboard.on('error', e => {
         // 不支持复制
-        this.$message({ type: 'waning', message: '该浏览器不支持自动复制，更换浏览器试试吧~' })
+        this.$message({ type: 'error', message: '该浏览器不支持自动复制，更换浏览器试试吧~' })
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')
@@ -134,7 +133,7 @@ export default {
   }
   ul {
     display: flex;
-    span {
+    p {
       color: #409eff;
       text-decoration: underline;
       padding-top: 10px;
@@ -144,13 +143,15 @@ export default {
       padding-left: 20px;
     }
     a {
-      display: flex;
+      display: inline-block;
       height: 100%;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      // flex-direction: column;
+      // -ms-flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
       padding: 10px 40px 10px 0px;
       cursor: pointer;
+      text-align: center;
       .iconfont {
         font-size: 40px;
         color: #666666;

@@ -10,7 +10,7 @@
 
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
-        <search id="header-search" class="right-menu-item" />
+        <!-- <search id="header-search" class="right-menu-item" /> -->
         <el-tooltip content="全屏" effect="dark" placement="bottom">
           <screenfull class="screenfull right-menu-item" />
         </el-tooltip>
@@ -55,7 +55,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import Breadcrumb from '@/components/breadcrumb'
 import Hamburger from '@/components/hamburger'
 import Screenfull from '@/components/screenfull'
-import Search from '@/components/header-search'
+// import Search from '@/components/header-search'
 
 import avatar from './img/user-avatar.png'
 
@@ -65,8 +65,8 @@ export default {
   components: {
     Breadcrumb,
     Hamburger,
-    Screenfull,
-    Search
+    Screenfull
+    // Search
   },
 
   data () {

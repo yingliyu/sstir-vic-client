@@ -3,7 +3,8 @@
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <div class="logo-wrapper">
       <router-link to="/home/dashboard">
-        <img :src="logo" alt :style="{width: isCollapse ? '36px' : '72px'}" />
+        <!-- <img :src="logo" :style="{width: isCollapse ? '36px' : '72px'}" /> -->
+        <img :src="logo" :width="isCollapse ? '36px': '72px'" height="auto"/>
       </router-link>
     </div>
     <el-menu

@@ -36,7 +36,7 @@
         <footer>
           <div class="footer-inner">
             <p>客服咨询： tyzuo@sstir.cn</p>
-            <ul>
+            <!-- <ul>
               <li>
                 沪ICP备10209921号-8
               </li>
@@ -46,7 +46,7 @@
               <li>
                 上海市钦州路100号二号楼4楼
               </li>
-            </ul>
+            </ul> -->
           </div>
         </footer>
       </div>
