@@ -43,7 +43,7 @@
     <el-dialog
       title="选择数据"
       :append-to-body="true"
-      modal-append-to-body="false"
+      :modal-append-to-body="false"
       :visible.sync="showSelect"
       width="800px"
       :close-on-click-modal="false"
