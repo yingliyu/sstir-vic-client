@@ -1,7 +1,7 @@
 <template>
   <div class="change-pwd-wrapper">
     <div class="container">
-      <el-alert center :title="'密码修改成功，将在' + sec + '秒后自动退出登录'" type="success" v-show="showSuccess"></el-alert>
+      <el-alert center :title="$t('user.changepwd.tips') + sec + 's'" type="success" v-show="showSuccess"></el-alert>
       <el-row type="flex" justify="center">
         <el-col :span="8" style="text-align: center;">
           <i class="el-icon-lock" style="font-size:40px"></i>
@@ -10,24 +10,24 @@
       <br />
       <el-row type="flex" justify="center">
         <el-col :span="12">
-          <el-form label-width="120px" :model="model" :rules="rules" ref="form">
-            <el-form-item label="老密码:" prop="pwd">
+          <el-form label-width="260px" :model="model" :rules="rules" ref="form">
+            <el-form-item :label="$t('user.changepwd.oldpwd')" prop="pwd">
               <el-input
                 class="form-input"
                 :type="passwordType"
                 v-model="model.pwd"
-                placeholder="请输入老密码"
+                :placeholder="$t('user.changepwd.oldpwd1')"
                 clearable
               >
                 <i slot="suffix" class="el-icon-yg-eye icon el-input__icon" @click="changePwdType"></i>
               </el-input>
             </el-form-item>
-            <el-form-item label="新密码:" prop="newpwd">
+            <el-form-item :label="$t('user.changepwd.newpwd')" prop="newpwd">
               <el-input
                 class="form-input"
                 :type="newpwdType"
                 v-model="model.newpwd"
-                placeholder="请输入新密码"
+                :placeholder="$t('user.changepwd.newpwd1')"
                 clearable
               >
                 <i
@@ -37,12 +37,12 @@
                 ></i>
               </el-input>
             </el-form-item>
-            <el-form-item label="再次输入新密码:" prop="newpwdAg">
+            <el-form-item :label="$t('user.changepwd.newpwd2')" prop="newpwdAg">
               <el-input
                 class="form-input"
                 :type="newpwdAgType"
                 v-model="model.newpwdAg"
-                placeholder="再次输入新密码"
+                :placeholder="$t('user.changepwd.newpwd2')"
                 clearable
               >
                 <i
@@ -57,7 +57,7 @@
       </el-row>
       <el-row type="flex" justify="center" v-if="!isComplete">
         <el-col :span="8" class="btn">
-          <el-button type="primary" @click="onSave('form')">保存</el-button>
+          <el-button type="primary" @click="onSave('form')">{{$t('user.changepwd.save')}}</el-button>
         </el-col>
       </el-row>
     </div>
@@ -74,9 +74,9 @@ export default {
   data() {
     let validatePwd = (rule, val, cb) => {
       if (val === '') {
-        cb(new Error('请输入老密码'))
+        cb(new Error(this.$t('user.changepwd.oldpwd1')))
       } else if (val.length < 8 || val.length > 16) {
-        cb(new Error('密码长度8-16位，包括字母和数字（区分大小写）'))
+        cb(new Error(this.$t('user.changepwd.pwdRule2')))
       } else {
         if (this.model.newpwd !== '') {
           this.$refs.form.validateField('newpwd')
@@ -87,16 +87,16 @@ export default {
 
     let validatenewpwd = (rule, val, cb) => {
       if (val === '') {
-        cb(new Error('请输入新密码'))
+        cb(new Error(this.$t('user.changepwd.newpwd1')))
       } else {
         if (this.model.pwd) {
           if (val === this.model.pwd) {
-            cb(new Error('新老密码不能一致'))
+            cb(new Error(this.$t('user.changepwd.pwdRule1')))
           }
         }
         const reg = /^(?![^a-zA-Z]+$)(?!\D+$)/
         if (!reg.test(val) || val.length < 8 || val.length > 16) {
-          cb(new Error('密码长度8-16位，包括字母和数字（区分大小写）'))
+          cb(new Error(this.$t('user.changepwd.pwdRule2')))
         } else {
           if (this.model.newpwdAg !== '') {
             this.$refs.form.validateField('newpwdAg')
@@ -108,9 +108,9 @@ export default {
 
     let validatenewpwdAg = (rule, val, cb) => {
       if (val === '') {
-        cb(new Error('请再次输入新密码'))
+        cb(new Error(this.$t('user.changepwd.newpwd2')))
       } else if (val !== this.model.newpwd) {
-        cb(new Error('新密码不一致'))
+        cb(new Error(this.$t('user.changepwd.pwdRule3')))
       } else {
         cb()
       }
@@ -136,12 +136,51 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['userInfo']),
+    ...mapGetters(['userInfo', 'language']),
     userId() {
       return this.userInfo.userId
     }
   },
+  watch: {
+    language() {
+      this.rules = {
+        pwd: [{ validator: this.validatePwd, trigger: 'blur' }],
+        newpwd: [{ validator: this.validatenewpwd, trigger: 'blur' }],
+        newpwdAg: [{ validator: this.validatenewpwdAg, trigger: 'blur' }]
+      }
+    }
+  },
   methods: {
+    validatenewpwd (rule, val, cb) {
+      if (val === '') {
+        cb(new Error(this.$t('user.changepwd.newpwd1')))
+      } else {
+        if (this.model.pwd) {
+          if (val === this.model.pwd) {
+            cb(new Error(this.$t('user.changepwd.pwdRule1')))
+          }
+        }
+        const reg = /^(?![^a-zA-Z]+$)(?!\D+$)/
+        if (!reg.test(val) || val.length < 8 || val.length > 16) {
+          cb(new Error(this.$t('user.changepwd.pwdRule2')))
+        } else {
+          if (this.model.newpwdAg !== '') {
+            this.$refs.form.validateField('newpwdAg')
+          }
+          cb()
+        }
+      }
+    },
+
+    validatenewpwdAg(rule, val, cb) {
+      if (val === '') {
+        cb(new Error(this.$t('user.changepwd.newpwd2')))
+      } else if (val !== this.model.newpwd) {
+        cb(new Error(this.$t('user.changepwd.pwdRule3')))
+      } else {
+        cb()
+      }
+    },
     changePwdType() {
       this.passwordType = this.passwordType === 'text' ? 'password' : 'text'
     },

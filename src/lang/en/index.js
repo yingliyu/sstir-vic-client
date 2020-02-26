@@ -6,11 +6,21 @@ import home from './home'
 import reg from './reg'
 import policy from './policy'
 import agreement from './agreement'
+import layout from './layout'
+import query from './query'
+import dataMgt from './data-mgt'
+import taskMgt from './task-mgt'
+import user from './user'
 
 export default {
   base,
   home,
   reg,
   policy,
-  agreement
+  agreement,
+  layout,
+  query,
+  dataMgt,
+  taskMgt,
+  user
 }

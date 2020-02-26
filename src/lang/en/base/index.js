@@ -15,5 +15,7 @@ export default {
   nextStep: 'Next',
   welcome: 'Welcome to the viral gene detection platform!',
   policy: 'Tracking',
-  agreement: 'User Agreement'
+  agreement: 'User Agreement',
+  cancel: 'Cencel',
+  sure: 'Yes'
 }

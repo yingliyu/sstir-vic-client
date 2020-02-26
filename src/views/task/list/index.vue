@@ -9,24 +9,24 @@
     />
     <query-tbl>
       <div slot="btn" class="btn-wrapper">
-        <el-link @click="toDataList" type="primary">返回数据列表</el-link>
+        <el-link @click="toDataList" type="primary">{{$t('taskMgt.lists.toDatas')}}</el-link>
       </div>
       <div class="tbl-container">
         <el-table :data="tblData" border style="width:100%" ref="tbl">
-          <el-table-column fixed label="任务名称" prop="taskName" :show-overflow-tooltip="true"></el-table-column>
+          <el-table-column fixed :label="$t('taskMgt.lists.taskName')" prop="taskName" :show-overflow-tooltip="true"></el-table-column>
           <el-table-column
-            label="发起时间"
+            :label="$t('taskMgt.lists.startTime')"
             prop="startTime"
             :show-overflow-tooltip="true"
             width="200px"
           ></el-table-column>
-          <el-table-column label="运行时间(分钟)" prop="duration" :show-overflow-tooltip="true" width="200px"></el-table-column>
-          <el-table-column label="状态" prop="taskStatus" :show-overflow-tooltip="true" width="200px">
+          <el-table-column :label="$t('taskMgt.lists.duration')" prop="duration" :show-overflow-tooltip="true" width="200px"></el-table-column>
+          <el-table-column :label="$t('taskMgt.lists.taskStatus')" prop="taskStatus" :show-overflow-tooltip="true" width="200px">
             <template slot-scope="scope">
               <span>{{scope.row.taskStatus}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="分析报告" :show-overflow-tooltip="true" width="250px">
+          <el-table-column :label="$t('taskMgt.lists.reportUrl')" :show-overflow-tooltip="true" width="250px">
             <template slot-scope="scope">
               <a class="report-url" :href="scope.row.reportUrl">{{scope.row.reportUrl}}</a>
             </template>
@@ -74,13 +74,13 @@ export default {
     initData () {
       const statusList = [{
         value: 0,
-        text: '进行中'
+        text: this.$t('taskMgt.lists.adding')
       },
       {
         value: 1,
-        text: '完成'
+        text: this.$t('taskMgt.lists.complete')
       }]
-      this.querySchema.push(new this.$Schema('taskStatus', 'select', '状态:', '请选择', statusList))
+      this.querySchema.push(new this.$Schema('taskStatus', 'select', this.$t('taskMgt.lists.taskStatus') + ':', this.$t('taskMgt.lists.select'), statusList))
     },
 
     async onQuery () {

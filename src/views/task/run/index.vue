@@ -1,13 +1,13 @@
 <template>
   <div class="task-detail-wrapper">
     <div class="process-wrapper">
-      <h1>分析流程</h1>
+      <h1>{{$t('taskMgt.add.title')}}</h1>
       <img :src="ProcessPic" alt="" />
     </div>
     <div class="op-wrap">
-      <h1>选择数据</h1>
+      <h1>{{$t('taskMgt.add.selData')}}</h1>
       <div class="content-wrapper">
-        已选择数据：
+        {{$t('taskMgt.add.selected')}}:
         <el-tag
           v-for="(tag, index) in selectedData"
           :key="tag.dataName"
@@ -18,31 +18,29 @@
         >
           {{ tag.dataName }}
         </el-tag>
-        <el-button type="primary" size="medium" @click="onShowSelectClick">选择数据</el-button>
+        <el-button type="primary" size="medium" @click="onShowSelectClick">{{$t('taskMgt.add.selData')}}</el-button>
         <div class="desc">
-          <p>注意事项:</p>
+          <p>{{$t('taskMgt.add.cautions')}}:</p>
           <ul>
             <li>
-              1.
-              检测流程只支持双端测序的样本，两个文件的前缀请保持相同；勾选时如果遗漏，将无法进行分析！
+              {{$t('taskMgt.add.desc1')}}
             </li>
-            <li>2. 测序文件后缀请保证为fastq.gz或fq.gz，其它格式系统可能无法识别</li>
+            <li>{{$t('taskMgt.add.desc2')}}</li>
             <li>
-              3.
-              每个样本的检测时间，大约为3小时；全部完成后，系统将通过邮件通知您；每个样本的PDF报告会自动生成在对应测序数据的下面
+              {{$t('taskMgt.add.desc3')}}
             </li>
-            <li>4. 有任何疑问，可以联系tyzuo@sstir.cn，我们将派出专员为您解答</li>
+            <li>{{$t('taskMgt.add.desc4')}}</li>
           </ul>
         </div>
         <div class="btn-wrapper">
-          <el-button size="medium" type="primary" @click="onStartClick">开始运行</el-button>
+          <el-button size="medium" type="primary" @click="onStartClick">{{$t('taskMgt.add.startRun')}}</el-button>
         </div>
       </div>
     </div>
 
     <!-- 弹出层 -->
     <el-dialog
-      title="选择数据"
+      :title="$t('taskMgt.add.selData')"
       :visible.sync="showSelect"
       width="800px"
       :close-on-click-modal="false"
@@ -65,13 +63,13 @@
         @select-all="onSelectAll"
       >
         <el-table-column type="selection" width="55"> </el-table-column>
-        <el-table-column label="数据名" prop="dataName" />
-        <el-table-column label="大小" prop="dataSize" >
+        <el-table-column :label="$t('dataMgt.lists.name')" prop="dataName" />
+        <el-table-column :label="$t('dataMgt.lists.size')" prop="dataSize" >
           <template slot-scope="scope">
               <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
             </template>
         </el-table-column>
-        <el-table-column label="上传日期" prop="uploadTime" />
+        <el-table-column :label="$t('dataMgt.lists.upDate')" prop="uploadTime" />
       </el-table>
       <el-pagination
         @current-change="onPageChange"
@@ -82,8 +80,8 @@
         :total="tblCnt"
       />
       <span slot="footer" class="dialog-footer">
-        <el-button @click="onShowSelectCancelClick">取 消</el-button>
-        <el-button type="primary" @click="onSelectConfirmClick">确 定</el-button>
+        <el-button @click="onShowSelectCancelClick">{{$t('base.cancel')}}</el-button>
+        <el-button type="primary" @click="onSelectConfirmClick">{{$t('base.sure')}}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -228,7 +226,7 @@ export default {
 
     async onStartClick() {
       if (this.selectedData.length !== 2) {
-        this.$message.error('请选择两条基因测序数据(确保前缀名相同)')
+        this.$message.error(this.$t('TaskMgt.add.tips1'))
       } else {
         try {
           // 调用接口
@@ -245,7 +243,7 @@ export default {
             this.delTag(this.$route)
             this.$router.push('/task/list')
           } else {
-            this.$message.error('任务运行失败，请重试!')
+            this.$message.error(this.$t('TaskMgt.add.tips2'))
           }
         } catch (error) {
           this.$message.error(error)

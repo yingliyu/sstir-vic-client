@@ -9,11 +9,11 @@
     />-->
     <query-tbl>
       <div slot="btn" class="btn-wrapper">
-        <el-link v-if="showDelBtn" @click="delDataConfirm" type="primary">删除数据</el-link>
+        <el-link v-if="showDelBtn" @click="delDataConfirm" type="primary">{{$t('dataMgt.lists.delData')}}</el-link>
         <span></span>
-        <el-link @click="toNewData" type="primary">添加数据</el-link>
+        <el-link @click="toNewData" type="primary">{{$t('dataMgt.lists.addData')}}</el-link>
         <span></span>
-        <el-link @click="toTaskList" type="primary">进入任务列表</el-link>
+        <el-link @click="toTaskList" type="primary">{{$t('dataMgt.lists.toTask')}}</el-link>
       </div>
       <div class="tbl-container">
         <el-tag
@@ -33,14 +33,14 @@
           @select-all="selectAllHandle"
         >
           <el-table-column type="selection" width="40"></el-table-column>
-          <el-table-column fixed label="数据名称" prop="dataName" :show-overflow-tooltip="true"></el-table-column>
-          <el-table-column label="大小" sortable :show-overflow-tooltip="true" width="200px">
+          <el-table-column fixed :label="$t('dataMgt.lists.name')" prop="dataName" :show-overflow-tooltip="true"></el-table-column>
+          <el-table-column :label="$t('dataMgt.lists.size')" sortable :show-overflow-tooltip="true" width="200px">
             <template slot-scope="scope">
               <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
             </template>
           </el-table-column>
           <el-table-column
-            label="上传日期"
+            :label="$t('dataMgt.lists.upDate')"
             prop="uploadTime"
             :show-overflow-tooltip="true"
             width="200px"
@@ -59,7 +59,7 @@
       </div>
     </query-tbl>
     <div class="start-task-wrapper">
-      <el-button type="primary" size="medium" @click="startTask">开始任务</el-button>
+      <el-button type="primary" size="medium" @click="startTask">{{$t('dataMgt.lists.startTask')}}</el-button>
     </div>
   </div>
 </template>
@@ -67,6 +67,7 @@
 <script>
 import queryMixin from '@/mixins/query'
 import { datasheetsApi } from '@/service'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'DataMgtList',
@@ -80,7 +81,9 @@ export default {
       currentSelect: {}
     }
   },
-
+  computed: {
+    ...mapGetters(['language'])
+  },
   mounted () {
     this.$nextTick(() => {
       this.initData()
@@ -112,20 +115,20 @@ export default {
       if (this.selectedData.length) {
         this.$router.push({ path: '/task/run', query: { list: JSON.stringify(this.selectedData) } })
       } else {
-        this.$message.error('请先选择数据')
+        this.$message.error(this.language === 'en' ? 'Please select the data first' : '请先选择数据')
       }
     },
     delDataConfirm () {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.language === 'en' ? 'This action will permanently delete the file, whether to continue' : '此操作将永久删除该文件, 是否继续?', this.language === 'en' ? 'Tips' : '提示', {
+        confirmButtonText: this.language === 'en' ? 'Yes' : '确定',
+        cancelButtonText: this.language === 'en' ? 'Cancel' : '取消',
         type: 'warning'
       }).then(() => {
         this.toDelData()
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: '已取消删除'
+          message: this.language === 'en' ? 'Undeleted' : '已取消删除'
         })
       })
     },
@@ -142,10 +145,10 @@ export default {
         if (this.selectedData.length) {
           const postData = { list: this.selectedData }
           await datasheetsApi.delDatas(postData)
-          this.$message.success('删除成功~')
+          this.$message.success(this.language === 'en' ? 'Removal successful!' : '删除成功!')
           setTimeout(this.$router.go(0), 1000) // 刷新页面
         } else {
-          this.$message.error('请先选择数据')
+          this.$message.error(this.language === 'en' ? 'Please select the data first' : '请先选择数据')
         }
       } catch (error) {
         console.log(error)
@@ -213,7 +216,7 @@ export default {
     },
     // 初始化数据
     initData () {
-      this.querySchema.push(new this.$Schema('dataName', 'input', '数据名称:'))
+      this.querySchema.push(new this.$Schema('dataName', 'input', this.language === 'en' ? 'Data Name' : '数据名称:'))
     },
     // query
     async onQuery () {

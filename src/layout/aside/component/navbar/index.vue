@@ -9,14 +9,15 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <template v-if="device !== 'mobile'">
+      <!-- <template v-if="device !== 'mobile'">
         <search id="header-search" class="right-menu-item" />
         <el-tooltip content="全屏" effect="dark" placement="bottom">
           <screenfull class="screenfull right-menu-item" />
         </el-tooltip>
-      </template>
+      </template> -->
       <!-- <lang-select class="international right-menu-item"/> -->
       <!-- </el-tooltip> -->
+      <lang-select></lang-select>
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
           <el-avatar
@@ -30,18 +31,18 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>{{userInfo.realName ? userInfo.realName : '用户'}}，您好</el-dropdown-item>
-          <router-link to="/user/edit">
-            <el-dropdown-item divided>个人中心</el-dropdown-item>
+          <el-dropdown-item>{{$t('layout.navbar.greetings')}}, {{userInfo.realName ? userInfo.realName : language==='en'? 'Dear':'用户'}}</el-dropdown-item>
+          <router-link to="/home/user">
+            <el-dropdown-item divided>{{$t('layout.navbar.userCenter')}}</el-dropdown-item>
           </router-link>
-          <router-link to="/user/changepwd">
-            <el-dropdown-item>修改密码</el-dropdown-item>
+          <router-link to="/home/changepwd">
+            <el-dropdown-item>{{$t('layout.navbar.changePwd')}}</el-dropdown-item>
           </router-link>
           <!-- <router-link to="/setpwd" target="_blank" v-else>
             <el-dropdown-item>设置密码</el-dropdown-item>
           </router-link>-->
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">退出</span>
+            <span style="display:block;" @click="logout">{{$t('layout.navbar.logOut')}}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -54,9 +55,9 @@ import { mapGetters, mapMutations } from 'vuex'
 
 import Breadcrumb from '@/components/breadcrumb'
 import Hamburger from '@/components/hamburger'
-import Screenfull from '@/components/screenfull'
-import Search from '@/components/header-search'
-
+// import Screenfull from '@/components/screenfull'
+// import Search from '@/components/header-search'
+import LangSelect from '@/components/lang-select'
 import avatar from './img/user-avatar.png'
 
 export default {
@@ -65,8 +66,9 @@ export default {
   components: {
     Breadcrumb,
     Hamburger,
-    Screenfull,
-    Search
+    // Screenfull,
+    // Search,
+    LangSelect
   },
 
   data () {
@@ -74,9 +76,8 @@ export default {
       avatar: avatar
     }
   },
-
   computed: {
-    ...mapGetters(['device', 'sidebar', 'userInfo']),
+    ...mapGetters(['device', 'sidebar', 'userInfo', 'language']),
 
     sidebarOpened () {
       return !!this.sidebar.opened
@@ -121,6 +122,7 @@ export default {
   }
   .right-menu {
     float: right;
+    display: flex;
     height: 100%;
     &:focus {
       outline: none;

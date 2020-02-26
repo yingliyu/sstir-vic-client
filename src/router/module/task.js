@@ -1,8 +1,10 @@
 import Layout from '@/layout/aside'
+import store from '@/store'
 
 const List = () => import(/* webpackChunkName: "project-list" */ '@/views/task/list')
 const TaskRun = () => import(/* webpackChunkName: "datasheets-task-run" */ '@/views/task/run')
 
+const lang = store.getters.language
 export default {
   path: '/task',
   redirect: 'noredirect',
@@ -11,7 +13,7 @@ export default {
   hidden: false,
   alwaysShow: true,
   meta: {
-    title: '任务',
+    title: lang === 'en' ? 'Tasks' : '任务管理',
     icon: 'document-copy'
   },
   children: [
@@ -20,7 +22,7 @@ export default {
       component: List,
       name: 'taskList',
       meta: {
-        title: '任务列表'
+        title: lang === 'en' ? 'My Tasks' : '任务列表'
       }
     },
     {
@@ -28,7 +30,7 @@ export default {
       component: TaskRun,
       name: 'runtask',
       meta: {
-        title: '任务运行'
+        title: lang === 'en' ? 'Add Tasks' : '任务运行'
       }
     }
   ]

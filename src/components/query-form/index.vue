@@ -4,12 +4,12 @@
       <el-row slot="header" type="flex" justify="space-between">
         <span style="font-weight: bolder;">
           <i style="margin-right: 5px;" class="el-icon-search"></i>
-          {{ title }}
+          {{ $t('query.form.defaultTitle') }}
         </span>
         <div class="btnContainer">
           <div v-show="isShow">
-            <el-button type="warning" @click="resetForm">重置</el-button>
-            <el-button type="primary" @click="queryForm">查询</el-button>
+            <el-button type="warning" @click="resetForm">{{$t('query.form.reset')}}</el-button>
+            <el-button type="primary" @click="queryForm">{{$t('query.form.query')}}</el-button>
             <!-- <el-button v-show="showAdd" type="primary" @click="addForm">新增</el-button> -->
             <div style="display: inline-block; margin-left: 10px;">
               <slot name="button"></slot>
@@ -58,7 +58,7 @@ import CusSelect from '@/components/form-item/cus-select'
 import CusDate from '@/components/form-item/cus-date'
 import CusSingleDate from '@/components/form-item/cus-single-date'
 import CusCascader from '@/components/form-item/cus-cascader'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'QueryForm',
 
@@ -81,7 +81,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '查询条件'
+      default: '查询条件' // this.language=== 'en' ? '' : '查询条件'
     },
     querySchema: {},
     queryModel: {},
@@ -194,6 +194,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['language']),
     opIcon () {
       if (this.queryType) {
         return 'el-icon-arrow-up'

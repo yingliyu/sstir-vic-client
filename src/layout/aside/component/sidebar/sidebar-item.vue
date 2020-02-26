@@ -36,7 +36,7 @@
               <item
                 v-if="child.meta"
                 :icon="child.meta.icon"
-                :title="child.meta.title"
+                :title="$t(child.meta.title)"
               />
             </el-menu-item>
           </a>
