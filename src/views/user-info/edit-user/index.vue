@@ -78,14 +78,14 @@
       <a @click="policyVisible=true">隐私政策</a>
     </div>
     <!-- 隐私政策 -->
-    <el-dialog title :visible.sync="policyVisible" width="60%" :before-close="handleClose">
+    <el-dialog :visible.sync="policyVisible" width="60%" :before-close="handleClose">
       <user-doc :list="policyList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="policyVisible = false">关 闭</el-button>
       </span>
     </el-dialog>
     <!-- 用户协议 -->
-    <el-dialog title :visible.sync="agreementVisible" width="60%" :before-close="handleClose">
+    <el-dialog :visible.sync="agreementVisible" width="60%" :before-close="handleClose">
       <user-doc :list="agreementList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="agreementVisible = false">关 闭</el-button>
