@@ -42,6 +42,8 @@
     <!-- 弹出层 -->
     <el-dialog
       title="选择数据"
+      :append-to-body="true"
+      modal-append-to-body="false"
       :visible.sync="showSelect"
       width="800px"
       :close-on-click-modal="false"
@@ -259,7 +261,6 @@ export default {
 .task-detail-wrapper {
   display: flex;
   flex-flow: column nowrap;
-
   .tag {
     margin-right: 20px;
     margin-bottom: 20px;
