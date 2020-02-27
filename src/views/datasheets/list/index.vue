@@ -147,7 +147,7 @@ export default {
           const postData = { list: this.selectedData }
           await datasheetsApi.delDatas(postData)
           this.$message.success(this.$t('dataMgt.lists.tips4') + '!')
-          setTimeout(this.$router.go(0), 1000) // 刷新页面
+          this.onQuery() // 刷新页面
         } else {
           this.$message.error(this.$t('dataMgt.lists.tips1'))
         }

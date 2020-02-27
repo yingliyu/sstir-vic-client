@@ -17,7 +17,7 @@ export default {
     newpwd2: 'Please enter your new password again',
     save: 'Save',
     pwdRule1: "New and old passwords can't be consistent",
-    pwdRule2: 'Password length is 8-16 characters, including letters and numbers (case sensitive)',
+    pwdRule2: '8—16 characters, including letters and number',
     pwdRule3: 'Inconsistent new passwords'
   }
 }

@@ -17,6 +17,7 @@ export default {
         resolve(roles)
       } catch (err) {
         console.log('getuserinfo error')
+        removeToken()
         reject(err)
       }
     })

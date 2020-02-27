@@ -7,16 +7,16 @@
       <span v-if='userInfo.ftpUsername'>{{$t('dataMgt.add.userName')}}：<i>{{userInfo.ftpUsername}}</i></span>
       <span class='showPwd' v-if='userInfo.ftpPassword'>{{$t('dataMgt.add.pwd')}}：
         <el-tooltip class="item" effect="dark" :content="language==='en'? 'Click to copy' : '点击复制'" placement="right-start">
-          <el-button><i @click='copyActiveCode($event, userInfo.ftpPassword)'>******</i></el-button>
+          <el-button @click='copyActiveCode($event, userInfo.ftpPassword)'><i>******</i></el-button>
         </el-tooltip>
       </span>
     </p>
     <br>
     <p>{{$t('dataMgt.add.download')}}</p>
     <ul>
-      <li><a :href="macUrl"><i class="iconfont vic-mac"></i><span>mac-filezilla</span></a></li>
-      <li><a :href="windowsUrl"><i class="iconfont vic-windowsicon"></i><span>windows-filezilla</span></a></li>
-      <li class="intro-txt"><a :href="useDocs"><i class="iconfont vic-word"></i><span>Readme</span></a></li>
+      <li><a :href="macUrl"><i class="iconfont vic-mac"></i><br><span>mac-filezilla</span></a></li>
+      <li><a :href="windowsUrl"><i class="iconfont vic-windowsicon"></i><br><span>windows-filezilla</span></a></li>
+      <li class="intro-txt"><a :href="useDocs"><i class="iconfont vic-word"></i><br><span>Readme</span></a></li>
     </ul>
     <br>
     <p>
@@ -106,6 +106,7 @@ export default {
     display: flex;
     span{
       color: #409EFF;
+      display: inline-block;
       text-decoration: underline;
       padding-top: 10px;
       font-size: 14px;
