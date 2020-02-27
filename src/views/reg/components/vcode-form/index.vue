@@ -76,6 +76,8 @@ export default {
       timer: null, // 定时器
       duration: 60, // 倒计时长60s
       pattern: /^(?![^a-zA-Z]+$)(?!\D+$)/,
+      vcodeBtnName: this.$t('reg.getVcode'),
+      formTitle: this.$t('reg.regTitle1'),
       codeForm: {
         email: '', // 登录名-邮箱
         vcode: '' // 验证码
@@ -109,7 +111,7 @@ export default {
         pwd: [
           {
             required: true,
-            message: this.$t('reg.repwd'),
+            message: this.$t('reg.pwd'),
             trigger: 'blur'
           },
           {
@@ -136,22 +138,19 @@ export default {
   computed: {
     ...mapGetters(['language']),
 
-    vcodeBtnName() {
-      return this.language === 'en' ? 'Get verification code' : '获取验证码'
-    },
-    formTitle() {
-      return this.language === 'en' ? 'Register' : '平台注册'
-    },
     // 获取验证码按钮的状态
-    ifDisabled () {
-      if (
-        this.codeForm.email !== '' &&
-        this.duration === 60
-      ) {
-        return false
-      } else {
-        return true
-      }
+    ifDisabled: {
+      get() {
+        if (
+          this.codeForm.email !== '' &&
+          this.duration === 60
+        ) {
+          return false
+        } else {
+          return true
+        }
+      },
+      set(val) {}
     }
   },
   watch: {
@@ -179,7 +178,7 @@ export default {
         pwd: [
           {
             required: true,
-            message: this.$t('reg.repwd'),
+            message: this.$t('reg.pwd'),
             trigger: 'blur'
           },
           {
@@ -223,7 +222,7 @@ export default {
           try {
             await loginApi.checkCode(this.codeForm) // 验证验证码是否正确
             this.formIndex = 1
-            this.formTitle = this.language === 'en' ? 'Please complete your personal info' : '请完善信息'
+            this.formTitle = this.$t('reg.regTitle2')
             this.$emit('update', this.formTitle)
           } catch (error) {
             this.$message.error(error)
@@ -270,6 +269,7 @@ export default {
     // 注册调api
     submitForm (formName) {
       this.$refs[formName].validate(async (valid) => {
+        console.log(valid)
         if (valid) {
           try {
             const params = {
@@ -279,7 +279,8 @@ export default {
             await loginApi.regByEmail(params)
             this.$message({
               message: this.language === 'en' ? 'Congratulations on your successful registration and will be jumping to login' : '恭喜你注册成功,即将跳转至登录',
-              type: 'success'
+              type: 'success',
+              duration: 2000
             })
             setTimeout(this.$router.push({ path: '/login' }), 3000)
           } catch (e) {

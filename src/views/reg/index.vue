@@ -51,7 +51,7 @@ export default {
       titleAlign: 'center',
       imgW: '70%',
       redirect: '',
-      // title: '平台注册',
+      title: this.$t('reg.regTitle1'),
       activeName: 'first', // tabBar active
       loginType: '', // 登录方式：账号密码password|免密vcode
       imgCarousel: 0
@@ -64,9 +64,6 @@ export default {
   computed: {
     language() {
       return this.$store.getters.language
-    },
-    title() {
-      return this.language === 'en' ? 'Register' : '平台注册'
     }
   },
   methods: {

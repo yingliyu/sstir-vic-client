@@ -67,7 +67,7 @@
             <i class="iconfont el-icon-kf-right"></i>
             {{$t('user.seted')}} &nbsp;&nbsp;|
           </span>
-          <router-link to="/user/changepwd">
+          <router-link to="/home/changepwd">
             <el-button type="primary" round plain>{{$t('user.modify')}}</el-button>
           </router-link>
         </div>

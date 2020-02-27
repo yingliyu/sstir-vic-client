@@ -6,7 +6,12 @@ export default {
     addData: '添加数据',
     toTask: '进入任务列表',
     delData: '删除数据',
-    startTask: '开始任务'
+    startTask: '开始任务',
+    tips: '提示',
+    tips1: '请先选择数据',
+    tips2: '此操作将永久删除该文件, 是否继续',
+    tips3: '已取消删除',
+    tips4: '删除成功'
   },
   add: {
     tips: '由于测序数据普遍比较大，我们建议您通过SFTP传输数据。',

@@ -17,5 +17,5 @@ export default {
   policy: 'Tracking',
   agreement: 'User Agreement',
   cancel: 'Cencel',
-  sure: 'Yes'
+  sure: 'Confirm'
 }

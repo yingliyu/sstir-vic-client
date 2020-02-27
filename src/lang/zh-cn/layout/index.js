@@ -9,6 +9,6 @@ export default {
     greetings: '您好',
     userCenter: '个人中心',
     changePwd: '修改密码',
-    logout: '退出'
+    logOut: '退出'
   }
 }

@@ -1,9 +1,8 @@
 import Layout from '@/layout/aside'
-import store from '@/store'
+// import router from '../../lang/zh-cn/router'
 
 const DataList = () => import(/* webpackChunkName: "datasheets-data-list" */ '@/views/datasheets/list')
 const AddData = () => import(/* webpackChunkName: "datasheets-add-data" */ '@/views/datasheets/add-data')
-const lang = store.getters.language
 
 export default {
   path: '/datasheets',
@@ -13,7 +12,7 @@ export default {
   hidden: false,
   alwaysShow: true,
   meta: {
-    title: lang === 'en' ? 'Files' : '数据管理',
+    title: 'router.files.manage',
     icon: 's-data'
   },
   children: [
@@ -22,7 +21,7 @@ export default {
       component: DataList,
       name: 'dataList',
       meta: {
-        title: lang === 'en' ? 'My Files' : '数据列表'
+        title: 'router.files.list'
       }
     },
     {
@@ -30,7 +29,7 @@ export default {
       component: AddData,
       name: 'addData',
       meta: {
-        title: lang === 'en' ? 'Add Files' : '添加数据'
+        title: 'router.files.add'
       }
     }
   ]

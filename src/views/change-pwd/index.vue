@@ -151,6 +151,18 @@ export default {
     }
   },
   methods: {
+    validatePwd (rule, val, cb) {
+      if (val === '') {
+        cb(new Error(this.$t('user.changepwd.oldpwd1')))
+      } else if (val.length < 8 || val.length > 16) {
+        cb(new Error(this.$t('user.changepwd.pwdRule2')))
+      } else {
+        if (this.model.newpwd !== '') {
+          this.$refs.form.validateField('newpwd')
+        }
+        cb()
+      }
+    },
     validatenewpwd (rule, val, cb) {
       if (val === '') {
         cb(new Error(this.$t('user.changepwd.newpwd1')))

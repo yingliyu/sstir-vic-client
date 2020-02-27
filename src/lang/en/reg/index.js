@@ -1,6 +1,7 @@
 export default {
   regTitle1: 'Register',
   regTitle2: 'Please complete your personal info',
+  getVcode: 'Get verification code',
   vcode: 'Verification code',
   vcodeTip1: 'Please input verification code',
   vcodeTip2: 'Verification error',

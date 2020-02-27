@@ -115,20 +115,20 @@ export default {
       if (this.selectedData.length) {
         this.$router.push({ path: '/task/run', query: { list: JSON.stringify(this.selectedData) } })
       } else {
-        this.$message.error(this.language === 'en' ? 'Please select the data first' : '请先选择数据')
+        this.$message.error(this.$t('dataMgt.lists.tips1'))
       }
     },
     delDataConfirm () {
-      this.$confirm(this.language === 'en' ? 'This action will permanently delete the file, whether to continue' : '此操作将永久删除该文件, 是否继续?', this.language === 'en' ? 'Tips' : '提示', {
-        confirmButtonText: this.language === 'en' ? 'Yes' : '确定',
-        cancelButtonText: this.language === 'en' ? 'Cancel' : '取消',
+      this.$confirm(this.$t('dataMgt.lists.tips2') + '?', this.$t('dataMgt.lists.tips'), {
+        confirmButtonText: this.$t('base.sure'),
+        cancelButtonText: this.$t('base.cancel'),
         type: 'warning'
       }).then(() => {
         this.toDelData()
       }).catch(() => {
         this.$message({
           type: 'info',
-          message: this.language === 'en' ? 'Undeleted' : '已取消删除'
+          message: this.$t('dataMgt.lists.tips3')
         })
       })
     },
@@ -145,13 +145,12 @@ export default {
         if (this.selectedData.length) {
           const postData = { list: this.selectedData }
           await datasheetsApi.delDatas(postData)
-          this.$message.success(this.language === 'en' ? 'Removal successful!' : '删除成功!')
+          this.$message.success(this.$t('dataMgt.lists.tips4') + '!')
           setTimeout(this.$router.go(0), 1000) // 刷新页面
         } else {
-          this.$message.error(this.language === 'en' ? 'Please select the data first' : '请先选择数据')
+          this.$message.error(this.$t('dataMgt.lists.tips1'))
         }
       } catch (error) {
-        console.log(error)
         this.$message.error(error)
       }
     },

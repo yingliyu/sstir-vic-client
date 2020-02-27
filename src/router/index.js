@@ -4,8 +4,6 @@ import Layout from '@/layout/aside'
 // import User from './module/user'
 import Task from './module/task'
 import Datasheets from './module/datasheets'
-import store from '@/store'
-const lang = store.getters.language
 
 const Home = () => import(/* webpackChunkName: "homepage" */ '@/views/home')
 const Login = () => import(/* webpackChunkName: "login" */ '@/views/login')
@@ -102,7 +100,7 @@ export const constantRouterMap = [
         name: 'edit',
         component: EditUser,
         meta: {
-          title: lang === 'en' ? 'User Center' : '个人中心',
+          title: 'router.userCenter',
           noCache: true
         }
       },
@@ -111,7 +109,7 @@ export const constantRouterMap = [
         name: 'changepwd',
         component: ChangePwd,
         meta: {
-          title: lang === 'en' ? 'Change your password' : '修改密码',
+          title: 'router.changepwd',
           noCache: true
         }
       }

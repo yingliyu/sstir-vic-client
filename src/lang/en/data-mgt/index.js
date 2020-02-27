@@ -6,7 +6,12 @@ export default {
     addData: 'Add Files',
     toTask: 'My Tasks',
     delData: 'Delete data',
-    startTask: 'Add Tasks'
+    startTask: 'Add Tasks',
+    tips: 'Tips',
+    tips1: 'Please select the data first',
+    tips2: 'This action will permanently delete the file, whether to continue',
+    tips3: 'Undeleted',
+    tips4: 'Removal successful'
   },
   add: {
     tips: 'Please use software Filezilla to upload your data.',

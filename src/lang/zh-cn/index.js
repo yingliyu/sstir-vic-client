@@ -11,6 +11,7 @@ import query from './query'
 import dataMgt from './data-mgt'
 import taskMgt from './task-mgt'
 import user from './user'
+import router from './router'
 
 export default {
   base,
@@ -22,5 +23,6 @@ export default {
   query,
   dataMgt,
   taskMgt,
-  user
+  user,
+  router
 }

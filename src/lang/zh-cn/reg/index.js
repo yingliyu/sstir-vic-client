@@ -2,6 +2,7 @@ export default {
   regTitle1: '平台注册',
   regTitle2: '请完善信息',
   vcode: '验证码',
+  getVcode: '获取验证码',
   vcodeTip1: '请输入验证码',
   vcodeTip2: '长度为6的数字',
   emailTip: '请输入正确的邮箱地址',
