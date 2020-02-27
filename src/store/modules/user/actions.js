@@ -16,7 +16,7 @@ export default {
         commit(MutationTypes.SET_USER_INFO, { ...temp })
         resolve(roles)
       } catch (err) {
-        console.log('getuserinfo error')
+        removeToken()
         reject(err)
       }
     })
