@@ -60,6 +60,7 @@
         {{ tag }}
       </el-tag>
       <el-table
+        style="width: 100%"
         ref="tbl"
         :data="tblData"
         @select="onSelect"
@@ -310,5 +311,13 @@ export default {
       }
     }
   }
+}
+</style>
+<style>
+.el-table__header{
+    width: 100% !important;
+}
+.el-table__body{
+    width: 100% !important;
 }
 </style>
