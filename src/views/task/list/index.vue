@@ -13,7 +13,7 @@
       </div>
       <div class="tbl-container">
         <el-table :data="tblData" border style="width:100%" ref="tbl">
-          <el-table-column width="200" fixed :label="$t('taskMgt.lists.taskName')" prop="taskName" :show-overflow-tooltip="true"></el-table-column>
+          <el-table-column fixed :label="$t('taskMgt.lists.taskName')" prop="taskName" :show-overflow-tooltip="true"></el-table-column>
           <el-table-column
             :label="$t('taskMgt.lists.startTime')"
             prop="startTime"
@@ -50,6 +50,7 @@
 <script>
 import queryMixin from '@/mixins/query'
 import { taskApi } from '@/service'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'TaskList',
@@ -65,6 +66,9 @@ export default {
       this.initData()
       this.onQuery()
     })
+  },
+  computed: {
+    ...mapGetters(['language'])
   },
 
   methods: {

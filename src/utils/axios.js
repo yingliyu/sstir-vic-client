@@ -2,6 +2,9 @@ import axios from 'axios'
 import { Loading, Message } from 'element-ui'
 import store from '@/store'
 import appConfig from '@/config'
+import Cookies from 'js-cookie'
+
+// import { LANGUAGE_KEY, getCookie } from '@/utils/cookie'
 
 // create axios instance
 const instance = axios.create({
@@ -32,6 +35,8 @@ instance.interceptors.request.use(
     if (userToken) {
       config.headers['authorization'] = userToken
     }
+    const lang = Cookies.get('language') || 'zh'
+    config.headers['lang'] = lang
     // config.withCredentials = true
     return config
   },

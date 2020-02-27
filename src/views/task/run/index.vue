@@ -90,7 +90,7 @@
 <script>
 import ProcessPic from './img/process.png'
 import { datasheetsApi, taskApi } from '@/service'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'TaskDetail',
@@ -111,6 +111,9 @@ export default {
   },
   mounted() {
     this.selectedData = (this.$route.query && this.$route.query.list) ? JSON.parse(this.$route.query.list) : []
+  },
+  computed: {
+    ...mapGetters(['language'])
   },
   methods: {
     ...mapMutations({

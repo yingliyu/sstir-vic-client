@@ -1,54 +1,54 @@
 <template>
   <div class="reg-wrapper">
-    <el-form v-if="formIndex===0" :model="codeForm" :rules="codeRules" ref="codeForm">
-      <el-form-item prop="email">
-        <el-input :placeholder="$t('base.email')" v-model="codeForm.email" clearable></el-input>
-      </el-form-item>
-      <el-form-item class="get-code-wrapper" prop="vcode">
-        <el-input :placeholder="$t('reg.vcode')" v-model="codeForm.vcode"></el-input>
-        <el-button
-          type="primary"
-          :disabled="ifDisabled"
-          class="get-code"
-          @click="getCheckCode()"
-        >{{vcodeBtnName}}</el-button>
-      </el-form-item>
-      <el-form-item>
-        <div class="user-pact">
-          {{$t('reg.regAgree')}}
-          <span @click="toUserAgreement(true)">{{$t('reg.agreement')}}</span>
-        </div>
-      </el-form-item>
-      <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">{{$t('reg.nextStep')}}</el-button>
-    </el-form>
+      <el-form v-show="formIndex === 0" :model="codeForm" :rules="codeRules" ref="codeForm">
+        <el-form-item prop="email">
+          <el-input :placeholder="$t('base.email')" v-model="codeForm.email" clearable></el-input>
+        </el-form-item>
+        <el-form-item class="get-code-wrapper" prop="vcode">
+          <el-input :placeholder="$t('reg.vcode')" v-model="codeForm.vcode"></el-input>
+          <el-button
+            type="primary"
+            :disabled="ifDisabled"
+            class="get-code"
+            @click="getCheckCode()"
+          >{{vcodeBtnName}}</el-button>
+        </el-form-item>
+        <el-form-item>
+          <div class="user-pact">
+            {{$t('reg.regAgree')}}
+            <span @click="toUserAgreement(true)">{{$t('reg.agreement')}}</span>
+          </div>
+        </el-form-item>
+        <el-button type="primary" class="btn-reg" @click="nextStep('codeForm')">{{$t('reg.nextStep')}}</el-button>
+      </el-form>
     <!-- 添加用户信息表单 -->
-    <el-form v-else :model="userForm" :rules="userRules" ref="userForm">
-      <el-form-item prop="pwd">
-        <el-input
-          type="password"
-          v-model="userForm.pwd"
-          auto-complete="off"
-          :placeholder="$t('reg.pwd')"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="newpwd">
-        <el-input
-          type="password"
-          v-model="userForm.newpwd"
-          auto-complete="off"
-          :placeholder="$t('reg.repwd')"
-          clearable
-        ></el-input>
-      </el-form-item>
-      <el-form-item prop="realName">
-        <el-input :placeholder="$t('reg.realName')" v-model="userForm.realName" clearable></el-input>
-      </el-form-item>
-      <el-form-item prop="orgName">
-        <el-input :placeholder="$t('reg.orgName')" v-model="userForm.orgName" clearable></el-input>
-      </el-form-item>
-      <el-button type="primary" class="btn-reg" @click="submitForm('userForm')">{{$t('base.btnReg')}}</el-button>
-    </el-form>
+      <el-form v-show="formIndex === 1" :model="userForm" :rules="userRules" ref="userForm">
+        <el-form-item prop="pwd">
+          <el-input
+            type="password"
+            v-model="userForm.pwd"
+            auto-complete="off"
+            :placeholder="$t('reg.pwd')"
+            clearable
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="newpwd">
+          <el-input
+            type="password"
+            v-model="userForm.newpwd"
+            auto-complete="off"
+            :placeholder="$t('reg.repwd')"
+            clearable
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="realName">
+          <el-input :placeholder="$t('reg.realName')" v-model="userForm.realName" clearable></el-input>
+        </el-form-item>
+        <el-form-item prop="orgName">
+          <el-input :placeholder="$t('reg.orgName')" v-model="userForm.orgName" clearable></el-input>
+        </el-form-item>
+        <el-button type="primary" class="btn-reg" @click="submitForm('userForm')">{{$t('base.btnReg')}}</el-button>
+      </el-form>
   </div>
 </template>
 <script>
@@ -76,8 +76,7 @@ export default {
       timer: null, // 定时器
       duration: 60, // 倒计时长60s
       pattern: /^(?![^a-zA-Z]+$)(?!\D+$)/,
-      vcodeBtnName: this.$t('reg.getVcode'),
-      formTitle: this.$t('reg.regTitle1'),
+
       codeForm: {
         email: '', // 登录名-邮箱
         vcode: '' // 验证码
@@ -137,7 +136,12 @@ export default {
   },
   computed: {
     ...mapGetters(['language']),
-
+    vcodeBtnName: {
+      get() {
+        return this.$t('reg.getVcode')
+      },
+      set(val) {}
+    },
     // 获取验证码按钮的状态
     ifDisabled: {
       get() {
@@ -217,13 +221,13 @@ export default {
       this.$emit('showUserAgreement', val)
     },
     nextStep (formName) {
+      this.$emit('update', this.formIndex)
       this.$refs[formName].validate(async (valid) => {
         if (valid) {
           try {
             await loginApi.checkCode(this.codeForm) // 验证验证码是否正确
             this.formIndex = 1
-            this.formTitle = this.$t('reg.regTitle2')
-            this.$emit('update', this.formTitle)
+            this.$emit('update', this.formIndex)
           } catch (error) {
             this.$message.error(error)
           }
@@ -258,7 +262,7 @@ export default {
       if (this.duration === 0) {
         this.duration = totalDuration
         this.ifDisabled = false
-        this.vcodeBtnName = this.language === 'en' ? 'Resend' : '重新发送'
+        this.vcodeBtnName = this.$t('reg.resend')
         return
       }
       this.timer = setTimeout(function () {
@@ -268,8 +272,9 @@ export default {
 
     // 注册调api
     submitForm (formName) {
+      console.log(this.userForm)
       this.$refs[formName].validate(async (valid) => {
-        console.log(valid)
+        console.log(valid, formName)
         if (valid) {
           try {
             const params = {
@@ -278,7 +283,7 @@ export default {
             }
             await loginApi.regByEmail(params)
             this.$message({
-              message: this.language === 'en' ? 'Congratulations on your successful registration and will be jumping to login' : '恭喜你注册成功,即将跳转至登录',
+              message: this.$t('reg.regSucc'),
               type: 'success',
               duration: 2000
             })

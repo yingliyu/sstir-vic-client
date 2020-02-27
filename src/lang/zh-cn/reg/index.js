@@ -19,5 +19,7 @@ export default {
   auth: '身份验证',
   changePwd: '修改密码',
   changeSucc: '修改成功',
-  succTip: '密码已修改成功，5s后将自动跳转至登录界面'
+  succTip: '密码已修改成功，5s后将自动跳转至登录界面',
+  regSucc: '恭喜你注册成功，即将跳转至登录',
+  resend: '重新发送'
 }

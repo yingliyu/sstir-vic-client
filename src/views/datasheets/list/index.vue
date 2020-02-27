@@ -84,6 +84,7 @@ export default {
   computed: {
     ...mapGetters(['language'])
   },
+
   mounted () {
     this.$nextTick(() => {
       this.initData()

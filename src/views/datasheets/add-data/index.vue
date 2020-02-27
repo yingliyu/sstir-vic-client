@@ -44,14 +44,10 @@ export default {
     }
   },
 
-  mounted () {
-    console.log(this.$t('dataMgt.add'))
-    console.log(this.$t('reg'))
-    // this.initData()
-  },
   computed: {
     ...mapGetters(['userInfo', 'language'])
   },
+
   methods: {
     // 复制密码到粘贴板
     copyActiveCode(e, text) {

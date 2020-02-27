@@ -14,7 +14,7 @@
         <div class="reg-wrapper-outer">
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-              <el-tab-pane :label="title ? title : $t('reg.regTitle2')" name="first">
+              <el-tab-pane :label="activeIndex ? $t('reg.regTitle2') : $t('reg.regTitle1')" name="first">
                 <vcode-form @showUserAgreement="showAgreeHandle" @update="receiveHandle"></vcode-form>
               </el-tab-pane>
             </el-tabs>
@@ -51,10 +51,8 @@ export default {
       titleAlign: 'center',
       imgW: '70%',
       redirect: '',
-      title: this.$t('reg.regTitle1'),
-      activeName: 'first', // tabBar active
-      loginType: '', // 登录方式：账号密码password|免密vcode
-      imgCarousel: 0
+      activeIndex: 0,
+      activeName: 'first' // tabBar active
     }
   },
 
@@ -64,6 +62,11 @@ export default {
   computed: {
     language() {
       return this.$store.getters.language
+    }
+  },
+  watch: {
+    language(val) {
+      this.receiveHandle(this.activeIndex)
     }
   },
   methods: {
@@ -76,8 +79,8 @@ export default {
     toHome () {
       this.$router.push('/home')
     },
-    receiveHandle (val) {
-      this.title = val
+    receiveHandle (index) {
+      this.activeIndex = index
     },
 
     handleClick (tab, event) {
