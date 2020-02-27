@@ -2,8 +2,8 @@
   <div class="add-data-wrapper">
     <p><b>{{$t('dataMgt.add.tips')}}</b></p>
     <p class="ftp-data-txt">
-      <span v-if='userInfo.ip'>{{$t('dataMgt.add.ip')}}：<i>{{userInfo.ip}}</i></span>
-      <span v-if='userInfo.ftpHost'>{{$t('dataMgt.add.port')}}：<i>{{userInfo.ftpHost}}</i></span>
+      <span v-if='userInfo.ftpHost'>{{$t('dataMgt.add.ip')}}：<i>{{userInfo.ftpHost}}</i></span>
+      <span v-if='userInfo.pord'>{{$t('dataMgt.add.port')}}：<i>{{userInfo.pord}}</i></span>
       <span v-if='userInfo.ftpUsername'>{{$t('dataMgt.add.userName')}}：<i>{{userInfo.ftpUsername}}</i></span>
       <span class='showPwd' v-if='userInfo.ftpPassword'>{{$t('dataMgt.add.pwd')}}：
         <el-tooltip class="item" effect="dark" :content="language==='en'? 'Click to copy' : '点击复制'" placement="right-start">
