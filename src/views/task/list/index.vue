@@ -70,7 +70,11 @@ export default {
   computed: {
     ...mapGetters(['language'])
   },
-
+  watch: {
+    language(val) {
+      this.initData()
+    }
+  },
   methods: {
     toDataList () {
       this.$router.push('/datasheets/list')
