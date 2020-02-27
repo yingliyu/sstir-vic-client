@@ -83,6 +83,9 @@ export default {
     color: #2c4c87;
     line-height: 50px;
     display: flex;
+    display: box;
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    -ms-align-items: center;
     align-items: center;
     justify-content: space-between;
     padding-left: 10px;
@@ -95,12 +98,16 @@ export default {
       cursor: pointer;
     }
     img {
+      width: auto;
       height: 40px;
       cursor: pointer;
+      vertical-align: middle;
     }
   }
   .index-header {
     display: flex;
+    display: box;
+     display: -ms-flexbox;      /* TWEENER - IE 10 */
     justify-content: space-around;
     align-content: center;
     padding: 20px;
@@ -109,8 +116,12 @@ export default {
     }
     .btn {
       display: flex;
+      display: box;
+      display: -ms-flexbox;      /* TWEENER - IE 10 */
+      -ms-align-items: center;
       align-items: center;
       justify-content: center;
+      -ms-justify-content: center;
       cursor: pointer;
       color: #666666;
       div {
@@ -157,7 +168,11 @@ export default {
     .wechat-wraper {
       width: 100%;
       display: flex;
+      display: box;
+       display: -ms-flexbox;      /* TWEENER - IE 10 */
       justify-content: center;
+      ms-justify-content: center;
+      -ms-align-items: center;
       align-items: center;
       position: absolute;
       // bottom: 10px;
@@ -223,6 +238,9 @@ export default {
   height: 55px;
   line-height: 55px;
   display: flex;
+  display: box;
+   display: -ms-flexbox;      /* TWEENER - IE 10 */
   justify-content: center;
+  -ms-justify-content: center;
 }
 </style>

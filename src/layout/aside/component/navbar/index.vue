@@ -26,7 +26,7 @@
             class="user-avatar"
             id="user-head"
           >
-            <img :src="avatar" />
+            <img width="100%" height="100%" :src="avatar" />
           </el-avatar>
           <i class="el-icon-caret-bottom" />
         </div>

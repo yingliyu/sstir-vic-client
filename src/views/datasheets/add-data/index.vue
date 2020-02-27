@@ -50,7 +50,7 @@ export default {
 
   methods: {
     // 复制密码到粘贴板
-    copyActiveCode(e, text) {
+    copyActiveCode (e, text) {
       const clipboard = new Clipboard(e.target, { text: () => text })
       clipboard.on('success', e => {
         this.$message({ type: 'success', message: 'Copied to clipboard!' })
@@ -61,7 +61,7 @@ export default {
       })
       clipboard.on('error', e => {
         // 不支持复制
-        this.$message({ type: 'waning', message: '该浏览器不支持自动复制，更换浏览器试试吧~' })
+        this.$message({ type: 'error', message: '该浏览器不支持自动复制，更换浏览器试试吧~' })
         // 释放内存
         clipboard.off('error')
         clipboard.off('success')
@@ -93,13 +93,13 @@ export default {
     span{
       font-size: 14px;
       padding-right: 15px;
-      i{
+      i {
         font-style: normal;
-        color: #409EFF;
+        color: #409eff;
       }
     }
-    .showPwd{
-      cursor:pointer;
+    .showPwd {
+      cursor: pointer;
     }
   }
   ul{
@@ -110,23 +110,24 @@ export default {
       padding-top: 10px;
       font-size: 14px;
     }
-    .intro-txt{
+    .intro-txt {
       padding-left: 20px;
     }
-    a{
-      display: flex;
-      height:100%;
-      flex-direction: column ;
-      justify-content: center;
-      align-items: center;
+    a {
+      display: inline-block;
+      height: 100%;
+      // flex-direction: column;
+      // -ms-flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
       padding: 10px 40px 10px 0px;
       cursor: pointer;
-      .iconfont{
+      text-align: center;
+      .iconfont {
         font-size: 40px;
         color: #666666;
       }
     }
-
   }
 }
 </style>

@@ -29,7 +29,6 @@ router.beforeEach((to, from, next) => {
   })
   // 清空
   sources.length = 0
-
   if (getToken()) {
     // cookie中存在token的场合
     store.commit('set_token', getToken())

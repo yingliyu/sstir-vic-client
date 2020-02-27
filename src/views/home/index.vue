@@ -155,6 +155,7 @@ export default {
       }
     }
     img {
+      width: auto;
       height: 40px;
       padding-right: 10px;
       cursor: pointer;

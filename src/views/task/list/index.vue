@@ -77,11 +77,11 @@ export default {
     },
     initData () {
       const statusList = [{
-        value: 0,
+        value: 1,
         text: this.$t('taskMgt.lists.adding')
       },
       {
-        value: 1,
+        value: 2,
         text: this.$t('taskMgt.lists.complete')
       }]
       this.querySchema.push(new this.$Schema('taskStatus', 'select', this.$t('taskMgt.lists.taskStatus') + ':', this.$t('taskMgt.lists.select'), statusList))

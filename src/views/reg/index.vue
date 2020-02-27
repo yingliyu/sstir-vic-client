@@ -120,8 +120,10 @@ export default {
       cursor: pointer;
     }
     img {
+      width: auto;
       height: 40px;
       cursor: pointer;
+      vertical-align: middle;
     }
   }
   .index-header {

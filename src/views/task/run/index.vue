@@ -41,6 +41,8 @@
     <!-- 弹出层 -->
     <el-dialog
       :title="$t('taskMgt.add.selData')"
+      :append-to-body="true"
+      :modal-append-to-body="false"
       :visible.sync="showSelect"
       width="800px"
       :close-on-click-modal="false"
@@ -57,6 +59,7 @@
         {{ tag }}
       </el-tag>
       <el-table
+        style="width: 100%"
         ref="tbl"
         :data="tblData"
         @select="onSelect"
@@ -261,7 +264,6 @@ export default {
 .task-detail-wrapper {
   display: flex;
   flex-flow: column nowrap;
-
   .tag {
     margin-right: 20px;
     margin-bottom: 20px;
@@ -294,10 +296,12 @@ export default {
     .content-wrapper {
       max-width: 1100px;
       width: 100%;
-
+      padding-left: 20px;
+      padding-right: 20px;
       .desc {
         color: rgba(0, 0, 0, 0.5);
         font-size: 16px;
+
         li {
           line-height: 24px;
         }
@@ -309,5 +313,13 @@ export default {
       }
     }
   }
+}
+</style>
+<style>
+.el-table__header{
+    width: 100% !important;
+}
+.el-table__body{
+    width: 100% !important;
 }
 </style>

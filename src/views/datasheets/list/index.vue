@@ -220,12 +220,16 @@ export default {
     },
     // query
     async onQuery () {
-      const { total, data } = await datasheetsApi.getDataList(this.queryModel)
-      this.tblCnt = total
-      this.tblData = data
-      this.$nextTick(() => {
-        this.handleSelectTable()
-      })
+      try {
+        const { total, data } = await datasheetsApi.getDataList(this.queryModel)
+        this.tblCnt = total
+        this.tblData = data
+        this.$nextTick(() => {
+          this.handleSelectTable()
+        })
+      } catch (error) {
+        this.$message.error(error)
+      }
     }
   }
 }

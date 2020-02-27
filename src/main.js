@@ -10,6 +10,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 // 引入全局样式
 import '@/styles/index.less'
+// import 'babel-polyfill'
+// import 'flexibility'
 
 import App from './app.vue'
 import router from './router'
