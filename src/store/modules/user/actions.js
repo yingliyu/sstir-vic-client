@@ -16,7 +16,6 @@ export default {
         commit(MutationTypes.SET_USER_INFO, { ...temp })
         resolve(roles)
       } catch (err) {
-        removeToken()
         reject(err)
       }
     })
