@@ -4,8 +4,6 @@ import store from '@/store'
 import appConfig from '@/config'
 import Cookies from 'js-cookie'
 
-// import { LANGUAGE_KEY, getCookie } from '@/utils/cookie'
-
 // create axios instance
 const instance = axios.create({
   baseURL: appConfig.baseUrl,

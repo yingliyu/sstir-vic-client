@@ -232,7 +232,7 @@ export default {
 
     async onStartClick() {
       if (this.selectedData.length !== 2) {
-        this.$message.error(this.$t('TaskMgt.add.tips1'))
+        this.$message.error(this.$t('taskMgt.add.tips1'))
       } else {
         try {
           // 调用接口
@@ -249,7 +249,7 @@ export default {
             this.delTag(this.$route)
             this.$router.push('/task/list')
           } else {
-            this.$message.error(this.$t('TaskMgt.add.tips2'))
+            this.$message.error(this.$t('taskMgt.add.tips2'))
           }
         } catch (error) {
           this.$message.error(error)
