@@ -244,7 +244,6 @@ export default {
             }
           })
           const postData = { list }
-          debugger
           const result = await taskApi.runTask(postData)
           // 跳转
           if (result) {
