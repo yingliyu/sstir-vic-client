@@ -9,7 +9,11 @@
     />-->
     <query-tbl>
       <div slot="btn" class="btn-wrapper">
-        <el-link v-if="showDelBtn" @click="delDataConfirm" type="primary">{{$t('dataMgt.lists.delData')}}</el-link>
+        <el-link
+          v-if="showDelBtn"
+          @click="delDataConfirm"
+          type="primary"
+        >{{$t('dataMgt.lists.delData')}}</el-link>
         <span></span>
         <el-link @click="toNewData" type="primary">{{$t('dataMgt.lists.addData')}}</el-link>
         <span></span>
@@ -33,8 +37,18 @@
           @select-all="selectAllHandle"
         >
           <el-table-column type="selection" width="40"></el-table-column>
-          <el-table-column fixed :label="$t('dataMgt.lists.name')" prop="dataName" :show-overflow-tooltip="true"></el-table-column>
-          <el-table-column :label="$t('dataMgt.lists.size')" sortable :show-overflow-tooltip="true" width="200px">
+          <el-table-column
+            fixed
+            :label="$t('dataMgt.lists.name')"
+            prop="dataName"
+            :show-overflow-tooltip="true"
+          ></el-table-column>
+          <el-table-column
+            :label="$t('dataMgt.lists.size')"
+            sortable
+            :show-overflow-tooltip="true"
+            width="200px"
+          >
             <template slot-scope="scope">
               <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
             </template>
@@ -110,7 +124,8 @@ export default {
       Object.keys(this.currentSelect).forEach(key => {
         this.selectedData.push({
           dataName: this.currentSelect[key].dataName,
-          userId: this.currentSelect[key].userId
+          userId: this.currentSelect[key].userId,
+          filePath: this.currentSelect[key].filePath
         })
       })
       if (this.selectedData.length) {
@@ -181,7 +196,8 @@ export default {
       } else {
         this.currentSelect[row.dataName] = {
           dataName: row.dataName,
-          userId: row.userId
+          userId: row.userId,
+          filePath: row.filePath
         }
       }
       if (selection.length === 0) {
@@ -198,7 +214,8 @@ export default {
         selection.forEach((row) => {
           this.currentSelect[row.dataName] = {
             dataName: row.dataName,
-            userId: row.userId
+            userId: row.userId,
+            filePath: row.filePath
           }
         })
       } else {
