@@ -13,22 +13,40 @@
       </div>
       <div class="tbl-container">
         <el-table :data="tblData" border style="width:100%" ref="tbl">
-          <el-table-column fixed :label="$t('taskMgt.lists.taskName')" prop="taskName" :show-overflow-tooltip="true"></el-table-column>
+          <el-table-column
+            fixed
+            :label="$t('taskMgt.lists.taskName')"
+            prop="taskName"
+            :show-overflow-tooltip="true"
+          ></el-table-column>
           <el-table-column
             :label="$t('taskMgt.lists.startTime')"
             prop="startTime"
             :show-overflow-tooltip="true"
             width="180px"
           ></el-table-column>
-          <el-table-column :label="$t('taskMgt.lists.duration')" prop="duration" :show-overflow-tooltip="true" width="180px"></el-table-column>
-          <el-table-column :label="$t('taskMgt.lists.taskStatus')" prop="taskStatus" :show-overflow-tooltip="true" width="100" >
+          <el-table-column
+            :label="$t('taskMgt.lists.duration')"
+            prop="duration"
+            :show-overflow-tooltip="true"
+            width="180px"
+          ></el-table-column>
+          <el-table-column
+            :label="$t('taskMgt.lists.taskStatus')"
+            prop="taskStatus"
+            :show-overflow-tooltip="true"
+            width="100"
+          >
             <template slot-scope="scope">
               <span>{{scope.row.taskStatus}}</span>
             </template>
           </el-table-column>
           <el-table-column :label="$t('taskMgt.lists.reportUrl')" :show-overflow-tooltip="true">
             <template slot-scope="scope">
-              <a class="report-url" :href="scope.row.reportUrl">{{scope.row.reportUrl}}</a>
+              <a class="report-url" :href="scope.row.reportUrl">
+                <i v-if="scope.row.reportUrl" class="el-icon-download"></i>
+                {{scope.row.reportUrl}}
+              </a>
             </template>
           </el-table-column>
         </el-table>
