@@ -31,10 +31,12 @@
           ref="datasheetsTbl"
           @select="selectHandle"
           @select-all="selectAllHandle"
+          @sort-change="changeSort"
+          :default-sort = "{prop: 'size', order: 'descending'}"
         >
           <el-table-column type="selection" width="40"></el-table-column>
           <el-table-column fixed :label="$t('dataMgt.lists.name')" prop="dataName" :show-overflow-tooltip="true"></el-table-column>
-          <el-table-column :label="$t('dataMgt.lists.size')" sortable :show-overflow-tooltip="true" width="200px">
+          <el-table-column :label="$t('dataMgt.lists.size')" sortable="custom" :show-overflow-tooltip="true" width="200px">
             <template slot-scope="scope">
               <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
             </template>
@@ -78,7 +80,8 @@ export default {
     return {
       showDelBtn: false,
       selectedData: [],
-      currentSelect: {}
+      currentSelect: {},
+      order: '' // 大小排序方式
     }
   },
   computed: {
@@ -93,6 +96,16 @@ export default {
   },
 
   methods: {
+    // 排序
+    changeSort(column) {
+      // 正序
+      if (column.order === 'ascending') {
+        this.order = 'asc'
+      } else {
+        this.order = 'desc'
+      }
+      this.onQuery(this.order)
+    },
     // 删除标签
     onCurrentTagDel (tag) {
       delete this.currentSelect[tag]
@@ -219,9 +232,9 @@ export default {
       this.querySchema.push(new this.$Schema('dataName', 'input', this.language === 'en' ? 'Data Name' : '数据名称:'))
     },
     // query
-    async onQuery () {
+    async onQuery (order) {
       try {
-        const { total, data } = await datasheetsApi.getDataList(this.queryModel)
+        const { total, data } = await datasheetsApi.getDataList({ ...this.queryModel, order: order || '' })
         this.tblCnt = total
         this.tblData = data
         this.$nextTick(() => {
