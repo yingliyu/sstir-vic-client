@@ -45,7 +45,6 @@
             <template slot-scope="scope">
               <a class="report-url" :href="scope.row.reportUrl">
                 <i v-if="scope.row.reportUrl" class="el-icon-download"></i>
-                {{scope.row.reportUrl}}
               </a>
             </template>
           </el-table-column>

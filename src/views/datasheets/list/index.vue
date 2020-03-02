@@ -242,7 +242,7 @@ export default {
     async onQuery (order) {
       try {
         const { total, data } = await datasheetsApi.getDataList({ ...this.queryModel, order: order || '' })
-        this.tblCnt = total
+        this.tblCnt = total || 0
         this.tblData = data
         this.$nextTick(() => {
           this.handleSelectTable()
