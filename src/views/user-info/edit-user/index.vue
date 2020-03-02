@@ -3,25 +3,25 @@
   <div class="edit-user-wrap">
     <ul>
       <li class="profess" v-if="userInfo.isReal!=='0'">
-        <span>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</span>
+        <span>{{$t('user.nickname')}}：</span>
         <!-- 设置昵称 -->
         <div class="set-nickname" v-if="!userInfo.nickname">
           <span class="icon-wrapper">
             <i class="iconfont el-icon-kf-wrong"></i>
-            未设置 &nbsp;&nbsp;|
+            {{$t('user.notset')}} &nbsp;&nbsp;|
           </span>
-          <el-button type="primary" round plain @click="showName = !showName">设置</el-button>
+          <el-button type="primary" round plain @click="showName = !showName">{{$t('user.set')}}</el-button>
         </div>
         <!-- 修改昵称 -->
         <div class="modify-nickname" v-else>
           <span class="has-set-wrapper">{{userInfo.nickname}}</span>
-          <el-button type="primary" round plain @click="showName = !showName">修改</el-button>
+          <el-button type="primary" round plain @click="showName = !showName">{{$t('user.modify')}}</el-button>
         </div>
       </li>
       <li class="modify-uname-form" v-if="showName">
         <transition name="slide-fade">
           <el-form
-            label-width="90px"
+            label-width="120px"
             :model="nicknameForm"
             :rules="nicknameRules"
             ref="nicknameForm"
@@ -31,64 +31,64 @@
                 v-model="nicknameForm.nickname"
                 required
                 maxlength="20"
-                placeholder="请输入你的昵称"
+                :placeholder="$t('user.inputNickname')"
                 clearable
               ></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button @click="showName=!showName">取消</el-button>
-              <el-button type="primary" @click="submitNickname">保 存</el-button>
+              <el-button @click="showName=!showName">{{$t('base.cancel')}}</el-button>
+              <el-button type="primary" @click="submitNickname">{{$t('user.save')}}</el-button>
             </el-form-item>
           </el-form>
         </transition>
       </li>
       <li class="realname">
-        <span>真实姓名：</span>
+        <span>{{$t('user.realName')}}：</span>
         <span>{{userInfo.realName}}</span>
       </li>
       <li class="workin" v-if="userInfo.isReal!=='0'">
-        <span>机&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;构：</span>
+        <span>{{$t('user.orgName')}}：</span>
         <div class="workin-wrapper" v-if="userInfo.orgName">
           <span>{{userInfo.orgName}}</span>
         </div>
       </li>
 
       <li class="email">
-        <span>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</span>
+        <span>{{$t('base.email')}}：</span>
         <div class="modify-email">
           <span class="has-set-wrapper">{{userInfo.email}}</span>
         </div>
       </li>
 
       <li class="loginpwd">
-        <span>登录密码：</span>
+        <span>{{$t('base.pwd')}}：</span>
         <div class="set-pwd">
           <span class="icon-wrapper">
             <i class="iconfont el-icon-kf-right"></i>
-            已设置 &nbsp;&nbsp;|
+            {{$t('user.seted')}} &nbsp;&nbsp;|
           </span>
-          <router-link to="/user/changepwd">
-            <el-button type="primary" round plain>修改</el-button>
+          <router-link to="/home/changepwd">
+            <el-button type="primary" round plain>{{$t('user.modify')}}</el-button>
           </router-link>
         </div>
       </li>
     </ul>
     <div class="user-agree">
-      <a @click="agreementVisible=true">用户协议</a>
-      <a @click="policyVisible=true">隐私政策</a>
+      <a @click="agreementVisible=true">{{$t('base.agreement')}}</a>
+      <a @click="policyVisible=true">{{$t('base.policy')}}</a>
     </div>
     <!-- 隐私政策 -->
-    <el-dialog :visible.sync="policyVisible" width="60%" :before-close="handleClose">
-      <user-doc :list="policyList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
+    <el-dialog title :visible.sync="policyVisible" width="60%" :before-close="handleClose">
+      <user-doc :list="$t('policy')" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="policyVisible = false">关 闭</el-button>
+        <el-button type="primary" @click="policyVisible = false">{{$t('base.close')}}</el-button>
       </span>
     </el-dialog>
     <!-- 用户协议 -->
-    <el-dialog :visible.sync="agreementVisible" width="60%" :before-close="handleClose">
-      <user-doc :list="agreementList" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
+    <el-dialog title :visible.sync="agreementVisible" width="60%" :before-close="handleClose">
+      <user-doc :list="$t('agreement')" :imgW="imgW" :titleAlign="titleAlign"></user-doc>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="agreementVisible = false">关 闭</el-button>
+        <el-button type="primary" @click="agreementVisible = false">{{$t('base.close')}}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -98,15 +98,11 @@ import { userApi } from '@/service'
 import { mapGetters, mapActions } from 'vuex'
 import appConfig from '@/config'
 import UserDoc from '@/components/user-doc'
-import policyData from './policy-data'
-import agreementData from './user-agree'
 
 export default {
   name: 'EditUser',
   data () {
     return {
-      policyList: policyData,
-      agreementList: agreementData,
       titleAlign: 'center',
       imgW: '70%',
       uploadUrl: appConfig.uploadUrl,
@@ -128,7 +124,7 @@ export default {
     UserDoc
   },
   computed: {
-    ...mapGetters(['userInfo', 'token']),
+    ...mapGetters(['userInfo', 'token', 'language']),
     imageUrl () {
       return this.userInfo.avatar ? this.userInfo.avatar : this.errorLoadImg
     }
@@ -261,7 +257,7 @@ export default {
       align-items: center;
       padding: 15px 0;
       span:first-child {
-        width: 90px;
+        width: 120px;
         text-align: right;
         padding-right: 12px;
         box-sizing: border-box;

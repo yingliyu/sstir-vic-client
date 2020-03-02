@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { Loading, Message } from 'element-ui'
-import store from '@/store'
+// import store from '@/store'
 import appConfig from '@/config'
-
+import Cookies from 'js-cookie'
+import { getToken } from '@/utils/auth'
 // create axios instance
 const instance = axios.create({
   baseURL: appConfig.baseUrl,
@@ -28,10 +29,12 @@ instance.interceptors.request.use(
       background: 'rgba(0, 0, 0, 0.7)',
       customClass: 'loading-custom-class'
     })
-    const userToken = store.getters.token
+    const userToken = getToken()
     if (userToken) {
       config.headers['authorization'] = userToken
     }
+    const lang = Cookies.get('language') || 'zh'
+    config.headers['lang'] = lang
     // config.withCredentials = true
     return config
   },
@@ -65,7 +68,6 @@ instance.interceptors.response.use(
     // }
 
     // todo: 如果提示未登录，则跳转401
-
     // 这里也可以根据返回的Code做一些指定处理
     return response
   },

@@ -1,4 +1,5 @@
 import Layout from '@/layout/aside'
+// import router from '../../lang/zh-cn/router'
 
 const DataList = () => import(/* webpackChunkName: "datasheets-data-list" */ '@/views/datasheets/list')
 const AddData = () => import(/* webpackChunkName: "datasheets-add-data" */ '@/views/datasheets/add-data')
@@ -11,7 +12,7 @@ export default {
   hidden: false,
   alwaysShow: true,
   meta: {
-    title: '数据管理',
+    title: 'router.files.manage',
     icon: 's-data'
   },
   children: [
@@ -20,7 +21,7 @@ export default {
       component: DataList,
       name: 'dataList',
       meta: {
-        title: '数据列表'
+        title: 'router.files.list'
       }
     },
     {
@@ -28,7 +29,7 @@ export default {
       component: AddData,
       name: 'addData',
       meta: {
-        title: '添加数据'
+        title: 'router.files.add'
       }
     }
   ]

@@ -11,7 +11,7 @@ export default {
   hidden: false,
   alwaysShow: true,
   meta: {
-    title: '任务',
+    title: 'router.tasks.manage',
     icon: 'document-copy'
   },
   children: [
@@ -20,7 +20,7 @@ export default {
       component: List,
       name: 'taskList',
       meta: {
-        title: '任务列表'
+        title: 'router.tasks.list'
       }
     },
     {
@@ -28,7 +28,7 @@ export default {
       component: TaskRun,
       name: 'runtask',
       meta: {
-        title: '任务运行'
+        title: 'router.tasks.add'
       }
     }
   ]

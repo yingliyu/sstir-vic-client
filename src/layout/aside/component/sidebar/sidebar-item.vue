@@ -4,14 +4,14 @@
     <template v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow">
       <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path,$event)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}">
-          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="onlyOneChild.meta.title" />
+          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon||item.meta.icon" :title="$t(onlyOneChild.meta.title)" />
         </el-menu-item>
       </a>
     </template>
 
     <el-submenu v-else :index="item.name||item.path" v-show="item.children.length">
       <template slot="title">
-        <item v-if="item.meta" :icon="item.meta.icon" :title="item.meta.title" />
+        <item v-if="item.meta" :icon="item.meta.icon" :title="$t(item.meta.title)" />
       </template>
 
       <template v-for="child in item.children">
@@ -36,7 +36,7 @@
               <item
                 v-if="child.meta"
                 :icon="child.meta.icon"
-                :title="child.meta.title"
+                :title="$t(child.meta.title)"
               />
             </el-menu-item>
           </a>

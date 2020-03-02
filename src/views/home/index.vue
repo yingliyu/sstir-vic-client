@@ -3,18 +3,18 @@
     <div class="header">
       <div class="logo-wrapper">
         <img src="./img/logo.png" />
-        <span class="logo-txt">病毒基因组检测平台</span>
+        <span class="logo-txt">{{ $t('base.title') }}</span>
       </div>
       <div class="link-wrapper">
-        <span class="login-link" @click="toLogin">登录</span>
+        <lang-select></lang-select>
+        <span class="login-link" @click="toLogin">{{ $t('base.btnLogin') }}</span>
         <span class="line">|</span>
-        <span class="reg-link" @click="toReg">注册</span>
+        <span class="reg-link" @click="toReg">{{ $t('base.btnReg') }}</span>
       </div>
     </div>
     <div class="index-container">
       <div class="banner">
         <div class="block">
-          <!-- <span class="demonstration">默认 Hover 指示器触发</span> -->
           <el-carousel arrow="never">
             <el-carousel-item v-for="item in 2" :key="item">
               <div :style="{width: '100%',paddingBottom: '60%', backgroundImage: `url(${require('./img/0'+item+'.png')})`, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center 0'}" />
@@ -23,19 +23,18 @@
         </div>
         <div class="desc-wrapper">
           <p>
-            基因组测序是新型冠状病毒疑似病例确诊的病原学证据之一，是病毒朔源、变异进化、致病机理等研究的基础性工作。
+            {{$t('home.desc1')}}
           </p>
-
           <p>
-            我们直接对接二代基因测序原始数据，具有对数据全自动质量控制、拼接和病毒组成分析等功能，实现了快速检测样本中可能存在的包括新型冠状病毒在内的各种病毒，并在线分析其相对载量，基于分析结果，精准识别病毒基因特性，监测病毒变异趋势，为后续的疫苗与药物研发提供数据支撑。
+            {{$t('home.desc2')}}
           </p>
         </div>
         <br>
-        <el-button type="primary" size="medium" @click="toLogin">开始体验</el-button>
+        <el-button type="primary" size="medium" @click="toLogin">{{$t('home.btnStart')}}</el-button>
         <br><br><br>
         <footer>
           <div class="footer-inner">
-            <p>客服咨询： tyzuo@sstir.cn</p>
+            <p>{{$t('home.customerService')}}</p>
             <!-- <ul>
               <li>
                 沪ICP备10209921号-8
@@ -57,10 +56,13 @@
 <script>
 import { mapActions } from 'vuex'
 import pic1 from './img/01.png'
+import LangSelect from '@/components/lang-select'
 
 export default {
   name: 'Login',
-  components: {},
+  components: {
+    LangSelect
+  },
   data() {
     return {
       pic1,
@@ -74,7 +76,11 @@ export default {
   mounted() {
     this.redirect = this.$route.query.redirect
   },
-
+  computed: {
+    language() {
+      return this.$store.getters.language
+    }
+  },
   methods: {
     ...mapActions({
       login: 'logIn'

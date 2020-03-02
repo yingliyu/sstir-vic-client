@@ -10,15 +10,15 @@
         class="tags-view-item"
         @contextmenu.prevent.native="openMenu(tag,$event)"
       >
-        {{ tag.title }}
+        {{ $t(tag.title) }}
         <span class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
       </router-link>
     </scroll-pane>
     <ul v-show="visible" :style="{left:left+'px',top:top+'px'}" class="contextmenu">
-      <li @click="refreshSelectedTag(selectedTag)">刷新</li>
-      <li @click="closeSelectedTag(selectedTag)">关闭</li>
-      <li @click="closeOthersTags">关闭其他</li>
-      <li @click="closeAllTags">关闭所有</li>
+      <li @click="refreshSelectedTag(selectedTag)">{{$t('layout.tagView.refresh')}}</li>
+      <li @click="closeSelectedTag(selectedTag)">{{$t('layout.tagView.close')}}</li>
+      <li @click="closeOthersTags">{{$t('layout.tagView.closeOther')}}</li>
+      <li @click="closeAllTags">{{$t('layout.tagView.closeAll')}}</li>
     </ul>
   </div>
 </template>

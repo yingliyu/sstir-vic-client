@@ -1,10 +1,11 @@
 <template>
   <div class="home-wrapper">
     <div class="header">
-      <span>
+      <div class="logo-wrapper">
         <img @click="toHome" src="./img/logo.png" />
-      </span>
-      <span @click="toHome" class="logo-txt">病毒基因组检测平台</span>
+        <span @click="toHome" class="logo-txt">{{$t('base.title')}}</span>
+      </div>
+      <lang-select></lang-select>
     </div>
     <div class="index-container">
       <div class="banner">
@@ -14,7 +15,7 @@
           <div class="ico-logo"></div>
           <div class="login-form">
             <el-tabs v-model="activeName" @tab-click="handleClick">
-              <el-tab-pane label="欢迎登录" name="first">
+              <el-tab-pane :label="$t('base.loginTitle')" name="first">
                 <user-form></user-form>
               </el-tab-pane>
             </el-tabs>
@@ -28,12 +29,14 @@
 
 <script>
 import UserForm from './components/user-form'
+import LangSelect from '@/components/lang-select'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'Login',
   components: {
-    UserForm
+    UserForm,
+    LangSelect
   },
   data () {
     return {
@@ -84,7 +87,12 @@ export default {
     display: -ms-flexbox;      /* TWEENER - IE 10 */
     -ms-align-items: center;
     align-items: center;
+    justify-content: space-between;
     padding-left: 10px;
+    .logo-wrapper{
+      display: flex;
+      align-items: center;
+    }
     .logo-txt {
       padding-left: 5px;
       cursor: pointer;

@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/layout/aside'
-
-import User from './module/user'
+// import User from './module/user'
 import Task from './module/task'
 import Datasheets from './module/datasheets'
 
@@ -10,7 +9,7 @@ const Home = () => import(/* webpackChunkName: "homepage" */ '@/views/home')
 const Login = () => import(/* webpackChunkName: "login" */ '@/views/login')
 
 const UserReg = () => import(/* webpackChunkName: "user-reg" */ '@/views/reg')
-const FindPwd = () => import(/* webpackChunkName: "find-pwd" */ '@/views/find-pwd')
+// const FindPwd = () => import(/* webpackChunkName: "find-pwd" */ '@/views/find-pwd')
 
 const NoAuthPage = () => import(/* webpackChunkName: "no-auth-page" */ '@/views/error-page/401')
 const NotFoundPage = () => import(/* webpackChunkName: "not-found-page" */ '@/views/error-page/404')
@@ -18,6 +17,8 @@ const NotFoundPage = () => import(/* webpackChunkName: "not-found-page" */ '@/vi
 const Redirect = () => import(/* webpackChunkName: "redirect" */ '../views/redirect')
 const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard')
 
+const EditUser = () => import(/* webpackChunkName: "edituser" */ '@/views/user-info/edit-user')
+const ChangePwd = () => import(/* webpackChunkName: "changepwd" */ '@/views/change-pwd/index')
 Vue.use(Router)
 
 /**
@@ -90,23 +91,42 @@ export const constantRouterMap = [
         name: 'dashboard',
         component: Dashboard,
         meta: {
-          title: '首页',
+          title: 'router.home',
+          noCache: true
+        }
+      },
+      {
+        path: 'user',
+        name: 'edit',
+        component: EditUser,
+        meta: {
+          title: 'router.userCenter',
+          noCache: true
+        }
+      },
+      {
+        path: 'changepwd',
+        name: 'changepwd',
+        component: ChangePwd,
+        meta: {
+          title: 'router.changepwd',
           noCache: true
         }
       }
     ]
   },
 
-  {
-    path: '/findpwd',
-    name: 'findpwd',
-    component: FindPwd,
-    hidden: true,
-    meta: {
-      title: '找回密码',
-      noCache: true
-    }
-  },
+  // {
+  //   path: '/findpwd',
+  //   name: 'findpwd',
+  //   component: FindPwd,
+  //   hidden: true,
+  //   meta: {
+  //     title: '找回密码',
+  //     noCache: true
+  //   }
+  // },
+
   {
     path: '/401',
     component: () => NoAuthPage,
@@ -117,7 +137,7 @@ export const constantRouterMap = [
     component: NotFoundPage,
     hidden: true
   },
-  User,
+  // User,
   Datasheets, // 数据部分
   Task // 任务
 

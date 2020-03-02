@@ -79,9 +79,8 @@ router.beforeEach((to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      console.log('token null')
-      // 不在白名单的直接跳登录页
       next(`/login?redirect=${to.path}`)
+      // 不在白名单的直接跳登录页
       NProgress.done() // hack method 如果当前页就是登录页，那么不会触发afterEach,需要在这里手动触发
     }
   }

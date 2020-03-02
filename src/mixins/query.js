@@ -41,6 +41,18 @@ const queryMixin = {
     showQuery () {
       return this.localQueryForm.isShow
     }
+  },
+  watch: {
+    language (val) {
+      this.delCachedView(this.$route).then(() => {
+        const { fullPath } = this.$route
+        this.$nextTick(() => {
+          this.$router.replace({
+            path: '/redirect' + fullPath
+          })
+        })
+      })
+    }
   }
 }
 

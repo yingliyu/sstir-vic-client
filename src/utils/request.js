@@ -2,6 +2,7 @@ import instance from './axios'
 import axios from 'axios'
 import { Message } from 'element-ui'
 import qs from 'qs'
+import { removeToken } from '@/utils/auth'
 const CancelToken = axios.CancelToken
 
 let sources = []
@@ -21,6 +22,7 @@ export function AppPost (url, data) {
         if (res.data.code === '200') {
           resolve(res.data.data)
         } else if (res.data.code === '403') {
+          removeToken()
           reject(res.data.msg)
           location.reload()
         } else {
@@ -60,6 +62,10 @@ export function AppGet (url, data) {
         if (res.data.code === '200') {
           resolve(res.data.data)
         } else if (res.data.code === '403') {
+          // alert('删除前token===' + getToken())
+          removeToken()
+          // alert('after del token===' + getToken())
+
           reject(res.data.msg)
           location.reload()
         } else {
