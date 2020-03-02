@@ -2,7 +2,7 @@
   <div class="task-detail-wrapper">
     <div class="process-wrapper">
       <h1>{{$t('taskMgt.add.title')}}</h1>
-      <img :src="ProcessPic" alt="" />
+      <img :src="ProcessPic" alt />
     </div>
     <div class="op-wrap">
       <h1>{{$t('taskMgt.add.selData')}}</h1>
@@ -15,25 +15,27 @@
           class="tag"
           size="medium"
           @close="onTagDel(index)"
-        >
-          {{ tag.dataName }}
-        </el-tag>
-        <el-button type="primary" size="medium" @click="onShowSelectClick">{{$t('taskMgt.add.selData')}}</el-button>
+        >{{ tag.dataName }}</el-tag>
+        <el-button
+          type="primary"
+          size="medium"
+          @click="onShowSelectClick"
+        >{{$t('taskMgt.add.selData')}}</el-button>
         <div class="desc">
           <p>{{$t('taskMgt.add.cautions')}}:</p>
           <ul>
-            <li>
-              {{$t('taskMgt.add.desc1')}}
-            </li>
+            <li>{{$t('taskMgt.add.desc1')}}</li>
             <li>{{$t('taskMgt.add.desc2')}}</li>
-            <li>
-              {{$t('taskMgt.add.desc3')}}
-            </li>
+            <li>{{$t('taskMgt.add.desc3')}}</li>
             <li>{{$t('taskMgt.add.desc4')}}</li>
           </ul>
         </div>
         <div class="btn-wrapper">
-          <el-button size="medium" type="primary" @click="onStartClick">{{$t('taskMgt.add.startRun')}}</el-button>
+          <el-button
+            size="medium"
+            type="primary"
+            @click="onStartClick"
+          >{{$t('taskMgt.add.startRun')}}</el-button>
         </div>
       </div>
     </div>
@@ -55,9 +57,7 @@
         class="tag"
         size="medium"
         @close="onCurrentTagDel(tag)"
-      >
-        {{ tag }}
-      </el-tag>
+      >{{ tag }}</el-tag>
       <el-table
         style="width: 100%"
         ref="tbl"
@@ -65,12 +65,12 @@
         @select="onSelect"
         @select-all="onSelectAll"
       >
-        <el-table-column type="selection" width="55"> </el-table-column>
+        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column :label="$t('dataMgt.lists.name')" prop="dataName" />
-        <el-table-column :label="$t('dataMgt.lists.size')" prop="dataSize" >
+        <el-table-column :label="$t('dataMgt.lists.size')" prop="dataSize">
           <template slot-scope="scope">
-              <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
-            </template>
+            <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
+          </template>
         </el-table-column>
         <el-table-column :label="$t('dataMgt.lists.upDate')" prop="uploadTime" />
       </el-table>
@@ -98,7 +98,7 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'TaskDetail',
 
-  data() {
+  data () {
     return {
       ProcessPic,
       showSelect: false,
@@ -112,7 +112,7 @@ export default {
       tblData: []
     }
   },
-  mounted() {
+  mounted () {
     this.selectedData = (this.$route.query && this.$route.query.list) ? JSON.parse(this.$route.query.list) : []
   },
   computed: {
@@ -123,11 +123,11 @@ export default {
       delTag: 'del_visited_views'
     }),
 
-    onTagDel(index) {
+    onTagDel (index) {
       this.selectedData.splice(index, 1)
     },
 
-    onCurrentTagDel(tag) {
+    onCurrentTagDel (tag) {
       delete this.currentSelect[tag]
       this.$forceUpdate()
       const rows = this.tblData.filter(row => {
@@ -138,7 +138,7 @@ export default {
       })
     },
 
-    async onShowSelectClick() {
+    async onShowSelectClick () {
       this.queryModel.pageIndex = 1
       this.tblCnt = 0
       this.tblData = []
@@ -154,7 +154,7 @@ export default {
       this.handleSelectTable()
     },
 
-    handleSelectTable() {
+    handleSelectTable () {
       if (this.tblData) {
         const keys = Object.keys(this.currentSelect)
         const rows = this.tblData.filter(row => {
@@ -168,12 +168,12 @@ export default {
       }
     },
 
-    onShowSelectCancelClick() {
+    onShowSelectCancelClick () {
       this.currentSelect = {}
       this.showSelect = false
     },
 
-    onSelectConfirmClick() {
+    onSelectConfirmClick () {
       this.selectedData = []
       Object.keys(this.currentSelect).forEach(key => {
         this.selectedData.push({
@@ -185,7 +185,7 @@ export default {
     },
 
     // 手动勾选时
-    onSelect(selection, row) {
+    onSelect (selection, row) {
       if (this.currentSelect[row.dataName]) {
         delete this.currentSelect[row.dataName]
       } else {
@@ -197,7 +197,7 @@ export default {
       this.$forceUpdate()
     },
 
-    onSelectAll(selection) {
+    onSelectAll (selection) {
       // 全选
       if (selection.length) {
         selection.forEach((row) => {
@@ -215,7 +215,7 @@ export default {
       this.$forceUpdate()
     },
 
-    async onQuery() {
+    async onQuery () {
       try {
         const { total, data: list } = await datasheetsApi.getDataList(this.queryModel)
         this.tblCnt = total
@@ -225,12 +225,12 @@ export default {
       }
     },
 
-    async onPageChange() {
+    async onPageChange () {
       await this.onQuery()
       this.handleSelectTable()
     },
 
-    async onStartClick() {
+    async onStartClick () {
       if (this.selectedData.length !== 2) {
         this.$message.error(this.$t('taskMgt.add.tips1'))
       } else {
@@ -239,7 +239,8 @@ export default {
           const list = this.selectedData.map(item => {
             return {
               dataName: item.dataName,
-              userId: item.userId
+              userId: item.userId,
+              filePath: item.filePath
             }
           })
           const postData = { list }
@@ -316,10 +317,10 @@ export default {
 }
 </style>
 <style>
-.el-table__header{
-    width: 100% !important;
+.el-table__header {
+  width: 100% !important;
 }
-.el-table__body{
-    width: 100% !important;
+.el-table__body {
+  width: 100% !important;
 }
 </style>

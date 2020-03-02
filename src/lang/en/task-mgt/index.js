@@ -7,7 +7,7 @@ export default {
     duration: 'Running Time (minutes)',
     taskStatus: 'Status',
     reportUrl: 'Analysis Report',
-    adding: 'processing',
+    adding: 'Processing',
     complete: 'Complete',
     select: 'Please choose'
   },

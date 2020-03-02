@@ -9,7 +9,11 @@
     />-->
     <query-tbl>
       <div slot="btn" class="btn-wrapper">
-        <el-link v-if="showDelBtn" @click="delDataConfirm" type="primary">{{$t('dataMgt.lists.delData')}}</el-link>
+        <el-link
+          v-if="showDelBtn"
+          @click="delDataConfirm"
+          type="primary"
+        >{{$t('dataMgt.lists.delData')}}</el-link>
         <span></span>
         <el-link @click="toNewData" type="primary">{{$t('dataMgt.lists.addData')}}</el-link>
         <span></span>
@@ -123,7 +127,8 @@ export default {
       Object.keys(this.currentSelect).forEach(key => {
         this.selectedData.push({
           dataName: this.currentSelect[key].dataName,
-          userId: this.currentSelect[key].userId
+          userId: this.currentSelect[key].userId,
+          filePath: this.currentSelect[key].filePath
         })
       })
       if (this.selectedData.length) {
@@ -194,7 +199,8 @@ export default {
       } else {
         this.currentSelect[row.dataName] = {
           dataName: row.dataName,
-          userId: row.userId
+          userId: row.userId,
+          filePath: row.filePath
         }
       }
       if (selection.length === 0) {
@@ -211,7 +217,8 @@ export default {
         selection.forEach((row) => {
           this.currentSelect[row.dataName] = {
             dataName: row.dataName,
-            userId: row.userId
+            userId: row.userId,
+            filePath: row.filePath
           }
         })
       } else {
