@@ -41,7 +41,7 @@
               <span>{{scope.row.taskStatus}}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('taskMgt.lists.reportUrl')" :show-overflow-tooltip="true">
+          <el-table-column width="100" :label="$t('taskMgt.lists.reportUrl')" :show-overflow-tooltip="true">
             <template slot-scope="scope">
               <a class="report-url" :href="scope.row.reportUrl">
                 <i v-if="scope.row.reportUrl" class="el-icon-download"></i>
