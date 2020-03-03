@@ -138,20 +138,27 @@ export default {
       })
     },
 
+    // 选择数据
     async onShowSelectClick () {
-      this.queryModel.pageIndex = 1
-      this.tblCnt = 0
-      this.tblData = []
-      this.currentSelect = {}
-      await this.onQuery()
-      this.showSelect = true
-      this.selectedData.forEach((item) => {
-        this.currentSelect[item.dataName] = {
-          dataName: item.dataName,
-          userId: item.userId
-        }
-      })
-      this.handleSelectTable()
+      this.$confirm(this.$t('taskMgt.add.tips3'), this.$t('base.tips'), {
+        confirmButtonText: this.$t('base.sure'),
+        cancelButtonText: this.$t('base.cancel'),
+        type: 'warning'
+      }).then(async () => {
+        this.queryModel.pageIndex = 1
+        this.tblCnt = 0
+        this.tblData = []
+        this.currentSelect = {}
+        await this.onQuery()
+        this.showSelect = true
+        this.selectedData.forEach((item) => {
+          this.currentSelect[item.dataName] = {
+            dataName: item.dataName,
+            userId: item.userId
+          }
+        })
+        this.handleSelectTable()
+      }).catch(() => { })
     },
 
     handleSelectTable () {
@@ -230,38 +237,32 @@ export default {
       this.handleSelectTable()
     },
 
-    onStartClick () {
+    async onStartClick () {
       if (this.selectedData.length !== 2) {
         this.$message.error(this.$t('taskMgt.add.tips1'))
       } else {
-        this.$confirm(this.$t('taskMgt.add.tips3'), this.$t('base.tips'), {
-          confirmButtonText: this.$t('base.sure'),
-          cancelButtonText: this.$t('base.cancel'),
-          type: 'warning'
-        }).then(async () => {
         // 运行任务
-          try {
+        try {
           // 调用接口
-            const list = this.selectedData.map(item => {
-              return {
-                dataName: item.dataName,
-                userId: item.userId,
-                filePath: item.filePath
-              }
-            })
-            const postData = { list }
-            const result = await taskApi.runTask(postData)
-            // 跳转
-            if (result) {
-              this.delTag(this.$route)
-              this.$router.push('/task/list')
-            } else {
-              this.$message.error(this.$t('taskMgt.add.tips2'))
+          const list = this.selectedData.map(item => {
+            return {
+              dataName: item.dataName,
+              userId: item.userId,
+              filePath: item.filePath
             }
-          } catch (error) {
-            this.$message.error(error)
+          })
+          const postData = { list }
+          const result = await taskApi.runTask(postData)
+          // 跳转
+          if (result) {
+            this.delTag(this.$route)
+            this.$router.push('/task/list')
+          } else {
+            this.$message.error(this.$t('taskMgt.add.tips2'))
           }
-        }).catch(() => { })
+        } catch (error) {
+          this.$message.error(error)
+        }
       }
     }
   }
