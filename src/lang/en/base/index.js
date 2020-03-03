@@ -16,6 +16,7 @@ export default {
   welcome: 'Welcome to the viral gene detection platform!',
   policy: 'Tracking',
   agreement: 'User Agreement',
+  tips: 'Tips',
   cancel: 'Cencel',
   sure: 'Confirm'
 }

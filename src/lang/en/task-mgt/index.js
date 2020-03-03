@@ -22,6 +22,7 @@ export default {
     desc4: '4. If you have any questions, please contact tyzuo@sstir.cn, we will send a specialist to answer your questions.',
     startRun: 'Start running',
     tips1: 'Please select two gene sequencing data (make sure the prefix name is the same)',
-    tips2: 'The task failed to run, please try again!'
+    tips2: 'The task failed to run, please try again!',
+    tips3: 'Do not select data that is not transferred !!!'
   }
 }

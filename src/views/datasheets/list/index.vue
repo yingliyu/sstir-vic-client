@@ -137,6 +137,7 @@ export default {
         this.$message.error(this.$t('dataMgt.lists.tips1'))
       }
     },
+    // 删除确认提示
     delDataConfirm () {
       this.$confirm(this.$t('dataMgt.lists.tips2') + '?', this.$t('dataMgt.lists.tips'), {
         confirmButtonText: this.$t('base.sure'),

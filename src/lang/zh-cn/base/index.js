@@ -10,6 +10,7 @@ export default {
   welcome: '欢迎使用病毒基因检测平台！',
   policy: '隐私政策',
   agreement: '用户协议',
+  tips: '提示',
   cancel: '取消',
   sure: '确定'
 }
