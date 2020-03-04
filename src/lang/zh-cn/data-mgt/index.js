@@ -20,6 +20,7 @@ export default {
     userName: '用户名',
     pwd: '密码',
     download: '立即下载',
+    desc0: '请将数据通过filezilla上传到upload文件夹内。',
     desc1: '如果您的数据量特别大（超过20G），请发送邮件至tyzuo@sstir.cn，我们将安排服务专员与您取得联系。',
     desc2: '疫情当前，服务量可能较大，服务时间可能超出常规时间，敬请理解。'
   }

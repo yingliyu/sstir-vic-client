@@ -2,7 +2,7 @@
   <div class="task-detail-wrapper">
     <div class="process-wrapper">
       <h1>{{$t('taskMgt.add.title')}}</h1>
-      <img :src="ProcessPic" alt />
+      <img width="900px" :src="ProcessPic" alt />
     </div>
     <div class="op-wrap">
       <h1>{{$t('taskMgt.add.selData')}}</h1>
@@ -21,6 +21,8 @@
           size="medium"
           @click="onShowSelectClick"
         >{{$t('taskMgt.add.selData')}}</el-button>
+        <span class="add-task-tips">&nbsp;&nbsp; {{$t('taskMgt.add.tips3')}}</span>
+        <br>
         <div class="desc">
           <p>{{$t('taskMgt.add.cautions')}}:</p>
           <ul>
@@ -91,7 +93,7 @@
 </template>
 
 <script>
-import ProcessPic from './img/process.png'
+import ProcessPic from './img/process1.png'
 import { datasheetsApi, taskApi } from '@/service'
 import { mapMutations, mapGetters } from 'vuex'
 
@@ -140,25 +142,25 @@ export default {
 
     // 选择数据
     async onShowSelectClick () {
-      this.$confirm(this.$t('taskMgt.add.tips3'), this.$t('base.tips'), {
-        confirmButtonText: this.$t('base.sure'),
-        cancelButtonText: this.$t('base.cancel'),
-        type: 'warning'
-      }).then(async () => {
-        this.queryModel.pageIndex = 1
-        this.tblCnt = 0
-        this.tblData = []
-        this.currentSelect = {}
-        await this.onQuery()
-        this.showSelect = true
-        this.selectedData.forEach((item) => {
-          this.currentSelect[item.dataName] = {
-            dataName: item.dataName,
-            userId: item.userId
-          }
-        })
-        this.handleSelectTable()
-      }).catch(() => { })
+      // this.$confirm(this.$t('taskMgt.add.tips3'), this.$t('base.tips'), {
+      //   confirmButtonText: this.$t('base.sure'),
+      //   cancelButtonText: this.$t('base.cancel'),
+      //   type: 'warning'
+      // }).then(async () => {
+      this.queryModel.pageIndex = 1
+      this.tblCnt = 0
+      this.tblData = []
+      this.currentSelect = {}
+      await this.onQuery()
+      this.showSelect = true
+      this.selectedData.forEach((item) => {
+        this.currentSelect[item.dataName] = {
+          dataName: item.dataName,
+          userId: item.userId
+        }
+      })
+      this.handleSelectTable()
+      // }).catch(() => { })
     },
 
     handleSelectTable () {
@@ -277,7 +279,10 @@ export default {
     margin-right: 20px;
     margin-bottom: 20px;
   }
-
+  .add-task-tips{
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+  }
   .process-wrapper {
     display: flex;
     flex-flow: column nowrap;

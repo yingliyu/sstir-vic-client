@@ -20,6 +20,7 @@ export default {
     userName: 'User Name',
     pwd: 'Password',
     download: 'Click to download',
+    desc0: 'Please transfer your data into folder upload via filezilla.',
     desc1: 'If your data volume is particularly large (over 20G), please send an email to tyzuo@sstir.cn, and we will arrange a service specialist to contact you.',
     desc2: 'At present, the service may be busy, and the duration may exceed the regular time. Please understand.'
   }

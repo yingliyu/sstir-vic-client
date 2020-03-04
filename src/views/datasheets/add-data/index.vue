@@ -20,6 +20,9 @@
     </ul>
     <br>
     <p>
+      {{$t('dataMgt.add.desc0')}}
+    </p>
+    <p>
       {{$t('dataMgt.add.desc1')}}
     </p>
     <p>
