@@ -1,5 +1,5 @@
 export default {
-  title: 'Viral Genome Detection Platform',
+  title: 'Viral Genome Detection and Analysis Platform',
   loginTitle: 'Welcome to login in',
   regTitle1: 'Register',
   regTitle2: 'Please complete your personal info',

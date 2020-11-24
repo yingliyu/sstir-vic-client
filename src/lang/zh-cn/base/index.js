@@ -1,5 +1,5 @@
 export default {
-  title: '病毒基因组检测平台',
+  title: '病毒基因组检测分析平台',
   loginTitle: '欢迎登录',
   btnLogin: '登录',
   btnReg: '注册',

@@ -17,24 +17,35 @@
         <div class="block">
           <el-carousel arrow="never">
             <el-carousel-item v-for="item in 2" :key="item">
-              <div :style="{width: '100%',paddingBottom: '60%', backgroundImage: `url(${require('./img/0'+item+'.png')})`, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center 0'}" />
+              <div
+                :style="{
+                  width: '100%',
+                  paddingBottom: '60%',
+                  backgroundImage: `url(${require('./img/banner' + item + '.png')})`,
+                  backgroundSize: '100% 100%',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center 0'
+                }"
+              />
             </el-carousel-item>
           </el-carousel>
         </div>
         <div class="desc-wrapper">
           <p>
-            {{$t('home.desc1')}}
+            {{ $t('home.desc1') }}
           </p>
           <p>
-            {{$t('home.desc2')}}
+            {{ $t('home.desc2') }}
           </p>
         </div>
-        <br>
-        <el-button type="primary" size="medium" @click="toLogin">{{$t('home.btnStart')}}</el-button>
-        <br><br><br>
+        <br />
+        <el-button type="primary" size="medium" @click="toLogin">{{
+          $t('home.btnStart')
+        }}</el-button>
+        <br /><br /><br />
         <footer>
           <div class="footer-inner">
-            <p>{{$t('home.customerService')}}</p>
+            <p>{{ $t('home.customerService') }}</p>
             <!-- <ul>
               <li>
                 沪ICP备10209921号-8
@@ -171,7 +182,7 @@ export default {
     align-items: center;
     .footer-inner {
       width: 1200px;
-      text-align:left;
+      text-align: left;
       margin: 0 auto;
     }
     ul {
@@ -179,10 +190,10 @@ export default {
       justify-content: space-between;
     }
   }
-  /deep/ .el-carousel__container{
-    width:100%;
-    height:auto;
-    padding-bottom:60%;
+  /deep/ .el-carousel__container {
+    width: 100%;
+    height: auto;
+    padding-bottom: 60%;
   }
 }
 </style>
