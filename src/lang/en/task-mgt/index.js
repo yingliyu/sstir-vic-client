@@ -23,7 +23,7 @@ export default {
     desc3:
       '2. The whole process generally takes about 3 hours, varied by input file sizes. When task is completed, the system will notify you by email, and a PDF report of each sample will be automatically generated. ',
     desc4:
-      '3. If you have any questions, please contact tyzuo@sstir.cn, we will send a specialist to answer your questions.',
+      '3. If you have any questions, please contact xtian@sstir.cn, we will send a specialist to answer your questions.',
     startRun: 'Start running',
     tips1: 'Please select two gene sequencing data (make sure the prefix name is the same)',
     tips2: 'The task failed to run, please try again!'

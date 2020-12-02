@@ -4,5 +4,5 @@ export default {
   desc2:
     'Our pipeline can automatically process raw third generation sequencing data from upper respiratory tract sample, enabling the rapid detection of various viruses like COVID-19. Based on the analysis results, the online analysis can detect Relative viral load, accurately identify viral gene characteristics, monitor virus mutation trends, and provide data support for subsequent vaccine and drug development.',
   btnStart: 'Let’s start！',
-  customerService: 'Any questions, please email to：tyzuo@sstir.cn'
+  customerService: 'Any questions, please email to：xtian@sstir.cn'
 }
