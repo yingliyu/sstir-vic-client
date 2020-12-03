@@ -24,9 +24,9 @@
           <p>{{ $t('taskMgt.add.cautions') }}:</p>
           <ul>
             <li>{{ $t('taskMgt.add.desc1') }}</li>
-            <li>{{ $t('taskMgt.add.desc2') }}</li>
-            <li>{{ $t('taskMgt.add.desc3') }}</li>
-            <li>{{ $t('taskMgt.add.desc4') }}</li>
+            <li>1. {{ $t('taskMgt.add.desc2') }}</li>
+            <li>2. {{ $t('taskMgt.add.desc3') }}</li>
+            <li>3. {{ $t('taskMgt.add.desc4') }}</li>
           </ul>
         </div>
         <div class="btn-wrapper">
@@ -235,14 +235,27 @@ export default {
       //   this.$message.error(this.$t('taskMgt.add.tips1'))
       // } else {
       try {
+        let trueFormal = true
         // 调用接口
         const list = this.selectedData.map((item) => {
+          const dataNameArr = item.dataName.split('.')
+          if (
+            dataNameArr[dataNameArr.length - 1] !== 'fq' &&
+            dataNameArr[dataNameArr.length - 1] !== 'fastq'
+          ) {
+            trueFormal = false
+            return false
+          }
           return {
             dataName: item.dataName,
             userId: item.userId,
             filePath: item.filePath
           }
         })
+        if (!trueFormal) {
+          this.$message.error(this.$t('taskMgt.add.desc2'))
+          return
+        }
         const postData = { list }
         const result = await taskApi.runTask(postData)
         // 跳转

@@ -7,7 +7,9 @@
       </div>
       <div class="link-wrapper">
         <lang-select></lang-select>
-        <span class="login-link" @click="toLogin">{{ $t('base.btnLogin') }}</span>
+        <span class="login-link" @click="toLogin">{{
+          userInfo.realName || $t('base.btnLogin')
+        }}</span>
         <span class="line">|</span>
         <span class="reg-link" @click="toReg">{{ $t('base.btnReg') }}</span>
       </div>
@@ -65,7 +67,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import pic1 from './img/01.png'
 import LangSelect from '@/components/lang-select'
 
@@ -90,7 +92,8 @@ export default {
   computed: {
     language() {
       return this.$store.getters.language
-    }
+    },
+    ...mapGetters(['userInfo'])
   },
   methods: {
     ...mapActions({

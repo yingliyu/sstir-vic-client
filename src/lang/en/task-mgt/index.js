@@ -19,11 +19,11 @@ export default {
     // desc2: '2. The suffix of the sequencing file must be in the following four formats (take R1 as an example): _R1.fastq.gz, _R1.fq.gz, _1.fastq.gz or _1.fq.gz. Other formats may not be recognized.',
     desc1: '',
     desc2:
-      '1. The suffix of the sequencing file must be in the following formats : .fastq, .fq. Other formats may not be recognized.',
+      'The suffix of the sequencing file must be in the following formats : .fastq, .fq. Other formats may not be recognized.',
     desc3:
-      '2. The whole process generally takes about 3 hours, varied by input file sizes. When task is completed, the system will notify you by email, and a PDF report of each sample will be automatically generated. ',
+      'The whole process generally takes about 3 hours, varied by input file sizes. When task is completed, the system will notify you by email, and a PDF report of each sample will be automatically generated. ',
     desc4:
-      '3. If you have any questions, please contact xtian@sstir.cn, we will send a specialist to answer your questions.',
+      'If you have any questions, please contact xtian@sstir.cn, we will send a specialist to answer your questions.',
     startRun: 'Start running',
     tips1: 'Please select two gene sequencing data (make sure the prefix name is the same)',
     tips2: 'The task failed to run, please try again!'
