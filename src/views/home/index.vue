@@ -10,8 +10,10 @@
         <span class="login-link" @click="toLogin">{{
           userInfo.realName || $t('base.btnLogin')
         }}</span>
-        <span class="line">|</span>
-        <span class="reg-link" @click="toReg">{{ $t('base.btnReg') }}</span>
+        <span v-if="!userInfo.realName" class="line">|</span>
+        <span v-if="!userInfo.realName" class="reg-link" @click="toReg">{{
+          $t('base.btnReg')
+        }}</span>
       </div>
     </div>
     <div class="index-container">
