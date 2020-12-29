@@ -110,7 +110,7 @@ export default {
     }
   }
   .header {
-    font-size: 32px;
+    font-size: 30px;
     font-family: Arial;
     font-weight: bold;
     // color: #2c4c87;

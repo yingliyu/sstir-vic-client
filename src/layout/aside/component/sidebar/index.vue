@@ -2,9 +2,9 @@
   <!-- element-ui 隐藏控件 -->
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <div class="logo-wrapper">
-      <router-link to="/home/dashboard">
+      <router-link to="/home">
         <!-- <img :src="logo" :style="{width: isCollapse ? '36px' : '72px'}" /> -->
-        <img @click="toHome" :src="logo" :width="isCollapse ? '36px' : '150px'" height="auto" />
+        <img :src="logo" :width="isCollapse ? '36px' : '150px'" height="auto" />
       </router-link>
     </div>
     <el-menu
@@ -50,11 +50,6 @@ export default {
 
     isCollapse() {
       return !this.sidebar.opened
-    }
-  },
-  methods: {
-    toHome() {
-      this.$router.push('/home')
     }
   }
 }
