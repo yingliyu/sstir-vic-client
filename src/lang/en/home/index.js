@@ -1,8 +1,8 @@
 export default {
   desc1:
-    'Genome sequencing is one of the etiological evidence for the diagnosis of suspected cases of COVID-19, and it is the basic work for the study of virus origin, mutation evolution, and pathogenic mechanism.',
-  desc2:
-    'Our pipeline can automatically process raw third generation sequencing data from upper respiratory tract sample, enabling the rapid detection of various viruses like COVID-19. Based on the analysis results, the online analysis can detect Relative viral load, accurately identify viral gene characteristics, monitor virus mutation trends, and provide data support for subsequent vaccine and drug development.',
+    'The platform is jointly built by Shanghai Science and technology innovation resource data center and Shanghai Pasteur Institute of Chinese Academy of Sciences, which can provide virus detection and evolutionary analysis functions based on gene sequencing data. The platform is based on the virus gene database and virus detection and analysis process integrated by Pasteur haopei team for many years. It was launched in February 2020 during the epidemic period. After iteration, the current platform can be compatible with the second generation gene sequencing data and nanopore gene sequencing data at the same time. Users only need to upload the sample data to complete the detection with one click, and the analysis results can be obtained in one hour, which helps the medical and scientific research Researchers can identify the virus more quickly and comprehensively.',
+  desc2: 'During the epidemic period, the platform provides free services to the whole society.',
   btnStart: 'Let’s start！',
-  customerService: 'Any questions, please email to：xtian@sstir.cn'
+  customerService: 'Any questions, please email to：xtian@sstir.cn',
+  solutions: 'For more research cloud service requirements, Please contact 021-54066005 or visit '
 }

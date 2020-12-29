@@ -4,7 +4,7 @@
     <div class="logo-wrapper">
       <router-link to="/home/dashboard">
         <!-- <img :src="logo" :style="{width: isCollapse ? '36px' : '72px'}" /> -->
-        <img :src="logo" :width="isCollapse ? '36px': '72px'" height="auto"/>
+        <img @click="toHome" :src="logo" :width="isCollapse ? '36px' : '150px'" height="auto" />
       </router-link>
     </div>
     <el-menu
@@ -30,7 +30,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import SidebarItem from './sidebar-item'
-import logo from './img/logo.png'
+import logo from './img/logo-mini.png'
 
 export default {
   name: 'Sidebar',
@@ -50,6 +50,11 @@ export default {
 
     isCollapse() {
       return !this.sidebar.opened
+    }
+  },
+  methods: {
+    toHome() {
+      this.$router.push('/home')
     }
   }
 }

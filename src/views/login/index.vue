@@ -2,8 +2,8 @@
   <div class="home-wrapper">
     <div class="header">
       <div class="logo-wrapper">
-        <img @click="toHome" src="./img/logo.png" />
-        <span @click="toHome" class="logo-txt">{{$t('base.title')}}</span>
+        <img @click="toHome" src="./img/logo-txt.png" width="143" height="36" />
+        <span @click="toHome" class="logo-txt">{{ $t('base.title') }}</span>
       </div>
       <lang-select></lang-select>
     </div>
@@ -38,7 +38,7 @@ export default {
     UserForm,
     LangSelect
   },
-  data () {
+  data() {
     return {
       redirect: '',
       activeName: 'first', // tabBar active
@@ -46,7 +46,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this.redirect = this.$route.query.redirect
   },
 
@@ -54,14 +54,14 @@ export default {
     ...mapActions({
       login: 'logIn'
     }),
-    toHome () {
+    toHome() {
       this.$router.push('/home')
     },
-    handleClick (tab, event) {
+    handleClick(tab, event) {
       // this.loginType = tab.index === 0 ? 'user' : 'vcode'
     },
 
-    getMsgLength () {
+    getMsgLength() {
       return document.getElementsByClassName('el-message').length
     }
   }
@@ -80,26 +80,36 @@ export default {
     font-size: 32px;
     font-family: Arial;
     font-weight: bold;
-    color: #2c4c87;
     line-height: 50px;
     display: flex;
     display: box;
-    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
     -ms-align-items: center;
     align-items: center;
     justify-content: space-between;
     padding-left: 10px;
-    .logo-wrapper{
+    .logo-wrapper {
       display: flex;
       align-items: center;
     }
     .logo-txt {
-      padding-left: 5px;
+      padding-left: 20px;
       cursor: pointer;
+      position: relative;
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 30px;
+        background: #ccc;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+      }
     }
     img {
       width: auto;
-      height: 40px;
+
       cursor: pointer;
       vertical-align: middle;
     }
@@ -107,7 +117,7 @@ export default {
   .index-header {
     display: flex;
     display: box;
-     display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
     justify-content: space-around;
     align-content: center;
     padding: 20px;
@@ -117,7 +127,7 @@ export default {
     .btn {
       display: flex;
       display: box;
-      display: -ms-flexbox;      /* TWEENER - IE 10 */
+      display: -ms-flexbox; /* TWEENER - IE 10 */
       -ms-align-items: center;
       align-items: center;
       justify-content: center;
@@ -169,7 +179,7 @@ export default {
       width: 100%;
       display: flex;
       display: box;
-       display: -ms-flexbox;      /* TWEENER - IE 10 */
+      display: -ms-flexbox; /* TWEENER - IE 10 */
       justify-content: center;
       ms-justify-content: center;
       -ms-align-items: center;
@@ -239,7 +249,7 @@ export default {
   line-height: 55px;
   display: flex;
   display: box;
-   display: -ms-flexbox;      /* TWEENER - IE 10 */
+  display: -ms-flexbox; /* TWEENER - IE 10 */
   justify-content: center;
   -ms-justify-content: center;
 }

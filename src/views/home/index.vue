@@ -2,7 +2,7 @@
   <div class="home-wrapper">
     <div class="header">
       <div class="logo-wrapper">
-        <img src="./img/logo.png" />
+        <img src="./img/logo-txt.png" width="143" height="36" />
         <span class="logo-txt">{{ $t('base.title') }}</span>
       </div>
       <div class="link-wrapper">
@@ -49,18 +49,15 @@
         <br /><br /><br />
         <footer>
           <div class="footer-inner">
-            <p>{{ $t('home.customerService') }}</p>
-            <!-- <ul>
+            <ul>
               <li>
-                沪ICP备10209921号-8
+                {{ $t('home.customerService') }}
               </li>
               <li>
-                沪公网安备 31010402003580号
+                {{ $t('home.solutions')
+                }}<a href="http://www.sciplus.cloud" target="_blank">www.sciplus.cloud</a>
               </li>
-              <li>
-                上海市钦州路100号二号楼4楼
-              </li>
-            </ul> -->
+            </ul>
           </div>
         </footer>
       </div>
@@ -137,7 +134,7 @@ export default {
   .header {
     font-family: Arial;
     font-weight: bold;
-    color: #2c4c87;
+    // color: #2c4c87;
     line-height: 50px;
     display: flex;
     align-items: center;
@@ -145,9 +142,20 @@ export default {
     padding-left: 10px;
     padding-right: 20px;
     .logo-txt {
-      font-size: 32px;
-      padding-left: 5px;
+      font-size: 30px;
+      padding-left: 10px;
       cursor: pointer;
+      position: relative;
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 30px;
+        background: #ccc;
+        position: absolute;
+        left: 0;
+        top: 10px;
+      }
     }
     .logo-wrapper {
       display: flex;
@@ -172,7 +180,7 @@ export default {
     }
     img {
       width: auto;
-      height: 40px;
+      // height: 40px;
       padding-right: 10px;
       cursor: pointer;
     }
@@ -192,7 +200,14 @@ export default {
     }
     ul {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: flex-start;
+      li {
+        padding-top: 10px;
+        a:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
   /deep/ .el-carousel__container {
