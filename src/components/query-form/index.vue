@@ -8,8 +8,8 @@
         </span>
         <div class="btnContainer">
           <div v-show="isShow">
-            <el-button type="warning" @click="resetForm">{{$t('query.form.reset')}}</el-button>
-            <el-button type="primary" @click="queryForm">{{$t('query.form.query')}}</el-button>
+            <el-button type="warning" @click="resetForm">{{ $t('query.form.reset') }}</el-button>
+            <el-button type="primary" @click="queryForm">{{ $t('query.form.query') }}</el-button>
             <!-- <el-button v-show="showAdd" type="primary" @click="addForm">新增</el-button> -->
             <div style="display: inline-block; margin-left: 10px;">
               <slot name="button"></slot>
@@ -30,7 +30,7 @@
             </template>
             <el-row>
               <el-col
-                v-for="(com,index) in components"
+                v-for="(com, index) in components"
                 :key="index"
                 :xs="24"
                 :sm="12"
@@ -70,7 +70,7 @@ export default {
     CusCascader
   },
 
-  data () {
+  data() {
     return {
       components: [],
       queryType: true,
@@ -93,8 +93,8 @@ export default {
   },
 
   methods: {
-    _initComponent () {
-      this.querySchema.forEach(schema => {
+    _initComponent() {
+      this.querySchema.forEach((schema) => {
         // input
         if (schema.type && schema.type === 'input') {
           this.components.push({
@@ -120,10 +120,7 @@ export default {
         }
 
         // datepicker
-        if (
-          schema.type &&
-          (schema.type === 'daterange' || schema.type === 'datetimerange')
-        ) {
+        if (schema.type && (schema.type === 'daterange' || schema.type === 'datetimerange')) {
           this.components.push({
             componentType: 'CusDate',
             formItem: schema
@@ -139,14 +136,14 @@ export default {
       })
     },
 
-    resetForm () {
-      Object.keys(this.queryModel).forEach(key => {
+    resetForm() {
+      Object.keys(this.queryModel).forEach((key) => {
         // 特殊处理
         // pageindex和pagesize不能设为null
         if (key === 'pageIndex') {
           this.queryModel[key] = 1
         } else if (key === 'pageSize') {
-          this.queryModel[key] = 20
+          this.queryModel[key] = 10
         } else {
           if (key === 'category') {
             console.log(this.queryModel[key])
@@ -156,25 +153,23 @@ export default {
       })
     },
 
-    queryForm () {
+    queryForm() {
       this.$emit('queryclick')
     },
 
-    hideQuery () {
+    hideQuery() {
       // 当按下查询时，收起查询框
-      const dom = this.$refs.queryForm.$el.getElementsByClassName(
-        'el-card__body'
-      )[0]
+      const dom = this.$refs.queryForm.$el.getElementsByClassName('el-card__body')[0]
       this.queryType = false
       dom.style.display = 'none'
       this.isShow = false
     },
 
-    addForm () {
+    addForm() {
       this.$emit('addclick')
     },
 
-    onIconClick () {
+    onIconClick() {
       this.queryType = !this.queryType
       const dom = this.$refs.queryForm.$el.getElementsByClassName('el-card__body')[0]
       if (!this.queryType) {
@@ -187,7 +182,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
       this._initComponent()
     })
@@ -195,7 +190,7 @@ export default {
 
   computed: {
     ...mapGetters(['language']),
-    opIcon () {
+    opIcon() {
       if (this.queryType) {
         return 'el-icon-arrow-up'
       } else {

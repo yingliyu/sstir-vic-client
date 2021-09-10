@@ -2,14 +2,18 @@
   <div class="home-wrapper">
     <div class="header">
       <div class="logo-wrapper">
-        <img src="./img/logo.png" />
+        <img src="./img/logo-txt.png" width="143" height="36" />
         <span class="logo-txt">{{ $t('base.title') }}</span>
       </div>
       <div class="link-wrapper">
         <lang-select></lang-select>
-        <span class="login-link" @click="toLogin">{{ $t('base.btnLogin') }}</span>
-        <span class="line">|</span>
-        <span class="reg-link" @click="toReg">{{ $t('base.btnReg') }}</span>
+        <span class="login-link" @click="toLogin">{{
+          userInfo.realName || $t('base.btnLogin')
+        }}</span>
+        <span v-if="!userInfo.realName" class="line">|</span>
+        <span v-if="!userInfo.realName" class="reg-link" @click="toReg">{{
+          $t('base.btnReg')
+        }}</span>
       </div>
     </div>
     <div class="index-container">
@@ -17,35 +21,43 @@
         <div class="block">
           <el-carousel arrow="never">
             <el-carousel-item v-for="item in 2" :key="item">
-              <div :style="{width: '100%',paddingBottom: '60%', backgroundImage: `url(${require('./img/0'+item+'.png')})`, backgroundSize: '100% 100%', backgroundRepeat: 'no-repeat', backgroundPosition: 'center 0'}" />
+              <div
+                :style="{
+                  width: '100%',
+                  paddingBottom: '60%',
+                  backgroundImage: `url(${require('./img/banner' + item + '.png')})`,
+                  backgroundSize: '100% 100%',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center 0'
+                }"
+              />
             </el-carousel-item>
           </el-carousel>
         </div>
         <div class="desc-wrapper">
           <p>
-            {{$t('home.desc1')}}
+            {{ $t('home.desc1') }}
           </p>
           <p>
-            {{$t('home.desc2')}}
+            {{ $t('home.desc2') }}
           </p>
         </div>
-        <br>
-        <el-button type="primary" size="medium" @click="toLogin">{{$t('home.btnStart')}}</el-button>
-        <br><br><br>
+        <br />
+        <el-button type="primary" size="medium" @click="toLogin">{{
+          $t('home.btnStart')
+        }}</el-button>
+        <br /><br /><br />
         <footer>
           <div class="footer-inner">
-            <p>{{$t('home.customerService')}}</p>
-            <!-- <ul>
+            <ul>
               <li>
-                沪ICP备10209921号-8
+                {{ $t('home.customerService') }}
               </li>
               <li>
-                沪公网安备 31010402003580号
+                {{ $t('home.solutions')
+                }}<a href="http://www.sciplus.cloud" target="_blank">www.sciplus.cloud</a>
               </li>
-              <li>
-                上海市钦州路100号二号楼4楼
-              </li>
-            </ul> -->
+            </ul>
           </div>
         </footer>
       </div>
@@ -54,7 +66,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import pic1 from './img/01.png'
 import LangSelect from '@/components/lang-select'
 
@@ -79,7 +91,8 @@ export default {
   computed: {
     language() {
       return this.$store.getters.language
-    }
+    },
+    ...mapGetters(['userInfo'])
   },
   methods: {
     ...mapActions({
@@ -121,7 +134,7 @@ export default {
   .header {
     font-family: Arial;
     font-weight: bold;
-    color: #2c4c87;
+    // color: #2c4c87;
     line-height: 50px;
     display: flex;
     align-items: center;
@@ -129,9 +142,20 @@ export default {
     padding-left: 10px;
     padding-right: 20px;
     .logo-txt {
-      font-size: 32px;
-      padding-left: 5px;
+      font-size: 30px;
+      padding-left: 10px;
       cursor: pointer;
+      position: relative;
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 1px;
+        height: 30px;
+        background: #ccc;
+        position: absolute;
+        left: 0;
+        top: 10px;
+      }
     }
     .logo-wrapper {
       display: flex;
@@ -156,7 +180,7 @@ export default {
     }
     img {
       width: auto;
-      height: 40px;
+      // height: 40px;
       padding-right: 10px;
       cursor: pointer;
     }
@@ -171,18 +195,25 @@ export default {
     align-items: center;
     .footer-inner {
       width: 1200px;
-      text-align:left;
+      text-align: left;
       margin: 0 auto;
     }
     ul {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: flex-start;
+      li {
+        padding-top: 10px;
+        a:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
-  /deep/ .el-carousel__container{
-    width:100%;
-    height:auto;
-    padding-bottom:60%;
+  /deep/ .el-carousel__container {
+    width: 100%;
+    height: auto;
+    padding-bottom: 60%;
   }
 }
 </style>

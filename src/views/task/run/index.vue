@@ -1,13 +1,13 @@
 <template>
   <div class="task-detail-wrapper">
     <div class="process-wrapper">
-      <h1>{{$t('taskMgt.add.title')}}</h1>
+      <h1>{{ $t('taskMgt.add.title') }}</h1>
       <img :src="ProcessPic" alt />
     </div>
     <div class="op-wrap">
-      <h1>{{$t('taskMgt.add.selData')}}</h1>
+      <h1>{{ $t('taskMgt.add.selData') }}</h1>
       <div class="content-wrapper">
-        {{$t('taskMgt.add.selected')}}:
+        {{ $t('taskMgt.add.selected') }}:
         <el-tag
           v-for="(tag, index) in selectedData"
           :key="tag.dataName"
@@ -15,27 +15,24 @@
           class="tag"
           size="medium"
           @close="onTagDel(index)"
-        >{{ tag.dataName }}</el-tag>
-        <el-button
-          type="primary"
-          size="medium"
-          @click="onShowSelectClick"
-        >{{$t('taskMgt.add.selData')}}</el-button>
+          >{{ tag.dataName }}</el-tag
+        >
+        <el-button type="primary" size="medium" @click="onShowSelectClick">{{
+          $t('taskMgt.add.selData')
+        }}</el-button>
         <div class="desc">
-          <p>{{$t('taskMgt.add.cautions')}}:</p>
+          <p>{{ $t('taskMgt.add.cautions') }}:</p>
           <ul>
-            <li>{{$t('taskMgt.add.desc1')}}</li>
-            <li>{{$t('taskMgt.add.desc2')}}</li>
-            <li>{{$t('taskMgt.add.desc3')}}</li>
-            <li>{{$t('taskMgt.add.desc4')}}</li>
+            <li>{{ $t('taskMgt.add.desc1') }}</li>
+            <li>1. {{ $t('taskMgt.add.desc2') }}</li>
+            <li>2. {{ $t('taskMgt.add.desc3') }}</li>
+            <li>3. {{ $t('taskMgt.add.desc4') }}</li>
           </ul>
         </div>
         <div class="btn-wrapper">
-          <el-button
-            size="medium"
-            type="primary"
-            @click="onStartClick"
-          >{{$t('taskMgt.add.startRun')}}</el-button>
+          <el-button size="medium" type="primary" @click="onStartClick">{{
+            $t('taskMgt.add.startRun')
+          }}</el-button>
         </div>
       </div>
     </div>
@@ -57,7 +54,8 @@
         class="tag"
         size="medium"
         @close="onCurrentTagDel(tag)"
-      >{{ tag }}</el-tag>
+        >{{ tag }}</el-tag
+      >
       <el-table
         style="width: 100%"
         ref="tbl"
@@ -69,7 +67,7 @@
         <el-table-column :label="$t('dataMgt.lists.name')" prop="dataName" />
         <el-table-column :label="$t('dataMgt.lists.size')" prop="dataSize">
           <template slot-scope="scope">
-            <span>{{ ((scope.row.dataSize)/Math.pow(1024,3)).toFixed(2) }}G</span>
+            <span>{{ (scope.row.dataSize / Math.pow(1024, 3)).toFixed(2) }}G</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('dataMgt.lists.upDate')" prop="uploadTime" />
@@ -83,8 +81,8 @@
         :total="tblCnt"
       />
       <span slot="footer" class="dialog-footer">
-        <el-button @click="onShowSelectCancelClick">{{$t('base.cancel')}}</el-button>
-        <el-button type="primary" @click="onSelectConfirmClick">{{$t('base.sure')}}</el-button>
+        <el-button @click="onShowSelectCancelClick">{{ $t('base.cancel') }}</el-button>
+        <el-button type="primary" @click="onSelectConfirmClick">{{ $t('base.sure') }}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -98,7 +96,7 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'TaskDetail',
 
-  data () {
+  data() {
     return {
       ProcessPic,
       showSelect: false,
@@ -112,8 +110,9 @@ export default {
       tblData: []
     }
   },
-  mounted () {
-    this.selectedData = (this.$route.query && this.$route.query.list) ? JSON.parse(this.$route.query.list) : []
+  mounted() {
+    this.selectedData =
+      this.$route.query && this.$route.query.list ? JSON.parse(this.$route.query.list) : []
   },
   computed: {
     ...mapGetters(['language'])
@@ -123,22 +122,22 @@ export default {
       delTag: 'del_visited_views'
     }),
 
-    onTagDel (index) {
+    onTagDel(index) {
       this.selectedData.splice(index, 1)
     },
 
-    onCurrentTagDel (tag) {
+    onCurrentTagDel(tag) {
       delete this.currentSelect[tag]
       this.$forceUpdate()
-      const rows = this.tblData.filter(row => {
+      const rows = this.tblData.filter((row) => {
         return row.dataName === tag
       })
-      rows.forEach(row => {
+      rows.forEach((row) => {
         this.$refs.tbl.toggleRowSelection(row, false)
       })
     },
 
-    async onShowSelectClick () {
+    async onShowSelectClick() {
       this.queryModel.pageIndex = 1
       this.tblCnt = 0
       this.tblData = []
@@ -154,28 +153,28 @@ export default {
       this.handleSelectTable()
     },
 
-    handleSelectTable () {
+    handleSelectTable() {
       if (this.tblData) {
         const keys = Object.keys(this.currentSelect)
-        const rows = this.tblData.filter(row => {
+        const rows = this.tblData.filter((row) => {
           return keys.includes(row.dataName)
         })
         this.$nextTick(() => {
-          rows.forEach(row => {
+          rows.forEach((row) => {
             this.$refs.tbl.toggleRowSelection(row)
           })
         })
       }
     },
 
-    onShowSelectCancelClick () {
+    onShowSelectCancelClick() {
       this.currentSelect = {}
       this.showSelect = false
     },
 
-    onSelectConfirmClick () {
+    onSelectConfirmClick() {
       this.selectedData = []
-      Object.keys(this.currentSelect).forEach(key => {
+      Object.keys(this.currentSelect).forEach((key) => {
         this.selectedData.push({
           dataName: this.currentSelect[key].dataName,
           userId: this.currentSelect[key].userId
@@ -185,7 +184,7 @@ export default {
     },
 
     // 手动勾选时
-    onSelect (selection, row) {
+    onSelect(selection, row) {
       if (this.currentSelect[row.dataName]) {
         delete this.currentSelect[row.dataName]
       } else {
@@ -197,7 +196,7 @@ export default {
       this.$forceUpdate()
     },
 
-    onSelectAll (selection) {
+    onSelectAll(selection) {
       // 全选
       if (selection.length) {
         selection.forEach((row) => {
@@ -215,7 +214,7 @@ export default {
       this.$forceUpdate()
     },
 
-    async onQuery () {
+    async onQuery() {
       try {
         const { total, data: list } = await datasheetsApi.getDataList(this.queryModel)
         this.tblCnt = total
@@ -225,37 +224,51 @@ export default {
       }
     },
 
-    async onPageChange () {
+    async onPageChange() {
       await this.onQuery()
       this.handleSelectTable()
     },
 
-    async onStartClick () {
-      if (this.selectedData.length !== 2) {
-        this.$message.error(this.$t('taskMgt.add.tips1'))
-      } else {
-        try {
-          // 调用接口
-          const list = this.selectedData.map(item => {
-            return {
-              dataName: item.dataName,
-              userId: item.userId,
-              filePath: item.filePath
-            }
-          })
-          const postData = { list }
-          const result = await taskApi.runTask(postData)
-          // 跳转
-          if (result) {
-            this.delTag(this.$route)
-            this.$router.push('/task/list')
-          } else {
-            this.$message.error(this.$t('taskMgt.add.tips2'))
+    async onStartClick() {
+      // 三代测序不限制文件数量2
+      // if (this.selectedData.length !== 2) {
+      //   this.$message.error(this.$t('taskMgt.add.tips1'))
+      // } else {
+      try {
+        let trueFormal = true
+        // 调用接口
+        const list = this.selectedData.map((item) => {
+          const dataNameArr = item.dataName.split('.')
+          if (
+            dataNameArr[dataNameArr.length - 1] !== 'fq' &&
+            dataNameArr[dataNameArr.length - 1] !== 'fastq'
+          ) {
+            trueFormal = false
+            return false
           }
-        } catch (error) {
-          this.$message.error(error)
+          return {
+            dataName: item.dataName,
+            userId: item.userId,
+            filePath: item.filePath
+          }
+        })
+        if (!trueFormal) {
+          this.$message.error(this.$t('taskMgt.add.desc2'))
+          return
         }
+        const postData = { list }
+        const result = await taskApi.runTask(postData)
+        // 跳转
+        if (result) {
+          this.delTag(this.$route)
+          this.$router.push('/task/list')
+        } else {
+          this.$message.error(this.$t('taskMgt.add.tips2'))
+        }
+      } catch (error) {
+        this.$message.error(error)
       }
+      // }
     }
   }
 }

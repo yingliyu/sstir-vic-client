@@ -2,9 +2,9 @@
   <!-- element-ui 隐藏控件 -->
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <div class="logo-wrapper">
-      <router-link to="/home/dashboard">
+      <router-link to="/home">
         <!-- <img :src="logo" :style="{width: isCollapse ? '36px' : '72px'}" /> -->
-        <img :src="logo" :width="isCollapse ? '36px': '72px'" height="auto"/>
+        <img :src="logo" :width="isCollapse ? '36px' : '150px'" height="auto" />
       </router-link>
     </div>
     <el-menu
@@ -30,7 +30,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import SidebarItem from './sidebar-item'
-import logo from './img/logo.png'
+import logo from './img/logo-mini.png'
 
 export default {
   name: 'Sidebar',
